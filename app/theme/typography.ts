@@ -1,31 +1,118 @@
-import { Platform } from "react-native"
+const typography = {
+  letterSpacings: {
+    xs: "-0.05em",
+    sm: "-0.025em",
+    md: 0,
+    lg: "0.025em",
+    xl: "0.05em",
+    "2xl": "0.1em",
+  },
+  lineHeights: {
+    "2xs": "1em",
+    xs: "1.125em",
+    sm: "1.25em",
+    md: "1.375em",
+    lg: "1.5em",
+    xl: "1.75em",
+    "2xl": "2em",
+    "3xl": "2.5em",
+    "4xl": "3em",
+    "5xl": "4em",
+  },
+  fontConfig: {
+    Nunito: {
+      300: {
+        normal: "Nunito-Light",
+        italic: "Nunito-LightItalic",
+      },
+      400: {
+        normal: "Nunito-Regular",
+        italic: "Nunito-Italic",
+      },
+      600: {
+        normal: "Nunito-SemiBold",
+        italic: "Nunito-SemiBoldItalic",
+      },
+      700: {
+        normal: "Nunito-Bold",
+        italic: "Nunito-BoldItalic",
+      },
+    },
 
-/**
- * You can find a list of available fonts on both iOS and Android here:
- * https://github.com/react-native-training/react-native-fonts
- *
- * If you're interested in adding a custom font to your project,
- * check out the readme file in ./assets/fonts/ then come back here
- * and enter your new font name. Remember the Android font name
- * is probably different than iOS.
- * More on that here:
- * https://github.com/lendup/react-native-cross-platform-text
- *
- * The various styles of fonts are defined in the <Text /> component.
- */
-export const typography = {
-  /**
-   * The primary font.  Used in most places.
-   */
-  primary: Platform.select({ ios: "Helvetica", android: "normal" }),
-
-  /**
-   * An alternate font used for perhaps titles and stuff.
-   */
-  secondary: Platform.select({ ios: "Arial", android: "sans-serif" }),
-
-  /**
-   * Lets get fancy with a monospace font!
-   */
-  code: Platform.select({ ios: "Courier", android: "monospace" }),
+    //   Montserrat: {
+    //     100: {
+    //       normal: 'Montserrat-Light',
+    //       italic: 'Montserrat-LightItalic',
+    //     },
+    //     200: {
+    //       normal: 'Montserrat-Light',
+    //       italic: 'Montserrat-LightItalic',
+    //     },
+    //     300: {
+    //       normal: 'Montserrat-Light',
+    //       italic: 'Montserrat-LightItalic',
+    //     },
+    //     400: {
+    //       normal: 'Montserrat-Regular',
+    //       italic: 'Montserrat-Italic',
+    //     },
+    //     500: {
+    //       normal: 'Montserrat-Medium',
+    //       italic: 'Montserrat-MediumItalic',
+    //     },
+    //     600: {
+    //       normal: 'Montserrat-SemiBold',
+    //       italic: 'Montserrat-SemiBoldItalic',
+    //     },
+    //     700: {
+    //       normal: 'Montserrat-Bold',
+    //       italic: 'Montserrat-BoldItalic',
+    //     },
+    //     800: {
+    //       normal: 'Montserrat-ExtraBold',
+    //       italic: 'Montserrat-ExtraBoldItalic',
+    //     },
+    //     900: {
+    //       normal: 'Montserrat-Black',
+    //       italic: 'Montserrat-BlackItalic',
+    //     },
+    //   },
+  },
+  fontWeights: {
+    hairline: 100,
+    thin: 200,
+    light: 300,
+    normal: 400,
+    medium: 500,
+    semibold: 600,
+    bold: 700,
+    extrabold: 800,
+    black: 900,
+    extraBlack: 950,
+  },
+  fonts: {
+    heading: "Nunito",
+    body: "Nunito",
+    mono: undefined,
+  },
+  fontSizes: {
+    "2xs": 10,
+    xs: 12,
+    sm: 14,
+    md: 16,
+    lg: 18,
+    xl: 20,
+    "2xl": 24,
+    "3xl": 30,
+    "4xl": 36,
+    "5xl": 48,
+    "6xl": 60,
+    "7xl": 72,
+    "8xl": 96,
+    "9xl": 128,
+  },
 }
+
+export type ITypography = typeof typography
+
+export default typography
