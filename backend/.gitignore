@@ -53,9 +53,6 @@ coverage.xml
 # Django stuff:
 staticfiles/
 
-# Sphinx documentation
-docs/_build/
-
 # PyBuilder
 target/
 
@@ -72,9 +69,6 @@ ENV/
 
 # Rope project settings
 .ropeproject
-
-# mkdocs documentation
-/site
 
 # mypy
 .mypy_cache/
