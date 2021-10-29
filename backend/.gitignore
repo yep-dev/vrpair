@@ -326,5 +326,6 @@ vrpair/media/
 
 .ipython/
 .env
-.envs/*
-!.envs/.local/
+.django
+.postgres
+

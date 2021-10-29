@@ -1,7 +1,0 @@
-# PostgreSQL
-# ------------------------------------------------------------------------------
-POSTGRES_HOST=postgres
-POSTGRES_PORT=5432
-POSTGRES_DB=vrpair
-POSTGRES_USER=tgQwIkhjVVxfGjPoQbrHTpTPFzKeOFVd
-POSTGRES_PASSWORD=u9y65P3auMyVjI1rZ7QhDrAjcf4TO2olhO92TDAKcMkdLWKTJaOCY63PNqJ6CVGo
