@@ -1,18 +1,11 @@
+import { Box, IBoxProps, KeyboardAvoidingView, ScrollView, StatusBar, View } from "native-base"
 import * as React from "react"
-import {
-  KeyboardAvoidingView,
-  Platform,
-  ScrollView,
-  StatusBar,
-  StyleProp,
-  View,
-  ViewStyle,
-} from "react-native"
+import { Platform, StyleProp, ViewStyle } from "react-native"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 
 const isIos = Platform.OS === "ios"
 
-export interface ScreenProps {
+export interface ScreenProps extends IBoxProps {
   children?: React.ReactNode
   style?: StyleProp<ViewStyle>
   backgroundColor?: string
@@ -29,16 +22,20 @@ export const Screen = (props: ScreenProps) => {
   return (
     <KeyboardAvoidingView behavior={isIos ? "padding" : undefined} style={{ flex: 1 }}>
       <StatusBar barStyle={props.statusBar || "light-content"} />
-      <View style={insetStyle}>
+      <View style={insetStyle} bg="gray.900">
         {props.scroll ? (
           <ScrollView
             keyboardShouldPersistTaps={props.keyboardShouldPersistTaps || "handled"}
             style={{ flex: 1 }}
           >
-            {props.children}
+            <Box style={{ flex: 1 }} {...props}>
+              {props.children}
+            </Box>
           </ScrollView>
         ) : (
-          props.children
+          <Box style={{ flex: 1 }} {...props}>
+            {props.children}
+          </Box>
         )}
       </View>
     </KeyboardAvoidingView>

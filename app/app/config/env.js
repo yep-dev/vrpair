@@ -1,1 +1,1 @@
-module.exports = __DEV__ ? require("./env.dev") : require("./env.prod")
+export const OAUTH_DISCORD_CLIENT_ID = "893178973016702976"
