@@ -4,7 +4,8 @@ from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.urls import include, path
 from django.views import defaults as default_views
-from rest_framework.authtoken.views import obtain_auth_token
+
+from vrpair.users.views import DiscordLoginApi
 
 urlpatterns = [
     path(settings.ADMIN_URL, admin.site.urls),
@@ -14,12 +15,8 @@ if settings.DEBUG:
     # Static file serving when using Gunicorn + Uvicorn for local web socket development
     urlpatterns += staticfiles_urlpatterns()
 
-# API URLS
 urlpatterns += [
-    # API base url
-    path("api/", include("config.api_router")),
-    # DRF auth token
-    path("auth-token/", obtain_auth_token),
+    path("discord", DiscordLoginApi.as_view(), name="discord"),
 ]
 
 if settings.DEBUG:
