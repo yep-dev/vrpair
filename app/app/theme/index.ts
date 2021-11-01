@@ -1,24 +1,21 @@
 import components from "native-base/src/theme/components"
 import base from "native-base/src/theme/base"
+import { ITheme } from "native-base/src/theme/index"
 import borderWidths from "./borders"
 import breakpoints from "./breakpoints"
 import colors from "./colors"
 import radii from "./radius"
 import shadows from "./shadows"
-import sizes from "./sizes"
-import { spacing } from "./space"
 import typography from "./typography"
 import opacity from "./opacity"
 
-const theme = {
+const theme: ITheme = {
   ...base,
   borderWidths,
   breakpoints,
   colors,
   radii,
   ...typography,
-  sizes,
-  space: spacing,
   shadows,
   opacity,
   config: {
@@ -28,8 +25,6 @@ const theme = {
   },
   components,
 }
-
-export type ITheme = typeof theme
 
 export const themePropertyMap: any = {
   borderRadius: "radii",
