@@ -48,9 +48,10 @@ THIRD_PARTY_APPS = [
     "corsheaders",
 ]
 LOCAL_APPS = [
-    "vrpair.users.apps.UsersConfig",
     "vrpair.pairs.apps.PairsConfig",
-    "vrpair.settings.apps.SettingsConfig",
+    "vrpair.profiles.apps.ProfilesConfig",
+    # "vrpair.settings.app`s.SettingsConfig",
+    "vrpair.users.apps.UsersConfig",
 ]
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
@@ -198,7 +199,7 @@ CELERY_BEAT_SCHEDULER = "django_celery_beat.schedulers:DatabaseScheduler"
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework.authentication.SessionAuthentication",
-        "rest_framework.authentication.TokenAuthentication",
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
     "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
 }
