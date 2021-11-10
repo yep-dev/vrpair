@@ -7,7 +7,8 @@ SECRET_KEY = env(
     "DJANGO_SECRET_KEY",
     default="vuU2CDBp5X0JjagNO5qfyzBOZJUoFPm0jqPDmTjEortFgtiAMYorBz8XObzAbbJU",
 )
-ALLOWED_HOSTS = ["localhost", "0.0.0.0", "127.0.0.1"]
+BASE_URL = "http://10.0.0.4:8000"
+ALLOWED_HOSTS = [BASE_URL.split("//")[-1].split(":")[0]]
 
 # CACHES ------------------------------------------------------------------------------
 CACHES = {
@@ -29,7 +30,7 @@ DEBUG_TOOLBAR_CONFIG = {
     "DISABLE_PANELS": ["debug_toolbar.panels.redirects.RedirectsPanel"],
     "SHOW_TEMPLATE_CONTEXT": True,
 }
-INTERNAL_IPS = ["127.0.0.1", "10.0.2.2"]
+INTERNAL_IPS = ALLOWED_HOSTS
 if env("USE_DOCKER") == "yes":
     import socket
 

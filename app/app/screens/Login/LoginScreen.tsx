@@ -7,7 +7,7 @@ import { observer } from "mobx-react-lite"
 import { NavigatorParamList } from "../../navigators"
 import { Screen } from "../../components"
 import { authorize } from "react-native-app-auth"
-import { OAUTH_DISCORD_CLIENT_ID } from "../../config/env"
+import { OAUTH_DISCORD_CLIENT_ID, API_URL } from "../../config/env"
 
 export const LoginScreen: FC<StackScreenProps<NavigatorParamList, "login">> = observer(() => {
   const config = {
@@ -17,7 +17,7 @@ export const LoginScreen: FC<StackScreenProps<NavigatorParamList, "login">> = ob
       revocationEndpoint: "https://discord.com/api/oauth2/token/revoke",
     },
     clientId: OAUTH_DISCORD_CLIENT_ID,
-    redirectUrl: "http://127.0.0.1:8000/discord",
+    redirectUrl: `${API_URL}/discord`,
     scopes: ["identify", "email"],
     usePKCE: false,
     useNonce: false,

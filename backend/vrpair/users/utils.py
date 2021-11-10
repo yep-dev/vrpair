@@ -29,7 +29,7 @@ def discord_get_access_token(*, code: str) -> str:
         "code": code,
         "client_id": settings.OAUTH_DISCORD_CLIENT_ID,
         "client_secret": settings.OAUTH_DISCORD_CLIENT_SECRET,
-        "redirect_uri": "http://127.0.0.1:8000/discord",
+        "redirect_uri": f"{settings.BASE_URL}/discord",
         "grant_type": "authorization_code",
     }
     response = requests.post(TOKEN_URL, data=data)
