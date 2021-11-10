@@ -4,8 +4,11 @@ from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.urls import include, path
 from django.views import defaults as default_views
+from rest_framework_simplejwt.views import (
+    TokenRefreshView,
+)
 
-from vrpair.users.views import DiscordLoginApi
+from vrpair.users.views import DiscordLogin
 
 urlpatterns = [
     path(settings.ADMIN_URL, admin.site.urls),
@@ -16,7 +19,8 @@ if settings.DEBUG:
     urlpatterns += staticfiles_urlpatterns()
 
 urlpatterns += [
-    path("discord", DiscordLoginApi.as_view(), name="discord"),
+    path("discord", DiscordLogin.as_view(), name="discord"),
+    path("token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
 ]
 
 if settings.DEBUG:

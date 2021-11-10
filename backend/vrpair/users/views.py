@@ -1,41 +1,21 @@
-from urllib.parse import urlencode
-
 from django.http import HttpResponseRedirect
-from rest_framework import status, serializers
+from rest_framework import serializers
 from rest_framework.views import APIView
-from rest_framework.response import Response
 
-# from rest_framework_jwt.views import ObtainJSONWebTokenView
-
-from django.urls import reverse
-from django.conf import settings
 from django.shortcuts import redirect
+from rest_framework_simplejwt.tokens import RefreshToken
 
 from vrpair.users.mixins import ApiErrorsMixin, PublicApiMixin
 
-# from users.services import user_record_login, user_change_secret_key, user_get_or_create
 from vrpair.users.models import User
 
 from vrpair.users.utils import discord_get_access_token, discord_get_user_info
 
 
-# class LoginApi(ApiErrorsMixin, ObtainJSONWebTokenView):
-#     def post(self, request, *args, **kwargs):
-#         Reference: https://github.com/Styria-Digital/django-rest-framework-jwt/blob/master/src/rest_framework_jwt/views.py#L44
-# serializer = self.get_serializer(data=request.data)
-#
-# serializer.is_valid(raise_exception=True)
-#
-# user = serializer.object.get('user') or request.user
-# user_record_login(user=user)
-#
-# return super().post(request, *args, **kwargs)
+HttpResponseRedirect.allowed_schemes.append("vrpair")  # todo: possible cleanup
 
 
-HttpResponseRedirect.allowed_schemes.append("com.vrpair")  # todo: possible cleanup
-
-
-class DiscordLoginApi(PublicApiMixin, ApiErrorsMixin, APIView):
+class DiscordLogin(PublicApiMixin, ApiErrorsMixin, APIView):
     class InputSerializer(serializers.Serializer):
         code = serializers.CharField(required=False)
         error = serializers.CharField(required=False)
@@ -55,11 +35,7 @@ class DiscordLoginApi(PublicApiMixin, ApiErrorsMixin, APIView):
         #     params = urlencode({'error': error})
         #     return redirect(f'{login_url}?{params}')
 
-        domain = settings.BASE_URL
-        api_uri = reverse("discord")
-        redirect_uri = f"{domain}{api_uri}"
-
-        access_token = discord_get_access_token(code=code, redirect_uri=redirect_uri)
+        access_token = discord_get_access_token(code=code)
 
         user_data = discord_get_user_info(access_token=access_token)["user"]
         # todo: allow only users with verified email - "verified" flag
@@ -72,9 +48,10 @@ class DiscordLoginApi(PublicApiMixin, ApiErrorsMixin, APIView):
             },
         )
 
-        # response = redirect(settings.BASE_FRONTEND_URL)
-        # response = jwt_login(response=response, user=user)
-        return redirect("com.vrpair:/oauthredirect")
+        refresh_token = RefreshToken.for_user(user)
+        return redirect(
+            f"vrpair://oauth?accessToken={refresh_token.access_token}&refreshToken={refresh_token}"
+        )
 
 
 # class LogoutApi(ApiAuthMixin, ApiErrorsMixin, APIView):

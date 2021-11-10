@@ -69,7 +69,7 @@
         <string>com.vrpair</string>
         <key>CFBundleURLSchemes</key>
         <array>
-          <string>com.vrpair</string>
+          <string>vrpair</string>
         </array>
       </dict>
     </array>

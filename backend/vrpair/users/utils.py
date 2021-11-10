@@ -2,37 +2,12 @@ import requests
 from typing import Dict, Any
 
 from django.conf import settings
-from django.http import HttpResponse
 from django.core.exceptions import ValidationError
-
-# from rest_framework_jwt.settings import api_settings
-# from rest_framework_jwt.compat import set_cookie_with_token
-
-from vrpair.users.models import User
-
-# from vrpair.users.utils import user_record_login
 
 
 TOKEN_URL = "https://discord.com/api/v8/oauth2/token"
 AUTHORIZE_URL = "https://discord.com/api/oauth2/authorize"
 DETAILS_URL = "https://discord.com/api/oauth2/@me"
-
-
-# def jwt_login(*, response: HttpResponse, user: User) -> HttpResponse:
-#     jwt_payload_handler = api_settings.JWT_PAYLOAD_HANDLER
-#     jwt_encode_handler = api_settings.JWT_ENCODE_HANDLER
-#
-#     payload = jwt_payload_handler(user)
-#     token = jwt_encode_handler(payload)
-#
-#     if api_settings.JWT_AUTH_COOKIE:
-#         Reference: https://github.com/Styria-Digital/django-rest-framework-jwt/blob/master/src/rest_framework_jwt/compat.py#L43
-# set_cookie_with_token(response, api_settings.JWT_AUTH_COOKIE, token)
-#
-# user_record_login(user=user)
-#
-# return response
-#
 
 
 def discord_validate_id_token(*, id_token: str) -> bool:
@@ -49,7 +24,7 @@ def discord_validate_id_token(*, id_token: str) -> bool:
     return True
 
 
-def discord_get_access_token(*, code: str, redirect_uri: str) -> str:
+def discord_get_access_token(*, code: str) -> str:
     data = {
         "code": code,
         "client_id": settings.OAUTH_DISCORD_CLIENT_ID,

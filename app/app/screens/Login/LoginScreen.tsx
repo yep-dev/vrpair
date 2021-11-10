@@ -18,17 +18,19 @@ export const LoginScreen: FC<StackScreenProps<NavigatorParamList, "login">> = ob
     },
     clientId: OAUTH_DISCORD_CLIENT_ID,
     redirectUrl: "http://127.0.0.1:8000/discord",
-    scopes: ["identify"],
+    scopes: ["identify", "email"],
     usePKCE: false,
+    useNonce: false,
+    skipCodeExchange: true,
   }
 
   const auth = async () => {
     try {
-      const result = await authorize(config)
-      // result includes accessToken, accessTokenExpirationDate and refreshToken
-      console.log(result)
+      await authorize(config)
     } catch (error) {
-      console.log(error)
+      // collecting auth data in the error to allow for capturing other data than discord oauth
+      // OIDAuthorizationService.m was modified to allow this, without it checks prevent returning anything else
+      console.log(error.userInfo) // todo
     }
   }
 
