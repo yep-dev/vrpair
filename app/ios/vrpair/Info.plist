@@ -63,15 +63,15 @@
 		<string>Nunito-SemiBoldItalic.ttf</string>
 	</array>
 	<key>CFBundleURLTypes</key>
-    <array>
-      <dict>
-        <key>CFBundleURLName</key>
-        <string>com.vrpair</string>
-        <key>CFBundleURLSchemes</key>
-        <array>
-          <string>vrpair</string>
-        </array>
-      </dict>
-    </array>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>com.vrpair</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>vrpair</string>
+			</array>
+		</dict>
+	</array>
 </dict>
 </plist>
