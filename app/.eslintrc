@@ -16,9 +16,16 @@
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true
-    },
-    "project": "./tsconfig.json"
+    }
   },
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx"],
+      "parserOptions": {
+        "project": ["./tsconfig.json"]
+      }
+    }
+  ],
   "settings": {
     "react": {
       "pragma": "React",
@@ -59,6 +66,7 @@
     "react-native/no-raw-text": 0,
     "react/no-unescaped-entities": 0,
     "react/prop-types": "off",
-    "space-before-function-paren": 0
+    "space-before-function-paren": 0,
+    "react-native/sort-styles": 0
   }
 }

@@ -11,5 +11,12 @@ module.exports = {
       },
     ],
     ["@babel/plugin-proposal-optional-catch-binding"],
-  ],
+    [
+      'module-resolver',
+      {
+        root: ['./app'],
+        extensions: ['.ios.js', '.android.js', '.js', '.ts', '.tsx', '.json'],
+      }
+    ]
+  ]
 }

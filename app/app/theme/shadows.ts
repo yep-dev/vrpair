@@ -1,4 +1,4 @@
-import colors from './colors';
+import colors from "./colors"
 export default {
   0: {
     shadowColor: colors.black,
@@ -100,4 +100,4 @@ export default {
     shadowRadius: 6.27,
     elevation: 10,
   },
-};
+}

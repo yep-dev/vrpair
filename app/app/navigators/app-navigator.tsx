@@ -7,8 +7,8 @@
 import React from "react"
 import { NavigationContainer, DarkTheme } from "@react-navigation/native"
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
-import { LoginScreen } from "../screens"
-import { navigationRef } from "./navigation-utilities"
+import { LoginScreen } from "screens"
+import { navigationRef } from "navigators/utils"
 
 /**
  * This type allows TypeScript to know what routes are defined in this navigator

@@ -1,14 +1,14 @@
-import { RootParams } from "navigators"
-import { setSecureValue } from "../../utils/keychain"
-import colors from "../../theme/colors"
-import { CircleHeartIcon } from "../../icons"
+import { RootParams } from "navigators/app-navigator"
+import { setSecureValue } from "utils/keychain"
+import colors from "theme/colors"
+import { CircleHeartIcon } from "icons"
 import { Box, Button, Center, Checkbox, Flex, HStack, Text, VStack } from "native-base"
 import React, { FC } from "react"
 import { StackScreenProps } from "@react-navigation/stack"
 import { observer } from "mobx-react-lite"
-import { Screen } from "../../components"
+import { Screen } from "components"
 import { authorize } from "react-native-app-auth"
-import { OAUTH_DISCORD_CLIENT_ID, API_URL } from "../../config/env"
+import { OAUTH_DISCORD_CLIENT_ID, API_URL } from "config/env"
 
 export const LoginScreen: FC<StackScreenProps<RootParams, "login">> = observer(() => {
   const config = {
