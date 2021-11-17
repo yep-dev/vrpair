@@ -1,63 +1,24 @@
-import * as ReactNativeKeychain from "react-native-keychain"
+import * as Keychain from "react-native-keychain"
 
-/**
- * Saves some credentials securely.
- *
- * @param username The username
- * @param password The password
- * @param server The server these creds are for.
- */
-export async function save(username: string, password: string, server?: string) {
-  if (server) {
-    await ReactNativeKeychain.setInternetCredentials(server, username, password)
-    return true
-  } else {
-    return ReactNativeKeychain.setGenericPassword(username, password)
-  }
+enum Key {
+  refreshToken = "refreshToken",
+  accessToken = "accessToken",
 }
 
-/**
- * Loads credentials that were already saved.
- *
- * @param server The server that these creds are for
- */
-export async function load(server?: string) {
-  if (server) {
-    const creds = await ReactNativeKeychain.getInternetCredentials(server)
-    return {
-      username: creds ? creds.username : null,
-      password: creds ? creds.password : null,
-      server,
-    }
-  } else {
-    const creds = await ReactNativeKeychain.getGenericPassword()
-    if (typeof creds === "object") {
-      return {
-        username: creds.username,
-        password: creds.password,
-        server: null,
-      }
-    } else {
-      return {
-        username: null,
-        password: null,
-        server: null,
-      }
-    }
+type SetSecureValue = (key: string, value: string) => Promise<false | Keychain.Result>
+type GetSecureValue = (key: Key) => Promise<string | false>
+type RemoveSecureValue = (key: Key) => Promise<boolean>
+
+export const setSecureValue: SetSecureValue = async (key, value) =>
+  await Keychain.setGenericPassword(key /* <- can be a random string */, value, { service: key })
+
+export const getSecureValue: GetSecureValue = async (key: Key) => {
+  const result = await Keychain.getGenericPassword({ service: key })
+  if (result) {
+    return result.password
   }
+  return false
 }
 
-/**
- * Resets any existing credentials for the given server.
- *
- * @param server The server which has these creds
- */
-export async function reset(server?: string) {
-  if (server) {
-    await ReactNativeKeychain.resetInternetCredentials(server)
-    return true
-  } else {
-    const result = await ReactNativeKeychain.resetGenericPassword()
-    return result
-  }
-}
+export const removeSecureValue: RemoveSecureValue = async (key) =>
+  await Keychain.resetGenericPassword({ service: key })

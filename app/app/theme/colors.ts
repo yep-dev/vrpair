@@ -23,7 +23,7 @@ const colors = {
     50: "#fdf2f8",
     100: "#F9E9EC", // --- Palette color ---
     200: "#fbcfe8",
-    300: "#f9a8d4",
+    300: "#EA638C", // --- Palette color ---
     400: "#EA638C", // --- Palette color ---
     500: "#E95D87",
     600: "#E74B7A",
@@ -77,7 +77,7 @@ const colors = {
     600: "#52525b",
     700: "#3f3f46",
     800: "#27272a",
-    900: "#18181b",
+    900: "#121214",
   },
   dark: {
     50: "#18181b",
@@ -91,6 +91,8 @@ const colors = {
     800: "#f4f4f5",
     900: "#fafafa",
   },
+  // Undefined colors
+  warmGray: {},
   // Derived colors
   danger: {},
   error: {},
@@ -103,6 +105,8 @@ const colors = {
   light: {},
   tertiary: {},
 }
+
+colors.warmGray = colors.gray
 
 colors.danger = colors.red
 colors.error = colors.red

@@ -55,7 +55,7 @@ function App() {
     <ToggleStorybook>
       <RootStoreProvider value={rootStore}>
         <SafeAreaProvider initialMetrics={initialWindowMetrics}>
-          <NativeBaseProvider theme={theme}>
+          <NativeBaseProvider theme={theme} config={{ suppressColorAccessibilityWarning: true }}>
             <AppNavigator
               initialState={initialNavigationState}
               onStateChange={onNavigationStateChange}

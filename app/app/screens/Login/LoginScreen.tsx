@@ -1,15 +1,16 @@
+import { RootParams } from "navigators"
+import { setSecureValue } from "../../utils/keychain"
 import colors from "../../theme/colors"
 import { CircleHeartIcon } from "../../icons"
-import { Button, Flex, Text } from "native-base"
+import { Box, Button, Center, Checkbox, Flex, HStack, Text, VStack } from "native-base"
 import React, { FC } from "react"
 import { StackScreenProps } from "@react-navigation/stack"
 import { observer } from "mobx-react-lite"
-import { NavigatorParamList } from "../../navigators"
 import { Screen } from "../../components"
 import { authorize } from "react-native-app-auth"
 import { OAUTH_DISCORD_CLIENT_ID, API_URL } from "../../config/env"
 
-export const LoginScreen: FC<StackScreenProps<NavigatorParamList, "login">> = observer(() => {
+export const LoginScreen: FC<StackScreenProps<RootParams, "login">> = observer(() => {
   const config = {
     serviceConfiguration: {
       authorizationEndpoint: "https://discord.com/api/oauth2/authorize",
@@ -27,25 +28,47 @@ export const LoginScreen: FC<StackScreenProps<NavigatorParamList, "login">> = ob
   const auth = async () => {
     try {
       await authorize(config)
-    } catch (error) {
+    } catch (error: any) {
       // collecting auth data in the error to allow for capturing other data than discord oauth
       // OIDAuthorizationService.m was modified to allow this, without it checks prevent returning anything else
-      console.log(error.userInfo) // todo
+      const accessToken = error?.userInfo?.accessToken
+      const refreshToken = error?.userInfo?.refreshToken
+      if (accessToken && refreshToken) {
+        await setSecureValue("accessToken", accessToken)
+        await setSecureValue("refreshToken", refreshToken)
+      } // todo: no token handling
     }
   }
 
+  const [groupValues, setGroupValues] = React.useState([])
   return (
-    <Screen m={20}>
+    <Screen m={10}>
       <Flex justifyContent="space-around" style={{ flex: 1 }}>
-        <Flex direction="row" alignItems="center" justifyContent="center">
-          <CircleHeartIcon color={colors.pink["500"]} />
-          <Text fontSize="5xl" fontWeight="light">
-            vrpair
+        <Center>
+          <HStack alignItems="center" justifyContent="center">
+            <Box mr={2} mt={0.5}>
+              <CircleHeartIcon color={colors.pink["400"]} />
+            </Box>
+            <Text fontSize="6xl" fontWeight="light">
+              vrpair
+            </Text>
+          </HStack>
+          <Text mt={2} fontSize="md" color={colors.gray["200"]}>
+            Dating app for VR players
           </Text>
-        </Flex>
-        <Button variant="outline" colorScheme="pink" onPress={auth}>
-          Log In with Discord
-        </Button>
+        </Center>
+        <Box>
+          <Checkbox.Group onChange={setGroupValues} value={groupValues} mb={8}>
+            <VStack space={4}>
+              <Checkbox value="1">I'm 18 or older</Checkbox>
+              <Checkbox value="2">I play VRChat</Checkbox>
+              <Checkbox value="3">I have a VR headset connected to the PC</Checkbox>
+            </VStack>
+          </Checkbox.Group>
+          <Button size="lg" variant="outline" onPress={auth}>
+            Log In with Discord
+          </Button>
+        </Box>
       </Flex>
     </Screen>
   )
