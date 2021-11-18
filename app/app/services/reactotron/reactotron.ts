@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Tron } from "./tron"
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import { ArgType } from "reactotron-core-client"

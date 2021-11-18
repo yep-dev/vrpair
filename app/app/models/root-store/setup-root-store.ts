@@ -3,14 +3,9 @@ import { RootStoreModel, RootStore } from "./root-store"
 import { Environment } from "../environment"
 import * as storage from "utils/storage"
 
-/**
- * The key we'll be saving our state as within async storage.
- */
 const ROOT_STATE_STORAGE_KEY = "root"
 
 /**
- * Setup the environment that all the models will be sharing.
- *
  * The environment includes other functions that will be picked from some
  * of the models that get created later. This is how we loosly couple things
  * like events between models.
@@ -21,9 +16,6 @@ export async function createEnvironment() {
   return env
 }
 
-/**
- * Setup the root state.
- */
 export async function setupRootStore() {
   let rootStore: RootStore
   let data: any
@@ -40,6 +32,7 @@ export async function setupRootStore() {
     rootStore = RootStoreModel.create({}, env)
 
     // but please inform us what happened
+    // @ts-ignore
     __DEV__ && console.tron.error(e.message, null)
   }
 
