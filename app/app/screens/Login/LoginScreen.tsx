@@ -1,3 +1,4 @@
+import { useStore } from "models/utils"
 import { RootParams } from "navigators/app-navigator"
 import { setSecureValue } from "utils/keychain"
 import colors from "theme/colors"
@@ -11,6 +12,8 @@ import { authorize } from "react-native-app-auth"
 import { OAUTH_DISCORD_CLIENT_ID, API_URL } from "config/env"
 
 export const LoginScreen: FC<StackScreenProps<RootParams, "login">> = observer(() => {
+  const { userStore } = useStore()
+
   const config = {
     serviceConfiguration: {
       authorizationEndpoint: "https://discord.com/api/oauth2/authorize",
@@ -36,6 +39,7 @@ export const LoginScreen: FC<StackScreenProps<RootParams, "login">> = observer((
       if (accessToken && refreshToken) {
         await setSecureValue("accessToken", accessToken)
         await setSecureValue("refreshToken", refreshToken)
+        await userStore.setIsAuthenticated(true)
       } // todo: no token handling
     }
   }

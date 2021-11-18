@@ -1,9 +1,7 @@
-/**
- * The app navigator (formerly "AppNavigator" and "MainNavigator") is used for the primary
- * navigation flows of your app.
- * Generally speaking, it will contain an auth flow (registration, login, forgot password)
- * and a "main" flow which the user will use once logged in.
- */
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
+import { observer } from "mobx-react-lite"
+import { useStore } from "models/utils"
+import { Text } from "native-base"
 import React from "react"
 import { NavigationContainer, DarkTheme } from "@react-navigation/native"
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
@@ -22,26 +20,42 @@ import { navigationRef } from "navigators/utils"
  *   https://reactnavigation.org/docs/params/
  *   https://reactnavigation.org/docs/typescript#type-checking-the-navigator
  */
-export type NavigatorParamList = {
+export type RootParams = {
   login: undefined
-  age: undefined
+  tabs: undefined
 }
 
-// Documentation: https://reactnavigation.org/docs/stack-navigator/
-const Stack = createNativeStackNavigator<NavigatorParamList>()
+const Root = createNativeStackNavigator<RootParams>()
 
-const AppStack = () => {
+const AppStack = observer(() => {
+  const { userStore } = useStore()
+
   return (
-    <Stack.Navigator
+    <Root.Navigator
       screenOptions={{
         headerShown: false,
       }}
       initialRouteName="login"
     >
-      <Stack.Screen name="login" component={LoginScreen} />
-    </Stack.Navigator>
+      {userStore.isAuthenticated ? (
+        <Root.Screen name="tabs" component={Tabs} />
+      ) : (
+        <Root.Screen name="login" component={LoginScreen} />
+      )}
+    </Root.Navigator>
   )
+})
+
+export type TabParams = {
+  feed
 }
+const Tab = createBottomTabNavigator<TabParams>()
+
+const Tabs = () => (
+  <Tab.Navigator>
+    <Tab.Screen name="feed" component={() => <Text>feed</Text>} />
+  </Tab.Navigator>
+)
 
 interface NavigationProps extends Partial<React.ComponentProps<typeof NavigationContainer>> {}
 

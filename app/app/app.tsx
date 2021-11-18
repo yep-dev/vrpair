@@ -1,14 +1,3 @@
-/**
- * Welcome to the main entry point of the app. In this file, we'll
- * be kicking off our app.
- *
- * Most of this file is boilerplate and you shouldn't need to modify
- * it very often. But take some time to look through and understand
- * what is going on here.
- *
- * The app navigation resides in ./app/navigators, so head over there
- * if you're interested in adding screens and navigators.
- */
 import "./utils/ignore-warnings"
 import theme from "./theme"
 import React, { useState, useEffect } from "react"
@@ -16,13 +5,10 @@ import { SafeAreaProvider, initialWindowMetrics } from "react-native-safe-area-c
 import * as storage from "utils/storage"
 import { AppNavigator, canExit } from "navigators/app-navigator"
 import { useBackButtonHandler, useNavigationPersistence } from "navigators/utils"
-import { RootStore, RootStoreProvider, setupRootStore } from "models"
+import { setupRootStore } from "models/root-store/setup-root-store"
+import { RootStore, RootStoreContext } from "models/root-store/root-store"
 import { ToggleStorybook } from "../storybook/toggle-storybook"
 import { NativeBaseProvider } from "native-base"
-
-// This puts screens in a native ViewController or Activity. If you want fully native
-// stack navigation, use `createNativeStackNavigator` in place of `createStackNavigator`:
-// https://github.com/kmagiera/react-native-screens#using-native-stack-navigator
 
 export const NAVIGATION_PERSISTENCE_KEY = "NAVIGATION_STATE"
 
@@ -36,7 +22,6 @@ function App() {
     isRestored: isNavigationStateRestored,
   } = useNavigationPersistence(storage, NAVIGATION_PERSISTENCE_KEY)
 
-  // Kick off initial async loading actions, like loading fonts and RootStore
   useEffect(() => {
     ;(async () => {
       setupRootStore().then(setRootStore)
@@ -51,10 +36,9 @@ function App() {
   // You can replace with your own loading component if you wish.
   if (!rootStore || !isNavigationStateRestored) return null
 
-  // otherwise, we're ready to render the app
   return (
     <ToggleStorybook>
-      <RootStoreProvider value={rootStore}>
+      <RootStoreContext.Provider value={rootStore}>
         <SafeAreaProvider initialMetrics={initialWindowMetrics}>
           <NativeBaseProvider theme={theme} config={{ suppressColorAccessibilityWarning: true }}>
             <AppNavigator
@@ -63,7 +47,7 @@ function App() {
             />
           </NativeBaseProvider>
         </SafeAreaProvider>
-      </RootStoreProvider>
+      </RootStoreContext.Provider>
     </ToggleStorybook>
   )
 }
