@@ -12,11 +12,12 @@ module.exports = {
     ],
     ["@babel/plugin-proposal-optional-catch-binding"],
     [
-      'module-resolver',
+      "module-resolver",
       {
-        root: ['./app'],
-        extensions: ['.ios.js', '.android.js', '.js', '.ts', '.tsx', '.json'],
-      }
-    ]
-  ]
+        root: ["./app"],
+        extensions: [".ios.js", ".android.js", ".js", ".ts", ".tsx", ".json"],
+      },
+    ],
+    "react-native-reanimated/plugin", // has to be last
+  ],
 }

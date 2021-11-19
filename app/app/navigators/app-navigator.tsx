@@ -1,12 +1,12 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import { observer } from "mobx-react-lite"
 import { useStore } from "models/utils"
-import { Text } from "native-base"
 import React from "react"
 import { NavigationContainer, DarkTheme } from "@react-navigation/native"
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
-import { LoginScreen } from "screens"
+import { LoginScreen, ProfilesListScreen } from "screens"
 import { navigationRef } from "navigators/utils"
+import { ProfilesCarouselScreen } from "screens/ProfilesCarousel/ProfilesCarouselScreen"
 
 /**
  * This type allows TypeScript to know what routes are defined in this navigator
@@ -47,13 +47,19 @@ const AppStack = observer(() => {
 })
 
 export type TabParams = {
-  feed
+  profilesCards
+  profilesCarousel
+  pairs
+  user
 }
 const Tab = createBottomTabNavigator<TabParams>()
 
 const Tabs = () => (
-  <Tab.Navigator>
-    <Tab.Screen name="feed" component={() => <Text>feed</Text>} />
+  <Tab.Navigator screenOptions={{ tabBarShowLabel: false, headerShown: false }}>
+    <Tab.Screen name="profilesCards" component={ProfilesCarouselScreen} />
+    <Tab.Screen name="profilesCarousel" component={ProfilesListScreen} />
+    <Tab.Screen name="pairs" component={ProfilesCarouselScreen} />
+    <Tab.Screen name="user" component={ProfilesCarouselScreen} />
   </Tab.Navigator>
 )
 
