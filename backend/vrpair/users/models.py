@@ -22,11 +22,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     discord_username = models.CharField(max_length=32)
     discord_discriminator = models.CharField(max_length=4)
 
-    birth_date = models.DateField(null=True)
-    name = models.CharField(max_length=32, null=True)
-
     REQUIRED_FIELDS = []
-    USERNAME_FIELD = "id"
+    USERNAME_FIELD = "discord_id"
     is_anonymous = False
     is_authenticated = True
 

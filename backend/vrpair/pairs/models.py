@@ -1,7 +1,6 @@
-from django.contrib.auth import get_user_model
 from django.db import models
 
-User = get_user_model()
+from vrpair.users.models import User
 
 
 class LikedUser(models.Model):
