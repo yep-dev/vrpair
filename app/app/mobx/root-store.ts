@@ -1,5 +1,5 @@
 import { Instance, SnapshotOut, types } from "mobx-state-tree"
-import { UserModel } from "models/user/user"
+import { UserModel } from "mobx/user/user"
 import { createContext } from "react"
 
 export const RootStoreModel = types.model("RootStore").props({

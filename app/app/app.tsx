@@ -5,9 +5,8 @@ import { SafeAreaProvider, initialWindowMetrics } from "react-native-safe-area-c
 import * as storage from "utils/storage"
 import { AppNavigator, canExit } from "navigators/app-navigator"
 import { useBackButtonHandler, useNavigationPersistence } from "navigators/utils"
-import { setupRootStore } from "models/root-store/setup-root-store"
-import { RootStore, RootStoreContext } from "models/root-store/root-store"
-import { ToggleStorybook } from "../storybook/toggle-storybook"
+import { setupRootStore } from "mobx/setup-root-store"
+import { RootStore, RootStoreContext } from "mobx/root-store"
 import { NativeBaseProvider } from "native-base"
 
 export const NAVIGATION_PERSISTENCE_KEY = "NAVIGATION_STATE"

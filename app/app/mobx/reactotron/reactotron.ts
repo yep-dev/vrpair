@@ -1,10 +1,10 @@
 // @ts-nocheck
-import { Tron } from "./tron"
+import { Tron } from "mobx/reactotron/tron"
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import { ArgType } from "reactotron-core-client"
-import { RootStore } from "models/root-store/root-store"
+import { RootStore } from "mobx/root-store/root-store"
 import { onSnapshot } from "mobx-state-tree"
-import { ReactotronConfig, DEFAULT_REACTOTRON_CONFIG } from "./reactotron-config"
+import { ReactotronConfig, DEFAULT_REACTOTRON_CONFIG } from "mobx/reactotron/reactotron-config"
 import { mst } from "reactotron-mst"
 import { clear } from "utils/storage"
 import { goBack, resetRoot, navigate } from "navigators/utils"

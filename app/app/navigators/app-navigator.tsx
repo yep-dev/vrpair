@@ -1,6 +1,6 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import { observer } from "mobx-react-lite"
-import { useStore } from "models/utils"
+import { useStore } from "mobx/utils"
 import React from "react"
 import { NavigationContainer, DarkTheme } from "@react-navigation/native"
 import { createNativeStackNavigator } from "@react-navigation/native-stack"

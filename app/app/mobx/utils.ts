@@ -1,7 +1,7 @@
 import { getEnv, getRoot, IStateTreeNode } from "mobx-state-tree"
-import { Environment } from "models/environment"
+import { Environment } from "mobx/environment"
 import { useContext } from "react"
-import { RootStore, RootStoreContext, RootStoreModel } from "./root-store/root-store"
+import { RootStore, RootStoreContext, RootStoreModel } from "./root-store"
 
 export const withEnvironment = (self: IStateTreeNode) => ({
   views: {

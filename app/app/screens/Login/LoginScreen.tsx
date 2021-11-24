@@ -1,4 +1,4 @@
-import { useStore } from "models/utils"
+import { useStore } from "mobx/utils"
 import { RootParams } from "navigators/app-navigator"
 import { setSecureValue } from "utils/keychain"
 import colors from "theme/colors"
