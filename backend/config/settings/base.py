@@ -52,6 +52,7 @@ LOCAL_APPS = [
     "vrpair.profiles.apps.ProfilesConfig",
     # "vrpair.settings.app`s.SettingsConfig",
     "vrpair.users.apps.UsersConfig",
+    "vrpair.contrib.apps.ContribConfig",
 ]
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
@@ -202,6 +203,15 @@ REST_FRAMEWORK = {
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
     "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
+    "DEFAULT_RENDERER_CLASSES": (
+        "vrpair.contrib.drf_camel_case.render.CamelCaseJSONRenderer",
+        "vrpair.contrib.drf_camel_case.render.CamelCaseBrowsableAPIRenderer",
+    ),
+    "DEFAULT_PARSER_CLASSES": (
+        "vrpair.contrib.drf_camel_case.parser.CamelCaseJSONParser",
+    ),
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
+    "PAGE_SIZE": 50,
 }
 
 # django-cors-headers - https://github.com/adamchainz/django-cors-headers#setup
