@@ -8,6 +8,7 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
 )
 
+from vrpair.profiles.views import ProfileList
 from vrpair.users.views import DiscordLogin
 
 urlpatterns = [
@@ -20,6 +21,7 @@ if settings.DEBUG:
 
 urlpatterns += [
     path("discord", DiscordLogin.as_view(), name="discord"),
+    path("profiles/profile-list", ProfileList.as_view(), name="profile_list"),
     path("token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
 ]
 

@@ -1,3 +1,9 @@
-from django.shortcuts import render
+from rest_framework import generics
 
-# Create your views here.
+from vrpair.profiles.models import Profile
+from vrpair.profiles.serializers import ProfileSerializer
+
+
+class ProfileList(generics.ListAPIView):
+    queryset = Profile.objects.filter(visible=True)
+    serializer_class = ProfileSerializer
