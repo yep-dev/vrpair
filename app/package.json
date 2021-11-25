@@ -10,7 +10,7 @@
     "build:e2e": "detox build -c ios.sim.debug",
     "ci:test:e2e": "detox test -c ios.sim.release -l verbose --cleanup",
     "ci:build:e2e": "detox build -c ios.sim.release",
-    "tsc": "tsc --noEmit -p . --pretty --watch",
+    "tsc": "tsc -p . | grep -e error -e ^$",
     "lint": "eslint index.js app storybook test --fix --ext .js,.jsx,.ts,.tsx",
     "patch": "patch-package",
     "storybook": "start-storybook -p 9001 -c ./storybook",
