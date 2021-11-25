@@ -54,8 +54,7 @@
     "reactotron-react-native": "^5.0.0",
     "styled-components": "^5.3.3",
     "styled-system": "^5.1.5",
-    "use-async-effect": "^2.2.3",
-    "validate.js": "^0.13.1"
+    "use-async-effect": "^2.2.3"
   },
   "devDependencies": {
     "@babel/core": "^7.16.0",
