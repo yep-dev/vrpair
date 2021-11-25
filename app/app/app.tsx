@@ -1,4 +1,5 @@
 import "./utils/ignore-warnings"
+import { ApiProvider } from "api/apiProvider"
 import theme from "./theme"
 import React, { useState, useEffect } from "react"
 import { SafeAreaProvider, initialWindowMetrics } from "react-native-safe-area-context"
@@ -8,8 +9,11 @@ import { useBackButtonHandler, useNavigationPersistence } from "navigators/utils
 import { setupRootStore } from "mobx/setup-root-store"
 import { RootStore, RootStoreContext } from "mobx/root-store"
 import { NativeBaseProvider } from "native-base"
+import { QueryClient, QueryClientProvider } from "react-query"
 
 export const NAVIGATION_PERSISTENCE_KEY = "NAVIGATION_STATE"
+
+const queryClient = new QueryClient()
 
 function App() {
   const [rootStore, setRootStore] = useState<RootStore | undefined>(undefined)
@@ -36,18 +40,20 @@ function App() {
   if (!rootStore || !isNavigationStateRestored) return null
 
   return (
-    <ToggleStorybook>
-      <RootStoreContext.Provider value={rootStore}>
-        <SafeAreaProvider initialMetrics={initialWindowMetrics}>
-          <NativeBaseProvider theme={theme} config={{ suppressColorAccessibilityWarning: true }}>
-            <AppNavigator
-              initialState={initialNavigationState}
-              onStateChange={onNavigationStateChange}
-            />
-          </NativeBaseProvider>
-        </SafeAreaProvider>
-      </RootStoreContext.Provider>
-    </ToggleStorybook>
+    <RootStoreContext.Provider value={rootStore}>
+      <SafeAreaProvider initialMetrics={initialWindowMetrics}>
+        <NativeBaseProvider theme={theme} config={{ suppressColorAccessibilityWarning: true }}>
+          <QueryClientProvider client={queryClient}>
+            <ApiProvider>
+              <AppNavigator
+                initialState={initialNavigationState}
+                onStateChange={onNavigationStateChange}
+              />
+            </ApiProvider>
+          </QueryClientProvider>
+        </NativeBaseProvider>
+      </SafeAreaProvider>
+    </RootStoreContext.Provider>
   )
 }
 
