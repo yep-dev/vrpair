@@ -1,26 +1,25 @@
+import { useApi } from "api/apiProvider"
+import { Text } from "native-base"
 import React, { FC } from "react"
 import { Screen } from "components"
-import { View } from "react-native"
 import Carousel from "react-native-reanimated-carousel"
+import { useQuery } from "react-query"
 
 export const ProfilesCarouselScreen: FC = () => {
+  const api = useApi()
+  const { data } = useQuery("profileList", api.profiles.profileList)
+
   return (
     <Screen>
-      <Carousel<{ color: string }>
-        width={400}
-        data={[{ color: "red" }, { color: "purple" }, { color: "yellow" }]}
-        renderItem={({ color }) => {
-          return (
-            <View
-              style={{
-                backgroundColor: color,
-                justifyContent: "center",
-                flex: 1,
-              }}
-            />
-          )
-        }}
-      />
+      {data ? (
+        <Carousel
+          width={400}
+          data={data.results}
+          renderItem={({ username }) => {
+            return <Text>{username}</Text>
+          }}
+        />
+      ) : null}
     </Screen>
   )
 }
