@@ -13,6 +13,7 @@ const theme: ITheme = {
   ...base,
   borderWidths,
   breakpoints,
+  // @ts-ignore todo: fix typings
   colors,
   radii,
   ...typography,
