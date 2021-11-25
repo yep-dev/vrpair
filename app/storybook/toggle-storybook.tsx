@@ -44,6 +44,7 @@ export function ToggleStorybook(props) {
   }, [])
 
   if (showStorybook) {
+    // @ts-ignore
     return StorybookUIRoot ? <StorybookUIRoot /> : null
   } else {
     return props.children
