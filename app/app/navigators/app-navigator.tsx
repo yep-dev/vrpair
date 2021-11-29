@@ -1,4 +1,8 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
+import { HeartBalloonsIcon } from "components/icons/HeartBalloonsIcon"
+import { ProfileIcon } from "components/icons/ProfileIcon"
+import { ProfileSearchIcon } from "components/icons/ProfileSearchIcon"
+import { ProfileStackIcon } from "components/icons/ProfileStackIcon"
 import { observer } from "mobx-react-lite"
 import { useStore } from "mobx/utils"
 import React from "react"
@@ -47,8 +51,8 @@ const AppStack = observer(() => {
 })
 
 export type TabParams = {
-  profilesCards
   profilesCarousel
+  profilesList
   pairs
   user
 }
@@ -56,10 +60,26 @@ const Tab = createBottomTabNavigator<TabParams>()
 
 const Tabs = () => (
   <Tab.Navigator screenOptions={{ tabBarShowLabel: false, headerShown: false }}>
-    <Tab.Screen name="profilesCards" component={ProfilesCarouselScreen} />
-    <Tab.Screen name="profilesCarousel" component={ProfilesListScreen} />
-    <Tab.Screen name="pairs" component={ProfilesCarouselScreen} />
-    <Tab.Screen name="user" component={ProfilesCarouselScreen} />
+    <Tab.Screen
+      name="profilesCarousel"
+      component={ProfilesCarouselScreen}
+      options={{ tabBarIcon: ProfileStackIcon }}
+    />
+    <Tab.Screen
+      name="profilesList"
+      component={ProfilesListScreen}
+      options={{ tabBarIcon: ProfileSearchIcon }}
+    />
+    <Tab.Screen
+      name="pairs"
+      component={ProfilesCarouselScreen}
+      options={{ tabBarIcon: HeartBalloonsIcon }}
+    />
+    <Tab.Screen
+      name="user"
+      component={ProfilesCarouselScreen}
+      options={{ tabBarIcon: ProfileIcon }}
+    />
   </Tab.Navigator>
 )
 
