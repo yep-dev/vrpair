@@ -20,9 +20,11 @@ if settings.DEBUG:
     urlpatterns += staticfiles_urlpatterns()
 
 urlpatterns += [
-    path("discord", DiscordLogin.as_view(), name="discord"),
+    # profiles
     path("profiles/profile-list", ProfileList.as_view(), name="profile_list"),
-    path("token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
+    # users
+    path("users/discord-login", DiscordLogin.as_view(), name="discord_login"),
+    path("users/token-refresh", TokenRefreshView.as_view(), name="token_refresh"),
 ]
 
 if settings.DEBUG:

@@ -3,7 +3,7 @@ from typing import Dict, Any
 
 from django.conf import settings
 from django.core.exceptions import ValidationError
-
+from django.urls import reverse
 
 TOKEN_URL = "https://discord.com/api/v8/oauth2/token"
 AUTHORIZE_URL = "https://discord.com/api/oauth2/authorize"
@@ -29,7 +29,7 @@ def discord_get_access_token(*, code: str) -> str:
         "code": code,
         "client_id": settings.OAUTH_DISCORD_CLIENT_ID,
         "client_secret": settings.OAUTH_DISCORD_CLIENT_SECRET,
-        "redirect_uri": f"{settings.BASE_URL}/discord",
+        "redirect_uri": settings.BASE_URL + reverse("discord_login"),
         "grant_type": "authorization_code",
     }
     response = requests.post(TOKEN_URL, data=data)

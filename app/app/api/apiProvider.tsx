@@ -1,24 +1,44 @@
-import { setupApiClient } from "api/apiClient"
+import { useSetupApiClients } from "api/apiClients"
 import { profilesApi } from "api/profiles"
-import React, { FC, useContext, useRef, useState } from "react"
+import { usersApi } from "api/users"
+import { useStore } from "mobx/utils"
+import React, { FC, useContext, useEffect, useRef, useState } from "react"
+import { getSecureValue, setSecureValue } from "utils/keychain"
 
-export const ApiContext = React.createContext<any>(null)
-
-const setupApis = (client) => ({
-  profiles: profilesApi(client),
+const setupApis = (clients) => ({
+  profiles: profilesApi(clients),
+  users: usersApi(clients),
 })
 
-type clientType = ReturnType<typeof setupApiClient>
-type apisType = ReturnType<typeof setupApis>
-
 export const ApiProvider: FC = ({ children }) => {
-  const client = useRef<clientType>(setupApiClient())
-  const [apis] = useState<apisType>(setupApis(client.current))
+  const { userStore } = useStore()
+  const handleRefreshToken = useRef<() => void>()
+  const clients = useSetupApiClients(handleRefreshToken)
+  const [apis] = useState(setupApis(clients))
 
-  return (
-    <ApiContext.Provider value={{ ...apis, client: client.current }}>
-      {children}
-    </ApiContext.Provider>
-  )
+  // refresh token handler needs to access api client reference whle client is being created
+  // refresh handler is set here after creating the client to stop this circular dependency
+  useEffect(() => {
+    handleRefreshToken.current = async () => {
+      const refreshToken = await getSecureValue("refreshToken")
+      if (refreshToken) {
+        const data = await apis.users.tokenRefresh({ refreshToken })
+        if (data?.access) {
+          await setSecureValue("accessToken", data.access)
+          userStore.setIsAuthenticated(true)
+        } else {
+          throw Error("Failed to refresh token")
+        }
+      } else {
+        throw Error("No refresh token")
+      }
+    }
+  }, [])
+
+  return <ApiContext.Provider value={{ ...apis, ...clients }}>{children}</ApiContext.Provider>
 }
-export const useApi = () => useContext<clientType & apisType>(ApiContext)
+
+// incorrect context type to accomodate for initial null,
+// should be consumed with hook anyway - it provides the correct type
+export const ApiContext = React.createContext<any>(null)
+export const useApi = () => useContext<ReturnType<typeof setupApis>>(ApiContext)
