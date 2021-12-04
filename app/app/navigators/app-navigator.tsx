@@ -11,6 +11,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack"
 import { LoginScreen, ProfilesListScreen } from "screens"
 import { navigationRef } from "navigators/utils"
 import { ProfilesCarouselScreen } from "screens/ProfilesCarousel/ProfilesCarouselScreen"
+import { UserMenuScreen } from "screens/user/UserMenu/UserMenu"
 
 /**
  * This type allows TypeScript to know what routes are defined in this navigator
@@ -75,11 +76,7 @@ const Tabs = () => (
       component={ProfilesCarouselScreen}
       options={{ tabBarIcon: HeartBalloonsIcon }}
     />
-    <Tab.Screen
-      name="user"
-      component={ProfilesCarouselScreen}
-      options={{ tabBarIcon: ProfileIcon }}
-    />
+    <Tab.Screen name="user" component={UserMenuScreen} options={{ tabBarIcon: ProfileIcon }} />
   </Tab.Navigator>
 )
 
