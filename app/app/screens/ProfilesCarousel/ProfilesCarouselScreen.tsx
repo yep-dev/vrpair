@@ -1,9 +1,11 @@
 import { useApi } from "api/apiProvider"
-import { Text } from "native-base"
+import { CircleHeartIcon } from "components/icons"
+import { Profile } from "components/Profile/Profile"
 import React, { FC } from "react"
 import { Screen } from "components"
 import Carousel from "react-native-reanimated-carousel"
 import { useQuery } from "react-query"
+import colors from "theme/colors"
 
 export const ProfilesCarouselScreen: FC = () => {
   const api = useApi()
@@ -15,11 +17,10 @@ export const ProfilesCarouselScreen: FC = () => {
         <Carousel
           width={400}
           data={data.results}
-          renderItem={({ username }) => {
-            return <Text>{username}</Text>
-          }}
+          renderItem={(profile) => <Profile profile={profile} />}
         />
       ) : null}
+      <CircleHeartIcon color={colors.pink["400"]} />
     </Screen>
   )
 }
