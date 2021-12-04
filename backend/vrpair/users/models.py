@@ -28,9 +28,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_authenticated = True
 
     profile = models.OneToOneField(Profile, null=True, on_delete=models.SET_NULL)
-    preferences = models.OneToOneField(
-        Preferences, null=True, on_delete=models.SET_NULL
-    )
 
     objects = UserManager()
 

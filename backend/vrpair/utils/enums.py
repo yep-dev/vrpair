@@ -1,30 +1,30 @@
 from django.db import models
 
 
-class SetupEnum(models.IntegerChoices):
-    quest = 1  # not supported ently
-    pcvr = 2
-    fbt = 3
+class GenderEnum(models.TextChoices):
+    male = "male"
+    maleTrans = "maleTrans"
+    female = "female"
+    femaleTrans = "femaleTrans"
+    nonBinary = "nonBinary"
 
 
-class RoleEnum(models.IntegerChoices):
-    sub = 1
-    dom = 2
-    switch = 3
+class BoolEnum(models.TextChoices):
+    true = "true"
+    false = "false"
+    any = "any"
 
 
-class GenderEnum(models.IntegerChoices):
-    male = 1
-    male_trans = 2
-    female = 5
-    female_trans = 6
-    other = 9
+class SetupEnum(models.TextChoices):
+    quest = "quest"
+    pcvr = "pcvr"
+    fbt = "fbt"
 
 
-class BoolEnum(models.IntegerChoices):
-    yes = 1
-    no = 2
-    both = 3
+class RoleEnum(models.TextChoices):
+    sub = "sub"
+    dom = "dom"
+    switch = "switch"
 
 
 class WeekDayEnum(models.IntegerChoices):
