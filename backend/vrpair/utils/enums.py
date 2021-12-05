@@ -2,9 +2,9 @@ from django.db import models
 
 
 class GenderEnum(models.TextChoices):
-    male = "male"
+    maleCis = "maleCis"
     maleTrans = "maleTrans"
-    female = "female"
+    femaleCis = "femaleCis"
     femaleTrans = "femaleTrans"
     nonBinary = "nonBinary"
 

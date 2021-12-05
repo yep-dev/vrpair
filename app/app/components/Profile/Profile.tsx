@@ -33,8 +33,8 @@ export const Profile: FC<{ profile: profiles.Profile }> = ({ profile }) => {
           {profile.username}, {profile.age}
         </Text>
         <Row space={2}>
-          <Tag colorScheme={enums.gender[profile.gender].color}>
-            {enums.gender[profile.gender].label}
+          <Tag colorScheme={enums.gender[profile.gender.replace("Cis", "")].color}>
+            {enums.gender[profile.gender.replace("Cis", "")].label}
           </Tag>
           <Tag colorScheme={enums.femAvatar[profile.femAvatar.toString()].color}>
             {enums.femAvatar[profile.femAvatar.toString()].label}
@@ -54,22 +54,22 @@ export const Profile: FC<{ profile: profiles.Profile }> = ({ profile }) => {
             <Tag colorScheme="green">Everyone</Tag>
           ) : (
             <Row space={2}>
-              {["male", "maleTrans"].some((value) => preferences.gender.includes(value)) && (
+              {["maleCis", "maleTrans"].some((value) => preferences.gender.includes(value)) && (
                 <Tag colorScheme={enums.gender.male.color}>
-                  {genderIncludes(["male", "maleTrans"])
-                    ? "Male"
-                    : genderIncludes(["male"])
-                    ? "Cis Male"
-                    : "Trans Male"}
+                  {genderIncludes(["maleCis", "maleTrans"])
+                    ? enums.gender.male.label
+                    : genderIncludes(["maleCis"])
+                    ? enums.gender.maleCis.label
+                    : enums.gender.maleTrans.label}
                 </Tag>
               )}
-              {["female", "femaleTrans"].some((value) => preferences.gender.includes(value)) && (
+              {["femaleCis", "femaleTrans"].some((value) => preferences.gender.includes(value)) && (
                 <Tag colorScheme={enums.gender.female.color}>
-                  {genderIncludes(["female", "femaleTrans"])
-                    ? "Female"
-                    : genderIncludes(["female"])
-                    ? "Cis Female"
-                    : "Trans Female"}
+                  {genderIncludes(["femaleCis", "femaleTrans"])
+                    ? enums.gender.female.label
+                    : genderIncludes(["femaleCis"])
+                    ? enums.gender.femaleCis.label
+                    : enums.gender.femaleTrans.label}
                 </Tag>
               )}
               {genderIncludes(["nonBinary"]) && (
