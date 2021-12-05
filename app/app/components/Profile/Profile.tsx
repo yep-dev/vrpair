@@ -82,7 +82,9 @@ export const Profile: FC<{ profile: profiles.Profile }> = ({ profile }) => {
           </Tag>
           <Row space={2}>
             {profile.preferences.role.map((role) => (
-              <Tag colorScheme={enums.role[role].color}>{enums.role[role].label}</Tag>
+              <Tag key={role} colorScheme={enums.role[role].color}>
+                {enums.role[role].label}
+              </Tag>
             ))}
           </Row>
           <Row space={2}>
@@ -92,7 +94,9 @@ export const Profile: FC<{ profile: profiles.Profile }> = ({ profile }) => {
               <Tag colorScheme="green">Any VR setup</Tag>
             ) : (
               profile.preferences.setup.map((setup) => (
-                <Tag colorScheme="gray">{enums.setup[setup].label}</Tag>
+                <Tag key={setup} colorScheme="gray">
+                  {enums.setup[setup].label}
+                </Tag>
               ))
             )}
           </Row>
