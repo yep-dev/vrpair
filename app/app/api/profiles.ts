@@ -1,6 +1,6 @@
 import { KyInstance } from "ky/distribution/types/ky"
 
-export type Profile = {
+export type TProfile = {
   // 1
   id: number
   username: number
@@ -19,10 +19,10 @@ export type Profile = {
   weekDays: string
   description: string
   verified: boolean
-  preferences: Preferences
+  preferences: TPreferences
 }
 
-export type Preferences = {
+export type TPreferences = {
   // 3
   gender: string[]
   femAvatar: string
@@ -35,8 +35,8 @@ export type Preferences = {
   furry: string
 }
 
-export type ProfileListResult = {
-  results: Profile[]
+export type TProfileListResult = {
+  results: TProfile[]
 }
 
 type Props = {
@@ -44,7 +44,7 @@ type Props = {
 }
 
 export const profilesApi = ({ client }: { client: KyInstance }) => ({
-  profileList: async ({ signal }: Props): Promise<ProfileListResult> =>
+  profileList: async ({ signal }: Props): Promise<TProfileListResult> =>
     await client
       .get("profiles/profile-list", {
         signal,

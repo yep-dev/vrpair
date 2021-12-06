@@ -1,4 +1,5 @@
-import * as profiles from "api/profiles"
+import { TProfile } from "api/profiles"
+import Preferences from "components/Profile/Preferences"
 import { Badge, Flex, HStack, Image, Text, VStack } from "native-base"
 import React, { FC } from "react"
 import styled from "styled-components"
@@ -8,15 +9,12 @@ const Row = styled(HStack)`
   flex-wrap: wrap;
 `
 
-const Tag = styled(Badge)`
+export const Tag = styled(Badge)`
   margin-bottom: 8px;
   align-self: flex-start;
 `
 
-export const Profile: FC<{ profile: profiles.Profile }> = ({ profile }) => {
-  const genderIncludes = (elements) =>
-    elements.every((value) => profile.preferences.gender.includes(value))
-
+export const Profile: FC<{ profile: TProfile }> = ({ profile }) => {
   const { preferences } = profile
 
   return (
@@ -47,69 +45,7 @@ export const Profile: FC<{ profile: profiles.Profile }> = ({ profile }) => {
           {profile.furry && <Tag colorScheme="gray">Furry</Tag>}
         </Row>
       </VStack>
-      {preferences && (
-        <VStack>
-          <Text mb={2}>Preferences</Text>
-          {genderIncludes(Object.keys(enums.gender)) ? (
-            <Tag colorScheme="green">Everyone</Tag>
-          ) : (
-            <Row space={2}>
-              {["maleCis", "maleTrans"].some((value) => preferences.gender.includes(value)) && (
-                <Tag colorScheme={enums.gender.male.color}>
-                  {genderIncludes(["maleCis", "maleTrans"])
-                    ? enums.gender.male.label
-                    : genderIncludes(["maleCis"])
-                    ? enums.gender.maleCis.label
-                    : enums.gender.maleTrans.label}
-                </Tag>
-              )}
-              {["femaleCis", "femaleTrans"].some((value) => preferences.gender.includes(value)) && (
-                <Tag colorScheme={enums.gender.female.color}>
-                  {genderIncludes(["femaleCis", "femaleTrans"])
-                    ? enums.gender.female.label
-                    : genderIncludes(["femaleCis"])
-                    ? enums.gender.femaleCis.label
-                    : enums.gender.femaleTrans.label}
-                </Tag>
-              )}
-              {genderIncludes(["nonBinary"]) && (
-                <Tag colorScheme={enums.gender.nonBinary.color}>Non-Binary</Tag>
-              )}
-            </Row>
-          )}
-          <Tag colorScheme={enums.femAvatar[preferences.femAvatar].label}>
-            {enums.femAvatar[preferences.femAvatar].label}
-          </Tag>
-          <Row space={2}>
-            {profile.preferences.role.map((role) => (
-              <Tag key={role} colorScheme={enums.role[role].color}>
-                {enums.role[role].label}
-              </Tag>
-            ))}
-          </Row>
-          <Row space={2}>
-            {Object.keys(enums.setup).every((value) =>
-              profile.preferences.setup.includes(value),
-            ) ? (
-              <Tag colorScheme="green">Any VR setup</Tag>
-            ) : (
-              profile.preferences.setup.map((setup) => (
-                <Tag key={setup} colorScheme="gray">
-                  {enums.setup[setup].label}
-                </Tag>
-              ))
-            )}
-          </Row>
-          <Row space={2}>
-            {preferences.mute !== "any" && (
-              <Tag colorScheme="gray">{enums.mute[preferences.mute.toString()].label}</Tag>
-            )}
-            {preferences.furry !== "any" && (
-              <Tag colorScheme="gray">{enums.furry[preferences.furry.toString()].label}</Tag>
-            )}
-          </Row>
-        </VStack>
-      )}
+      {preferences && <Preferences preferences={profile.preferences} />}
     </Flex>
   )
 }
