@@ -1,6 +1,6 @@
 import { TPreferences } from "api/profiles"
-import { Tag } from "components/Profile/Profile"
-import { Row, Text, VStack } from "native-base"
+import { Tag, TagRow } from "components/Profile/Profile"
+import { Text, Column } from "native-base"
 import React, { FC } from "react"
 import { enums } from "utils/enums"
 
@@ -8,12 +8,12 @@ const Preferences: FC<{ preferences: TPreferences }> = ({ preferences }) => {
   const genderIncludes = (elements) => elements.every((value) => preferences.gender.includes(value))
 
   return (
-    <VStack>
+    <Column>
       <Text mb={2}>Preferences</Text>
       {genderIncludes(Object.keys(enums.gender)) ? (
         <Tag colorScheme="green">Everyone</Tag>
       ) : (
-        <Row space={2}>
+        <TagRow space={2}>
           {["maleCis", "maleTrans"].some((value) => preferences.gender.includes(value)) && (
             <Tag colorScheme={enums.gender.male.color}>
               {genderIncludes(["maleCis", "maleTrans"])
@@ -35,19 +35,19 @@ const Preferences: FC<{ preferences: TPreferences }> = ({ preferences }) => {
           {genderIncludes(["nonBinary"]) && (
             <Tag colorScheme={enums.gender.nonBinary.color}>Non-Binary</Tag>
           )}
-        </Row>
+        </TagRow>
       )}
       <Tag colorScheme={enums.femAvatar[preferences.femAvatar].label}>
         {enums.femAvatar[preferences.femAvatar].label}
       </Tag>
-      <Row space={2}>
+      <TagRow space={2}>
         {preferences.role.map((role) => (
           <Tag key={role} colorScheme={enums.role[role].color}>
             {enums.role[role].label}
           </Tag>
         ))}
-      </Row>
-      <Row space={2}>
+      </TagRow>
+      <TagRow space={2}>
         {Object.keys(enums.setup).every((value) => preferences.setup.includes(value)) ? (
           <Tag colorScheme="green">Any VR setup</Tag>
         ) : (
@@ -57,16 +57,16 @@ const Preferences: FC<{ preferences: TPreferences }> = ({ preferences }) => {
             </Tag>
           ))
         )}
-      </Row>
-      <Row space={2}>
+      </TagRow>
+      <TagRow space={2}>
         {preferences.mute !== "any" && (
           <Tag colorScheme="gray">{enums.mute[preferences.mute.toString()].label}</Tag>
         )}
         {preferences.furry !== "any" && (
           <Tag colorScheme="gray">{enums.furry[preferences.furry.toString()].label}</Tag>
         )}
-      </Row>
-    </VStack>
+      </TagRow>
+    </Column>
   )
 }
 
