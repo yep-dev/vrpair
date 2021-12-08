@@ -7,7 +7,7 @@ export const CircleXIcon = ({ color }) => {
     <Icon viewBox="0 0 24 24" size={16}>
       <G>
         <Path
-          d="M0.999 12.000 A11.000 11.000 0 1 0 22.999 12.000 A11.000 11.000 0 1 0 0.999 12.000 Z"
+          d="M0.500 12.000 A11.500 11.500 0 1 0 23.500 12.000 A11.500 11.500 0 1 0 0.500 12.000 Z"
           fill="none"
           stroke={color}
           strokeLinecap="round"
