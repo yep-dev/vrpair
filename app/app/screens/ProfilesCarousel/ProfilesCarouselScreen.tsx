@@ -15,9 +15,12 @@ const LikeButton = styled(IconButton)`
   right: 32px;
   display: flex;
   border-radius: 32px;
+  background-color: ${colors.gray["900"]};
 `
 
 const SkipButton = styled(LikeButton)`
+  border-radius: 32px;
+  border-width: 0;
   left: 32px;
 `
 
