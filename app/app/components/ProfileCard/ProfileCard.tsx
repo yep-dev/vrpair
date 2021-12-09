@@ -2,7 +2,7 @@ import { TProfile } from "api/profiles"
 import { Box, Column, Image, Row, Spacer, Text } from "native-base"
 import React, { FC } from "react"
 
-const MiniProfile: FC<{ profile: TProfile }> = ({ profile }) => (
+const ProfileCard: FC<{ profile: TProfile }> = ({ profile }) => (
   <Box
     borderBottomWidth="1"
     style={{
@@ -27,4 +27,4 @@ const MiniProfile: FC<{ profile: TProfile }> = ({ profile }) => (
   </Box>
 )
 
-export default MiniProfile
+export default ProfileCard

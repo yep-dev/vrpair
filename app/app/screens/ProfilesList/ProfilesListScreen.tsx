@@ -1,6 +1,6 @@
 import { useApi } from "api/apiProvider"
 import { TProfile } from "api/profiles"
-import MiniProfile from "components/MiniProfile/MiniProfile"
+import ProfileCard from "components/ProfileCard/ProfileCard"
 import React, { FC } from "react"
 import { Screen } from "components"
 import { FlatList } from "react-native"
@@ -15,7 +15,7 @@ export const ProfilesListScreen: FC = () => {
       {data?.results && (
         <FlatList<TProfile>
           data={data.results}
-          renderItem={({ item }) => <MiniProfile profile={item} />}
+          renderItem={({ item }) => <ProfileCard profile={item} />}
           keyExtractor={(profile) => profile.username}
         />
       )}
