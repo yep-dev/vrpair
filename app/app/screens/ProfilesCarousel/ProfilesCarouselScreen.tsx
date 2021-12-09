@@ -26,7 +26,7 @@ const SkipButton = styled(LikeButton)`
 
 export const ProfilesCarouselScreen: FC = () => {
   const api = useApi()
-  const { data } = useQuery("profileList", api.profiles.profileList)
+  const { data } = useQuery("profileList", api.profiles.profileList, { staleTime: 60 * 1000 })
   const carousel = useRef<ICarouselInstance | null>(null)
 
   const handleLike = () => {

@@ -80,7 +80,7 @@
         "paths": [
           {
             "name": "native-base",
-            "importNames":["HStack", "VStack"]
+            "importNames":["HStack", "VStack", "FlatList"]
           }
         ]
       }

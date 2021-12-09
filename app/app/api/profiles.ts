@@ -3,7 +3,7 @@ import { KyInstance } from "ky/distribution/types/ky"
 export type TProfile = {
   // 1
   id: number
-  username: number
+  username: string
   age: number
   gender: string
   femAvatar: boolean
