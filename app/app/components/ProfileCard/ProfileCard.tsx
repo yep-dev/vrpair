@@ -1,15 +1,29 @@
 import { TProfile } from "api/profiles"
-import { Box, Column, Image, Row, Spacer, Text } from "native-base"
+import { Badge, Box, Column, Image, Row, Spacer, Text } from "native-base"
 import React, { FC } from "react"
+import { enums } from "utils/enums"
+import { inject } from "utils/misc"
+
+const TagRow = inject(Row, {
+  flexWrap: "wrap",
+})
+
+const Tag = inject(Badge, {
+  _text: { fontSize: "2xs" },
+  px: 1,
+  py: 0.25,
+  mb: 1,
+  alignSelf: "flex-start",
+})
 
 const ProfileCard: FC<{ profile: TProfile }> = ({ profile }) => (
   <Box
     borderBottomWidth="1"
-    style={{
+    _dark={{
       borderColor: "gray.800",
     }}
     px="4"
-    py="2"
+    py="3"
   >
     <Row space={3} justifyContent="space-between">
       <Box>
@@ -20,7 +34,23 @@ const ProfileCard: FC<{ profile: TProfile }> = ({ profile }) => (
         />
       </Box>
       <Column>
-        <Text bold>{profile.username}</Text>
+        <Text fontSize="lg" mb={1}>
+          {profile.username}, {profile.age}
+        </Text>
+        <TagRow space={1}>
+          <Tag colorScheme={enums.gender[profile.gender.replace("Cis", "")].color}>
+            {enums.gender[profile.gender.replace("Cis", "")].label}
+          </Tag>
+          <Tag colorScheme={enums.femAvatar[profile.femAvatar.toString()].color}>
+            {enums.femAvatar[profile.femAvatar.toString()].label}
+          </Tag>
+        </TagRow>
+        <TagRow space={1}>
+          <Tag colorScheme={enums.role[profile.role].color}>{enums.role[profile.role].label}</Tag>
+          <Tag colorScheme="gray">{enums.setup[profile.setup].label}</Tag>
+          {profile.mute && <Tag colorScheme="gray">Mute</Tag>}
+          {profile.furry && <Tag colorScheme="gray">Furry</Tag>}
+        </TagRow>
       </Column>
       <Spacer />
     </Row>
