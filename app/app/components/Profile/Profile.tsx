@@ -2,17 +2,17 @@ import { TProfile } from "api/profiles"
 import Preferences from "components/Profile/Preferences"
 import { Badge, Image, Text, Row, Column, ScrollView } from "native-base"
 import React, { FC } from "react"
-import styled from "styled-components"
 import { enums } from "utils/enums"
+import { inject } from "utils/misc"
 
-export const TagRow = styled(Row)`
-  flex-wrap: wrap;
-`
+export const TagRow = inject(Row, {
+  flexWrap: "wrap",
+})
 
-export const Tag = styled(Badge)`
-  margin-bottom: 8px;
-  align-self: flex-start;
-`
+export const Tag = inject(Badge, {
+  marginBottom: 2,
+  alignSelf: "flex-start",
+})
 
 export const Profile: FC<{ profile: TProfile }> = ({ profile }) => {
   const { preferences } = profile

@@ -6,23 +6,22 @@ import React, { FC, useRef } from "react"
 import { Screen } from "components"
 import Carousel, { ICarouselInstance } from "react-native-reanimated-carousel"
 import { useQuery } from "react-query"
-import styled from "styled-components"
 import colors from "theme/colors"
+import { inject } from "utils/misc"
 
-const LikeButton = styled(IconButton)`
-  position: absolute;
-  bottom: 32px;
-  right: 32px;
-  display: flex;
-  border-radius: 32px;
-  background-color: ${colors.gray["900"]};
-`
+const LikeButton = inject(IconButton, {
+  position: "absolute",
+  bottom: 8,
+  right: 8,
+  display: "flex",
+  borderRadius: 8,
+  backgroundColor: colors.gray["900"],
+})
 
-const SkipButton = styled(LikeButton)`
-  border-radius: 32px;
-  border-width: 0;
-  left: 32px;
-`
+const SkipButton = inject(LikeButton, {
+  borderWidth: 0,
+  left: 8,
+})
 
 export const ProfilesCarouselScreen: FC = () => {
   const api = useApi()
