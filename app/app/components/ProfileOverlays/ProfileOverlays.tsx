@@ -1,21 +1,19 @@
 import { CircleHeartIcon, CircleXIcon } from "components/icons"
-import { IconButton } from "native-base"
+import { Box, IconButton } from "native-base"
 import React, { FC } from "react"
 import colors from "theme/colors"
 import { inject } from "utils/misc"
 
-export const LikeButton = inject(IconButton, {
-  position: "absolute",
-  bottom: 8,
-  right: 8,
-  display: "flex",
+const FloatingButton = inject(IconButton, {
   borderRadius: 32,
-  backgroundColor: colors.gray["900"],
 })
 
-export const SkipButton = inject(LikeButton, {
-  borderWidth: 0,
-  left: 8,
+const BackgroundOverlay = inject(Box, {
+  position: "absolute",
+  bottom: 8,
+  display: "flex",
+  backgroundColor: colors.gray["900"],
+  borderRadius: 32,
 })
 
 type Props = {
@@ -26,17 +24,21 @@ type Props = {
 const ProfileOverlays: FC<Props> = ({ handleLike = () => null, handleSkip = () => null }) => {
   return (
     <>
-      <LikeButton
-        size={16}
-        icon={<CircleHeartIcon color={colors.pink["400"]} />}
-        onPress={handleLike}
-      />
-      <SkipButton
-        size={16}
-        colorScheme="gray"
-        icon={<CircleXIcon color={colors.gray["400"]} />}
-        onPress={handleSkip}
-      />
+      <BackgroundOverlay left={8}>
+        <FloatingButton
+          size={16}
+          colorScheme="gray"
+          icon={<CircleXIcon color={colors.gray["400"]} />}
+          onPress={handleSkip}
+        />
+      </BackgroundOverlay>
+      <BackgroundOverlay right={8}>
+        <FloatingButton
+          size={16}
+          icon={<CircleHeartIcon color={colors.pink["400"]} />}
+          onPress={handleLike}
+        />
+      </BackgroundOverlay>
     </>
   )
 }
