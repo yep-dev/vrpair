@@ -1,10 +1,12 @@
+import React, { FC } from "react"
+import { FlatList } from "react-native"
+
+import { useQuery } from "react-query"
+
 import { useApi } from "api/apiProvider"
 import { TProfile } from "api/profiles"
-import { ProfileCard } from "components/ProfileCard/ProfileCard"
-import React, { FC } from "react"
 import { Screen } from "components"
-import { FlatList } from "react-native"
-import { useQuery } from "react-query"
+import { ProfileCard } from "components/ProfileCard/ProfileCard"
 
 export const ProfilesListScreen: FC = () => {
   const api = useApi()

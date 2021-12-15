@@ -1,9 +1,11 @@
+import React, { FC } from "react"
+
 import { RouteProp } from "@react-navigation/native"
+
 import { Screen } from "components"
 import { Profile } from "components/Profile/Profile"
 import { ProfileOverlays } from "components/ProfileOverlays/ProfileOverlays"
 import { ProfilesListParams } from "navigators/app-navigator"
-import React, { FC } from "react"
 
 type Props = {
   route: RouteProp<ProfilesListParams, "profileDetails">

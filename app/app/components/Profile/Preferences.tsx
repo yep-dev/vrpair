@@ -1,7 +1,9 @@
+import React, { FC } from "react"
+
+import { Text, Column } from "native-base"
+
 import { TPreferences } from "api/profiles"
 import { Tag, TagRow } from "components/Profile/Profile"
-import { Text, Column } from "native-base"
-import React, { FC } from "react"
 import { enums } from "utils/enums"
 
 export const Preferences: FC<{ preferences: TPreferences }> = ({ preferences }) => {

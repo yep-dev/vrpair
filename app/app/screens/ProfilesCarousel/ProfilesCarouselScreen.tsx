@@ -1,10 +1,12 @@
-import { useApi } from "api/apiProvider"
-import { Profile } from "components/Profile/Profile"
-import { ProfileOverlays } from "components/ProfileOverlays/ProfileOverlays"
 import React, { FC, useRef } from "react"
-import { Screen } from "components"
+
 import Carousel, { ICarouselInstance } from "react-native-reanimated-carousel"
 import { useQuery } from "react-query"
+
+import { useApi } from "api/apiProvider"
+import { Screen } from "components"
+import { Profile } from "components/Profile/Profile"
+import { ProfileOverlays } from "components/ProfileOverlays/ProfileOverlays"
 
 export const ProfilesCarouselScreen: FC = () => {
   const api = useApi()

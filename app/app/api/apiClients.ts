@@ -1,7 +1,10 @@
-import ky from "ky"
 import { useRef } from "react"
+
+import ky from "ky"
+
 import { useDiscordLogin } from "utils/auth"
 import { getSecureValue } from "utils/keychain"
+
 const { API_URL } = require("config/env")
 
 function isTokenExpired(token) {

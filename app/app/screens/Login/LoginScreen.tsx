@@ -1,12 +1,14 @@
-import { AppParams } from "navigators/app-navigator"
-import { useDiscordLogin } from "utils/auth"
-import { colors } from "theme/colors"
-import { CircleHeartIcon } from "components/icons"
-import { Box, Button, Center, Checkbox, Column, Flex, Row, Text } from "native-base"
 import React, { FC, useState } from "react"
+
 import { StackScreenProps } from "@react-navigation/stack"
 import { observer } from "mobx-react-lite"
+import { Box, Button, Center, Checkbox, Column, Flex, Row, Text } from "native-base"
+
 import { Screen } from "components"
+import { CircleHeartIcon } from "components/icons"
+import { AppParams } from "navigators/app-navigator"
+import { colors } from "theme/colors"
+import { useDiscordLogin } from "utils/auth"
 
 export const LoginScreen: FC<StackScreenProps<AppParams, "login">> = observer(() => {
   const [groupValues, setGroupValues] = useState([])

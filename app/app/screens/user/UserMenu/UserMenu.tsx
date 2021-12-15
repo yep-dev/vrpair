@@ -1,5 +1,7 @@
-import { Button } from "native-base"
 import React, { FC } from "react"
+
+import { Button } from "native-base"
+
 import { Screen } from "components"
 import { removeSecureValue } from "utils/keychain"
 

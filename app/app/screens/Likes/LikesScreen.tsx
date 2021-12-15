@@ -1,9 +1,7 @@
-import { Screen } from "components"
-import { RoundBadge } from "components/RoundBadge/RoundBadge"
-import { Text } from "native-base"
-import { FC, useState } from "react"
-import * as React from "react"
+import React, { FC, useState } from "react"
 import { Animated, StyleSheet, I18nManager } from "react-native"
+
+import { Text } from "native-base"
 import {
   TabView,
   TabBar,
@@ -11,6 +9,9 @@ import {
   NavigationState,
   SceneRendererProps,
 } from "react-native-tab-view"
+
+import { Screen } from "components"
+import { RoundBadge } from "components/RoundBadge/RoundBadge"
 import { LikedScreen } from "screens/Likes/Liked/LikedScreen"
 import { LikesYouScreen } from "screens/Likes/LikesYou/LikesYouScreen"
 import { PairsScreen } from "screens/Likes/Pairs/PairsScreen"

@@ -1,15 +1,17 @@
 import "./utils/ignore-warnings"
-import { ApiProvider } from "api/apiProvider"
-import { theme } from "theme"
 import React, { useState, useEffect } from "react"
+
+import { NativeBaseProvider } from "native-base"
 import { SafeAreaProvider, initialWindowMetrics } from "react-native-safe-area-context"
-import * as storage from "utils/storage"
+import { QueryClient, QueryClientProvider } from "react-query"
+
+import { ApiProvider } from "api/apiProvider"
+import { RootStore, RootStoreContext } from "mobx/root-store"
+import { setupRootStore } from "mobx/setup-root-store"
 import { AppNavigator, canExit } from "navigators/app-navigator"
 import { useBackButtonHandler, useNavigationPersistence } from "navigators/utils"
-import { setupRootStore } from "mobx/setup-root-store"
-import { RootStore, RootStoreContext } from "mobx/root-store"
-import { NativeBaseProvider } from "native-base"
-import { QueryClient, QueryClientProvider } from "react-query"
+import { theme } from "theme"
+import * as storage from "utils/storage"
 
 export const NAVIGATION_PERSISTENCE_KEY = "NAVIGATION_STATE"
 

@@ -1,6 +1,8 @@
-import { CircleHeartIcon, CircleXIcon } from "components/icons"
-import { Box, IconButton } from "native-base"
 import React, { FC } from "react"
+
+import { Box, IconButton } from "native-base"
+
+import { CircleHeartIcon, CircleXIcon } from "components/icons"
 import { colors } from "theme/colors"
 import { inject } from "utils/misc"
 

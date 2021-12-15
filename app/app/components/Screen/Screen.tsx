@@ -1,6 +1,7 @@
-import { Box, IBoxProps, KeyboardAvoidingView, ScrollView, StatusBar, View } from "native-base"
-import * as React from "react"
+import React from "react"
 import { Platform, StyleProp, ViewStyle } from "react-native"
+
+import { Box, IBoxProps, KeyboardAvoidingView, ScrollView, StatusBar, View } from "native-base"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 
 const isIos = Platform.OS === "ios"

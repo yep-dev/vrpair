@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { DevSettings } from "react-native"
-import { loadString, saveString } from "../app/utils/storage"
+
+import { loadString, saveString } from "utils/storage"
 
 /**
  * Toggle Storybook mode, in __DEV__ mode only.

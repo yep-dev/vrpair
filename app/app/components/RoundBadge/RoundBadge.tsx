@@ -1,5 +1,7 @@
 import React, { FC } from "react"
+
 import { Badge, IBadgeProps } from "native-base"
+
 import { colors } from "theme/colors"
 
 export const RoundBadge: FC<IBadgeProps> = ({ children, ...props }) => (

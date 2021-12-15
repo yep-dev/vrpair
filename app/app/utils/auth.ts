@@ -1,6 +1,7 @@
+import { authorize } from "react-native-app-auth"
+
 import { API_URL, OAUTH_DISCORD_CLIENT_ID } from "config/env"
 import { useStore } from "mobx/utils"
-import { authorize } from "react-native-app-auth"
 import { setSecureValue } from "utils/keychain"
 
 const discordConfig = {

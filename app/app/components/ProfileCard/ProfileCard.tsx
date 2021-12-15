@@ -1,8 +1,10 @@
-import { useNavigation } from "@react-navigation/native"
-import { TProfile } from "api/profiles"
-import { Badge, Box, Column, Image, Row, Spacer, Text } from "native-base"
 import React, { FC } from "react"
 import { TouchableOpacity } from "react-native"
+
+import { useNavigation } from "@react-navigation/native"
+import { Badge, Box, Column, Image, Row, Spacer, Text } from "native-base"
+
+import { TProfile } from "api/profiles"
 import { enums } from "utils/enums"
 import { inject } from "utils/misc"
 
