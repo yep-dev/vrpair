@@ -2,7 +2,7 @@ import { useSetupApiClients } from "api/apiClients"
 import { profilesApi } from "api/profiles"
 import { usersApi } from "api/users"
 import { useStore } from "mobx/utils"
-import React, { FC, useContext, useEffect, useRef, useState } from "react"
+import React, { FC, useContext, useEffect, useRef, useState, createContext } from "react"
 import { getSecureValue, setSecureValue } from "utils/keychain"
 
 const setupApis = (clients) => ({
@@ -40,5 +40,5 @@ export const ApiProvider: FC = ({ children }) => {
 
 // incorrect context type to accomodate for initial null,
 // should be consumed with hook anyway - it provides the correct type
-export const ApiContext = React.createContext<any>(null)
+export const ApiContext = createContext<any>(null)
 export const useApi = () => useContext<ReturnType<typeof setupApis>>(ApiContext)
