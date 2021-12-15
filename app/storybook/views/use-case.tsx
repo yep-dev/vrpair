@@ -1,4 +1,5 @@
 import * as React from "react"
+// eslint-disable-next-line no-restricted-imports
 import { View, Text, TextStyle, ViewStyle } from "react-native"
 
 const ROOT: ViewStyle = { backgroundColor: "#eee" }

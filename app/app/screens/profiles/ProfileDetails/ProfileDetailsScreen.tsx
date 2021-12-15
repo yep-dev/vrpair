@@ -11,7 +11,7 @@ type Props = {
 
 export const ProfileDetailsScreen: FC<Props> = ({ route }) => {
   const { profile } = route.params
-  console.log(route.params)
+
   return (
     <Screen>
       <Profile profile={profile} />

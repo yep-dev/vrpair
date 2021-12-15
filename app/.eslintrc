@@ -51,7 +51,9 @@
     "it": false
   },
   "rules": {
+    "no-console": "error",
     "prettier/prettier": "warn",
+    "react-native/no-inline-styles": "warn",
     "@typescript-eslint/ban-ts-ignore": 0,
     "@typescript-eslint/ban-ts-comment": 0,
     "@typescript-eslint/explicit-function-return-type": 0,

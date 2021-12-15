@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 // @ts-nocheck
 import { Tron } from "mobx/reactotron/tron"
 import AsyncStorage from "@react-native-async-storage/async-storage"

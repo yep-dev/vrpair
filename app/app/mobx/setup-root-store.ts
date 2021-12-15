@@ -28,6 +28,7 @@ export async function setupRootStore() {
 
     // but please inform us what happened
     // @ts-ignore
+    // eslint-disable-next-line no-console
     __DEV__ && console.tron.error(e.message, null)
   }
 

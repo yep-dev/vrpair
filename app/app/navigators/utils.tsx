@@ -99,6 +99,7 @@ export function useNavigationPersistence(storage: any, persistenceKey: string) {
 
     if (previousRouteName !== currentRouteName) {
       // track screens.
+      // eslint-disable-next-line no-console
       __DEV__ && console.tron.log && console.tron.log(currentRouteName)
     }
 
