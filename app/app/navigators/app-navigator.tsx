@@ -50,7 +50,7 @@ export const AppNavigator = observer((props: NavigationProps) => {
 export type TabParams = {
   profilesCarousel
   profilesList
-  pairs
+  likes
   user
 }
 const Tab = createBottomTabNavigator<TabParams>()
@@ -67,11 +67,7 @@ const Tabs = () => (
       component={ProfilesListStack}
       options={{ tabBarIcon: ProfileSearchIcon }}
     />
-    <Tab.Screen
-      name="pairs"
-      component={ProfilesCarouselScreen}
-      options={{ tabBarIcon: HeartBalloonsIcon }}
-    />
+    <Tab.Screen name="likes" component={LikesScreen} options={{ tabBarIcon: HeartBalloonsIcon }} />
     <Tab.Screen name="user" component={UserMenuScreen} options={{ tabBarIcon: ProfileIcon }} />
   </Tab.Navigator>
 )

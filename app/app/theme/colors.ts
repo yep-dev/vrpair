@@ -18,6 +18,7 @@ const colors = {
   black: "#000000",
   lightText: "#FFFFFF",
   darkText: "#000000",
+  transparent: "transparent",
   // Primary colors
   pink: {
     50: "#fdf2f8",
