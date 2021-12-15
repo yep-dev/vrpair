@@ -18,7 +18,7 @@ const Tag = inject(Badge, {
   alignSelf: "flex-start",
 })
 
-const ProfileCard: FC<{ profile: TProfile }> = ({ profile }) => {
+export const ProfileCard: FC<{ profile: TProfile }> = ({ profile }) => {
   const { navigate } = useNavigation()
 
   return (
@@ -66,5 +66,3 @@ const ProfileCard: FC<{ profile: TProfile }> = ({ profile }) => {
     </TouchableOpacity>
   )
 }
-
-export default ProfileCard

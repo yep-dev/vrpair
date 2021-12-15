@@ -1,4 +1,4 @@
-const typography = {
+export const typography = {
   letterSpacings: {
     xs: "-0.05em",
     sm: "-0.025em",
@@ -114,5 +114,3 @@ const typography = {
 }
 
 export type ITypography = typeof typography
-
-export default typography

@@ -1,8 +1,8 @@
 import React, { FC } from "react"
 import { Badge, IBadgeProps } from "native-base"
-import colors from "theme/colors"
+import { colors } from "theme/colors"
 
-const RoundBadge: FC<IBadgeProps> = ({ children, ...props }) => (
+export const RoundBadge: FC<IBadgeProps> = ({ children, ...props }) => (
   <Badge
     bg="red.600"
     rounded={16}
@@ -15,5 +15,3 @@ const RoundBadge: FC<IBadgeProps> = ({ children, ...props }) => (
     {children}
   </Badge>
 )
-
-export default RoundBadge

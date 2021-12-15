@@ -80,7 +80,19 @@
         "paths": [
           {
             "name": "native-base",
-            "importNames":["HStack", "VStack", "FlatList"]
+            "importNames": [
+              "HStack",
+              "VStack",
+              "FlatList"
+            ]
+          },
+          {
+            "name": "react-native",
+            "importNames": [
+              "Text",
+              "View",
+              "ScrollView"
+            ]
           }
         ]
       }

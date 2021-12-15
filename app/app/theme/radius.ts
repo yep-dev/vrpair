@@ -1,4 +1,4 @@
-const radii = {
+export const radii = {
   none: 0,
   xs: 2,
   sm: 4,
@@ -11,5 +11,3 @@ const radii = {
 }
 
 export type IRadii = typeof radii
-
-export default radii

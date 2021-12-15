@@ -1,7 +1,7 @@
 import { RouteProp } from "@react-navigation/native"
 import { Screen } from "components"
 import { Profile } from "components/Profile/Profile"
-import ProfileOverlays from "components/ProfileOverlays/ProfileOverlays"
+import { ProfileOverlays } from "components/ProfileOverlays/ProfileOverlays"
 import { ProfilesListParams } from "navigators/app-navigator"
 import React, { FC } from "react"
 
@@ -9,7 +9,7 @@ type Props = {
   route: RouteProp<ProfilesListParams, "profileDetails">
 }
 
-const ProfileDetailsScreen: FC<Props> = ({ route }) => {
+export const ProfileDetailsScreen: FC<Props> = ({ route }) => {
   const { profile } = route.params
   console.log(route.params)
   return (
@@ -19,5 +19,3 @@ const ProfileDetailsScreen: FC<Props> = ({ route }) => {
     </Screen>
   )
 }
-
-export default ProfileDetailsScreen

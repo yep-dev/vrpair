@@ -1,6 +1,6 @@
 import "./utils/ignore-warnings"
 import { ApiProvider } from "api/apiProvider"
-import theme from "./theme"
+import { theme } from "theme"
 import React, { useState, useEffect } from "react"
 import { SafeAreaProvider, initialWindowMetrics } from "react-native-safe-area-context"
 import * as storage from "utils/storage"
@@ -15,7 +15,7 @@ export const NAVIGATION_PERSISTENCE_KEY = "NAVIGATION_STATE"
 
 const queryClient = new QueryClient()
 
-function App() {
+export function App() {
   const [rootStore, setRootStore] = useState<RootStore | undefined>(undefined)
 
   useBackButtonHandler(canExit)
@@ -56,5 +56,3 @@ function App() {
     </RootStoreContext.Provider>
   )
 }
-
-export default App

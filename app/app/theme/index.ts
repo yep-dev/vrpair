@@ -1,15 +1,15 @@
 import components from "native-base/src/theme/components"
 import base from "native-base/src/theme/base"
 import { ITheme } from "native-base/src/theme/index"
-import borderWidths from "./borders"
-import breakpoints from "./breakpoints"
-import colors from "./colors"
-import radii from "./radius"
-import shadows from "./shadows"
-import typography from "./typography"
-import opacity from "./opacity"
+import { borderWidths } from "./borders"
+import { breakpoints } from "./breakpoints"
+import { colors } from "./colors"
+import { radii } from "./radius"
+import { shadows } from "./shadows"
+import { typography } from "./typography"
+import { opacity } from "./opacity"
 
-const theme: ITheme = {
+export const theme: ITheme = {
   ...base,
   borderWidths,
   breakpoints,
@@ -40,5 +40,3 @@ export const themePropertyMap: any = {
   border: "borders",
   shadow: "shadows",
 }
-
-export default theme

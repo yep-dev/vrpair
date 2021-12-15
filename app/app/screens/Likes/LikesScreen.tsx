@@ -1,5 +1,5 @@
 import { Screen } from "components"
-import RoundBadge from "components/RoundBadge/RoundBadge"
+import { RoundBadge } from "components/RoundBadge/RoundBadge"
 import { Text } from "native-base"
 import { FC, useState } from "react"
 import * as React from "react"
@@ -14,7 +14,7 @@ import {
 import { LikedScreen } from "screens/Likes/Liked/LikedScreen"
 import { LikesYouScreen } from "screens/Likes/LikesYou/LikesYouScreen"
 import { PairsScreen } from "screens/Likes/Pairs/PairsScreen"
-import colors from "theme/colors"
+import { colors } from "theme/colors"
 
 type Route = {
   key: string

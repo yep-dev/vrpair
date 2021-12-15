@@ -4,7 +4,7 @@ import { Text, Column } from "native-base"
 import React, { FC } from "react"
 import { enums } from "utils/enums"
 
-const Preferences: FC<{ preferences: TPreferences }> = ({ preferences }) => {
+export const Preferences: FC<{ preferences: TPreferences }> = ({ preferences }) => {
   const genderIncludes = (elements) => elements.every((value) => preferences.gender.includes(value))
 
   return (
@@ -69,5 +69,3 @@ const Preferences: FC<{ preferences: TPreferences }> = ({ preferences }) => {
     </Column>
   )
 }
-
-export default Preferences

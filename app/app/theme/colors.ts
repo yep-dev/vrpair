@@ -11,7 +11,7 @@ export interface IColorHues {
   900: string
 }
 
-const colors = {
+export const colors = {
   contrastThreshold: 7,
   // Singleton colors
   white: "#FFFFFF",
@@ -108,5 +108,4 @@ colors.tertiary = colors.green
 colors.info = colors.blue
 colors.light = colors.pink
 
-export default colors
 export type IColors = typeof colors

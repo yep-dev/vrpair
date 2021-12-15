@@ -7,7 +7,7 @@
 // side effect of breaking other tooling like mobile-center and react-native-rename.
 //
 // It's easier just to leave it here.
-import App from "./app/app.tsx"
+import { App } from "app"
 import { AppRegistry } from "react-native"
 
 AppRegistry.registerComponent("vrpair", () => App)

@@ -1,5 +1,5 @@
-import colors from "./colors"
-export default {
+import { colors } from "./colors"
+export const shadows = {
   0: {
     shadowColor: colors.black,
     shadowOffset: {

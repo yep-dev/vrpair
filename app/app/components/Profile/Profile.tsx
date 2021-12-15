@@ -1,5 +1,5 @@
 import { TProfile } from "api/profiles"
-import Preferences from "components/Profile/Preferences"
+import { Preferences } from "components/Profile/Preferences"
 import { Badge, Image, Text, Row, Column, ScrollView } from "native-base"
 import React, { FC } from "react"
 import { enums } from "utils/enums"
