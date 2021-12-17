@@ -40,7 +40,10 @@ const routes = [
 ]
 
 export const LikesScreen: FC = () => {
-  const [navigationIndex, setNavigationIndex] = useState<number>(0)
+  const [navigationState, setNavigationState] = useState<NavigationState<Route>>({
+    routes,
+    index: 0,
+  })
 
   const renderIndicator = (
     props: SceneRendererProps & {
@@ -93,6 +96,8 @@ export const LikesScreen: FC = () => {
     return <RoundBadge>32</RoundBadge>
   }
 
+  const handleIndexChange = (index) => setNavigationState((state) => ({ ...state, index }))
+
   const renderTabBar = (props: SceneRendererProps & { navigationState: State }) => (
     <TabBar
       {...props}
@@ -112,11 +117,11 @@ export const LikesScreen: FC = () => {
   return (
     <Screen>
       <TabView
-        navigationState={{ index: navigationIndex, routes }}
+        navigationState={navigationState}
         renderScene={renderScene}
         renderTabBar={renderTabBar}
         tabBarPosition="top"
-        onIndexChange={setNavigationIndex}
+        onIndexChange={handleIndexChange}
       />
     </Screen>
   )
