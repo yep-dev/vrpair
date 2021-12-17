@@ -1,6 +1,7 @@
 import environ
 from django.core.management.base import BaseCommand
-from vrpair.pairs.models import User
+
+from vrpair.users.models import User
 
 env = environ.Env()
 

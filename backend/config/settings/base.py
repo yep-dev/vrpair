@@ -48,7 +48,7 @@ THIRD_PARTY_APPS = [
     "corsheaders",
 ]
 LOCAL_APPS = [
-    "vrpair.pairs.apps.PairsConfig",
+    "vrpair.likes.apps.PairsConfig",
     "vrpair.profiles.apps.ProfilesConfig",
     # "vrpair.settings.app`s.SettingsConfig",
     "vrpair.users.apps.UsersConfig",
