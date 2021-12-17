@@ -20,11 +20,18 @@ const Tag = inject(Badge, {
   alignSelf: "flex-start",
 })
 
-export const ProfileCard: FC<{ profile: TProfile }> = ({ profile }) => {
+type Props = { profile: TProfile; liked?: boolean; skipped?: boolean }
+
+export const ProfileCard: FC<Props> = ({ profile, liked, skipped }) => {
   const { navigate } = useNavigation()
 
   return (
-    <TouchableOpacity onPress={() => navigate("profileDetails", { profile })} delayPressIn={50}>
+    <TouchableOpacity
+      onPress={() =>
+        navigate("profilesList", { screen: "profileDetails", params: { profile, liked, skipped } })
+      }
+      delayPressIn={50}
+    >
       <Box
         borderBottomWidth="1"
         _dark={{

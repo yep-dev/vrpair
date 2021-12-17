@@ -4,7 +4,7 @@ import { Box, IconButton } from "native-base"
 
 import { CircleHeartIcon, CircleXIcon } from "components/icons"
 import { colors } from "theme/colors"
-import { inject } from "utils/misc"
+import { inject, pressedBackground } from "utils/misc"
 
 const FloatingButton = inject(IconButton, {
   borderRadius: 32,
@@ -19,14 +19,13 @@ const BackgroundOverlay = inject(Box, {
 })
 
 type Props = {
-  handleLike?(): void
-  handleSkip?(): void
+  liked?: boolean
+  skipped?: boolean
+  handleLike(): void
+  handleSkip(): void
 }
 
-export const ProfileOverlays: FC<Props> = ({
-  handleLike = () => null,
-  handleSkip = () => null,
-}) => {
+export const ProfileOverlays: FC<Props> = ({ liked, skipped, handleLike, handleSkip }) => {
   return (
     <>
       <BackgroundOverlay left={8}>
@@ -35,6 +34,7 @@ export const ProfileOverlays: FC<Props> = ({
           colorScheme="gray"
           icon={<CircleXIcon color={colors.gray["400"]} />}
           onPress={handleSkip}
+          backgroundColor={skipped ? pressedBackground("gray") : undefined}
         />
       </BackgroundOverlay>
       <BackgroundOverlay right={8}>
@@ -42,6 +42,7 @@ export const ProfileOverlays: FC<Props> = ({
           size={16}
           icon={<CircleHeartIcon color={colors.pink["400"]} />}
           onPress={handleLike}
+          backgroundColor={liked ? pressedBackground("pink") : undefined}
         />
       </BackgroundOverlay>
     </>

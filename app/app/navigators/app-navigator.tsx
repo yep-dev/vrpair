@@ -79,7 +79,7 @@ const Tabs = () => (
 // ---------------- ProfilesList ----------------
 export type ProfilesListParams = {
   profilesListMain
-  profileDetails: { profile: TProfile }
+  profileDetails: { profile: TProfile; liked?: boolean; skipped?: boolean }
 }
 const ProfilesList = createNativeStackNavigator<ProfilesListParams>()
 
