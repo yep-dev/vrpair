@@ -12,7 +12,7 @@ from vrpair.likes.views import (
     LikeProfile,
     LikedProfileList,
     PairList,
-    LikesList,
+    LikeList,
     SkipProfile,
 )
 from vrpair.profiles.views import ProfileList
@@ -36,9 +36,9 @@ urlpatterns += [
         name="liked_profile_list",
     ),
     path(
-        "likes/likes-list",
-        LikesList.as_view(),
-        name="likes_list",
+        "likes/like-list",
+        LikeList.as_view(),
+        name="like_list",
     ),
     path(
         "likes/pair-list",

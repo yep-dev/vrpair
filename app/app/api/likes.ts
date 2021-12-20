@@ -7,7 +7,7 @@ type Props = {
 }
 
 export type TProfileAndDate = {
-  date: Date
+  date: string
   profile: TProfile
 }
 
@@ -26,7 +26,7 @@ export const likesApi = ({ client }: { client: KyInstance }) => ({
   likedProfileList: async ({ signal }: Props): Promise<TResponse> =>
     await client.get("likes/liked-profile-list", { signal }).json(),
   likesList: async ({ signal }: Props): Promise<TResponse> =>
-    await client.get("likes/likes-list", { signal }).json(),
+    await client.get("likes/like-list", { signal }).json(),
   pairsList: async ({ signal }: Props): Promise<TResponse> =>
-    await client.get("likes/pairs-list", { signal }).json(),
+    await client.get("likes/pair-list", { signal }).json(),
 })

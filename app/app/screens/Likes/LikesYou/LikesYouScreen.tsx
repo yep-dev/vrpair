@@ -1,5 +1,26 @@
 import React, { FC } from "react"
+import { FlatList } from "react-native"
 
-import { Text } from "native-base"
+import { Box } from "native-base"
+import { useQuery } from "react-query"
 
-export const LikesYouScreen: FC = () => <Text>LikesYou</Text>
+import { useApi } from "api/apiProvider"
+import { TProfileAndDate } from "api/likes"
+import { ProfileCard } from "components/ProfileCard/ProfileCard"
+
+export const LikesYouScreen: FC = () => {
+  const api = useApi()
+  const { data } = useQuery("likesList", api.likes.likesList)
+
+  return (
+    <Box>
+      {data?.results && (
+        <FlatList<TProfileAndDate>
+          data={data.results}
+          renderItem={({ item }) => <ProfileCard {...item} />}
+          keyExtractor={(item) => item.profile.username}
+        />
+      )}
+    </Box>
+  )
+}

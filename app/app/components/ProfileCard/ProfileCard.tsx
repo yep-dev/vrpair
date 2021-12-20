@@ -2,7 +2,8 @@ import React, { FC } from "react"
 import { TouchableOpacity } from "react-native"
 
 import { useNavigation } from "@react-navigation/native"
-import { Badge, Box, Column, Image, Row, Spacer, Text } from "native-base"
+import { formatDistanceToNow } from "date-fns"
+import { Badge, Box, Column, Flex, Image, Row, Text } from "native-base"
 
 import { TProfile } from "api/profiles"
 import { enums } from "utils/enums"
@@ -20,9 +21,9 @@ const Tag = inject(Badge, {
   alignSelf: "flex-start",
 })
 
-type Props = { profile: TProfile; liked?: boolean; skipped?: boolean }
+type Props = { profile: TProfile; date?: string; liked?: boolean; skipped?: boolean }
 
-export const ProfileCard: FC<Props> = ({ profile, liked, skipped }) => {
+export const ProfileCard: FC<Props> = ({ profile, date, liked, skipped }) => {
   const { navigate } = useNavigation()
 
   return (
@@ -40,7 +41,7 @@ export const ProfileCard: FC<Props> = ({ profile, liked, skipped }) => {
         px="4"
         py="3"
       >
-        <Row space={3} justifyContent="space-between">
+        <Row space={3}>
           <Box>
             <Image
               source={{ uri: "https://images.dog.ceo/breeds/pitbull/20190801_154956.jpg" }}
@@ -48,7 +49,7 @@ export const ProfileCard: FC<Props> = ({ profile, liked, skipped }) => {
               style={{ height: 90, width: 120, borderRadius: 4 }}
             />
           </Box>
-          <Column>
+          <Column flex={1}>
             <Text fontSize="lg" mb={1}>
               {profile.username}, {profile.age}
             </Text>
@@ -68,8 +69,14 @@ export const ProfileCard: FC<Props> = ({ profile, liked, skipped }) => {
               {profile.mute && <Tag colorScheme="gray">Mute</Tag>}
               {profile.furry && <Tag colorScheme="gray">Furry</Tag>}
             </TagRow>
+            {date && (
+              <Flex alignItems="flex-end">
+                <Text fontSize="xs">
+                  {formatDistanceToNow(new Date(date), { addSuffix: true })}
+                </Text>
+              </Flex>
+            )}
           </Column>
-          <Spacer />
         </Row>
       </Box>
     </TouchableOpacity>

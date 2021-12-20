@@ -38,7 +38,7 @@ class LikedProfileList(generics.ListAPIView):
         return LikedProfile.objects.filter(author=self.request.user.profile)
 
 
-class LikesList(generics.ListAPIView):
+class LikeList(generics.ListAPIView):
     serializer_class = LikedProfileSerializer
 
     def get_queryset(self):
@@ -50,7 +50,8 @@ class PairList(generics.ListAPIView):
 
     def get_queryset(self):
         pairs = Pair.objects.filter(
-            Q(profile1=self.request.user) | Q(profile2=self.request.user.profile)
+            Q(profile1=self.request.user.profile)
+            | Q(profile2=self.request.user.profile)
         )
         for pair in pairs:
             if pair.profile1 == self.request.user:
