@@ -4,6 +4,9 @@ from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.urls import include, path
 from django.views import defaults as default_views
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework.reverse import reverse
 from rest_framework_simplejwt.views import (
     TokenRefreshView,
 )
@@ -26,7 +29,7 @@ if settings.DEBUG:
     # Static file serving when using Gunicorn + Uvicorn for local web socket development
     urlpatterns += staticfiles_urlpatterns()
 
-urlpatterns += [
+api_paths = [
     # likes
     path("likes/like-profile", LikeProfile.as_view(), name="like_profile"),
     path("likes/skip-profile", SkipProfile.as_view(), name="skip_profile"),
@@ -52,10 +55,23 @@ urlpatterns += [
     path("users/token-refresh", TokenRefreshView.as_view(), name="token_refresh"),
 ]
 
+
+@api_view(["GET"])
+def api_root(request, format=None):
+    print(api_paths)
+    return Response(
+        {
+            path.name: reverse(path.name, request=request, format=format)
+            for path in api_paths
+        }
+    )
+
+
 if settings.DEBUG:
     # This allows the error pages to be debugged during development, just visit
     # these url in browser to see how these error pages look like.
-    urlpatterns += [
+    urlpatterns += api_paths + [
+        path("", api_root),
         path(
             "400/",
             default_views.bad_request,
