@@ -17,8 +17,6 @@ export const Tag = inject(Badge, {
 })
 
 export const Profile: FC<{ profile: TProfile }> = ({ profile }) => {
-  const { preferences } = profile
-
   return (
     <ScrollView>
       <Column m={8} mt={2} space={4} mb={32}>
@@ -47,7 +45,7 @@ export const Profile: FC<{ profile: TProfile }> = ({ profile }) => {
             {profile.furry && <Tag colorScheme="gray">Furry</Tag>}
           </TagRow>
         </Column>
-        {preferences && <Preferences preferences={profile.preferences} />}
+        <Preferences preferences={profile.preferences} />
         <Text mb={2}>{profile.description}</Text>
       </Column>
     </ScrollView>

@@ -49,11 +49,7 @@ class Profile(models.Model):
 
     # internal
     visible = models.BooleanField(default=True)
-    preferences = models.OneToOneField(
-        Preferences,
-        null=True,
-        on_delete=models.SET_NULL,
-    )
+    preferences = models.OneToOneField(Preferences, on_delete=models.CASCADE)
 
     @property
     def age(self):
