@@ -6,6 +6,7 @@ import { formatDistanceToNow } from "date-fns"
 import { Badge, Box, Column, Flex, Image, Row, Text } from "native-base"
 
 import { TProfile } from "api/profiles"
+import { TabParams } from "navigators/app-navigator"
 import { enums } from "utils/enums"
 import { inject } from "utils/misc"
 
@@ -21,15 +22,21 @@ const Tag = inject(Badge, {
   alignSelf: "flex-start",
 })
 
-type Props = { profile: TProfile; date?: string; liked?: boolean; skipped?: boolean }
+type Props = {
+  tab: keyof TabParams
+  profile: TProfile
+  date?: string
+  liked?: boolean
+  skipped?: boolean
+}
 
-export const ProfileCard: FC<Props> = ({ profile, date, liked, skipped }) => {
+export const ProfileCard: FC<Props> = ({ tab, profile, date, liked, skipped }) => {
   const { navigate } = useNavigation()
 
   return (
     <TouchableOpacity
       onPress={() =>
-        navigate("profilesList", { screen: "profileDetails", params: { profile, liked, skipped } })
+        navigate(tab, { screen: "profileDetails", params: { profile, liked, skipped } })
       }
       delayPressIn={50}
     >

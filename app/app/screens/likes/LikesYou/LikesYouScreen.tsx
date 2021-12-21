@@ -17,7 +17,7 @@ export const LikesYouScreen: FC = () => {
       {data?.results && (
         <FlatList<TProfileAndDate>
           data={data.results}
-          renderItem={({ item }) => <ProfileCard {...item} />}
+          renderItem={({ item }) => <ProfileCard tab="likes" {...item} />}
           keyExtractor={(item) => item.profile.username}
         />
       )}

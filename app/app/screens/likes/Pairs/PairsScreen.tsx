@@ -8,16 +8,16 @@ import { useApi } from "api/apiProvider"
 import { TProfileAndDate } from "api/likes"
 import { ProfileCard } from "components/ProfileCard/ProfileCard"
 
-export const LikedScreen: FC = () => {
+export const PairsScreen: FC = () => {
   const api = useApi()
-  const { data } = useQuery("likedProfileList", api.likes.likedProfileList)
+  const { data } = useQuery("pairsList", api.likes.pairsList)
 
   return (
     <Box>
       {data?.results && (
         <FlatList<TProfileAndDate>
           data={data.results}
-          renderItem={({ item }) => <ProfileCard {...item} liked />}
+          renderItem={({ item }) => <ProfileCard tab="likes" {...item} />}
           keyExtractor={(item) => item.profile.username}
         />
       )}

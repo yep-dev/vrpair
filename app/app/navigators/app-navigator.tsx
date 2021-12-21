@@ -12,7 +12,7 @@ import { ProfileSearchIcon } from "components/icons/ProfileSearchIcon"
 import { ProfileStackIcon } from "components/icons/ProfileStackIcon"
 import { useStore } from "mobx/utils"
 import { navigationRef } from "navigators/utils"
-import { LikesScreen } from "screens/Likes/LikesScreen"
+import { LikesTabsScreen } from "screens/likes/LikesTabs/LikesTabsScreen"
 import { LoginScreen } from "screens/Login/LoginScreen"
 import { ProfileDetailsScreen } from "screens/profiles/ProfileDetails/ProfileDetailsScreen"
 import { ProfilesListScreen } from "screens/profiles/ProfilesList/ProfilesListScreen"
@@ -71,7 +71,7 @@ const Tabs = () => (
       component={ProfilesListStack}
       options={{ tabBarIcon: ProfileSearchIcon }}
     />
-    <Tab.Screen name="likes" component={LikesScreen} options={{ tabBarIcon: HeartBalloonsIcon }} />
+    <Tab.Screen name="likes" component={LikesStack} options={{ tabBarIcon: HeartBalloonsIcon }} />
     <Tab.Screen name="user" component={UserMenuScreen} options={{ tabBarIcon: ProfileIcon }} />
   </Tab.Navigator>
 )
@@ -91,6 +91,20 @@ const ProfilesListStack = () => (
     <ProfilesList.Screen name="profilesListMain" component={ProfilesListScreen} />
     <ProfilesList.Screen name="profileDetails" component={ProfileDetailsScreen} />
   </ProfilesList.Navigator>
+)
+
+// ---------------- Likes ----------------
+export type LikesParams = {
+  likesTabs
+  profileDetails: { profile: TProfile; liked?: boolean; skipped?: boolean }
+}
+const Likes = createNativeStackNavigator<LikesParams>()
+
+const LikesStack = () => (
+  <Likes.Navigator initialRouteName="likesTabs" screenOptions={{ headerShown: false }}>
+    <Likes.Screen name="likesTabs" component={LikesTabsScreen} />
+    <Likes.Screen name="profileDetails" component={ProfileDetailsScreen} />
+  </Likes.Navigator>
 )
 
 /**

@@ -17,7 +17,7 @@ export const ProfilesListScreen: FC = () => {
       {data?.results && (
         <FlatList<TProfile>
           data={data.results}
-          renderItem={({ item }) => <ProfileCard profile={item} />}
+          renderItem={({ item }) => <ProfileCard tab="profilesList" profile={item} />}
           keyExtractor={(profile) => profile.username}
         />
       )}

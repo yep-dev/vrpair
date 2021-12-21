@@ -12,9 +12,9 @@ import {
 
 import { Screen } from "components"
 import { RoundBadge } from "components/RoundBadge/RoundBadge"
-import { LikedScreen } from "screens/Likes/Liked/LikedScreen"
-import { LikesYouScreen } from "screens/Likes/LikesYou/LikesYouScreen"
-import { PairsScreen } from "screens/Likes/Pairs/PairsScreen"
+import { LikedScreen } from "screens/likes/Liked/LikedScreen"
+import { LikesYouScreen } from "screens/likes/LikesYou/LikesYouScreen"
+import { PairsScreen } from "screens/likes/Pairs/PairsScreen"
 import { colors } from "theme/colors"
 
 type Route = {
@@ -39,7 +39,7 @@ const routes = [
   },
 ]
 
-export const LikesScreen: FC = () => {
+export const LikesTabsScreen: FC = () => {
   const [navigationState, setNavigationState] = useState<NavigationState<Route>>({
     routes,
     index: 0,
