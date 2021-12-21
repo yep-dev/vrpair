@@ -2,7 +2,6 @@ import { useRef } from "react"
 
 import ky from "ky"
 
-import { useDiscordLogin } from "utils/auth"
 import { getSecureValue } from "utils/keychain"
 
 const { API_URL } = require("config/env")
@@ -13,8 +12,6 @@ function isTokenExpired(token) {
 }
 
 export const useSetupApiClients = (handleRefreshToken) => {
-  const discordLogin = useDiscordLogin()
-
   const baseClient = useRef(ky.create({ prefixUrl: API_URL }))
 
   const client = useRef(
@@ -24,11 +21,7 @@ export const useSetupApiClients = (handleRefreshToken) => {
           async () => {
             const accessToken = await getSecureValue("accessToken")
             if (!accessToken || isTokenExpired(accessToken)) {
-              try {
-                await handleRefreshToken.current()
-              } catch {
-                await discordLogin()
-              }
+              await handleRefreshToken.current()
             }
           },
           async (request) => {

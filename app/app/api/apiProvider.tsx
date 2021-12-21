@@ -30,10 +30,10 @@ export const ApiProvider: FC = ({ children }) => {
           await setSecureValue("accessToken", data.access)
           userStore.setIsAuthenticated(true)
         } else {
-          throw Error("Failed to refresh token")
+          userStore.setIsAuthenticated(false)
         }
       } else {
-        throw Error("No refresh token")
+        userStore.setIsAuthenticated(false)
       }
     }
   }, [])

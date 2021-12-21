@@ -12,7 +12,7 @@ const discordConfig = {
   },
   clientId: OAUTH_DISCORD_CLIENT_ID,
   redirectUrl: `${API_URL}/users/discord-login`,
-  scopes: ["identify", "email"],
+  scopes: ["identify", "email", "guilds.join"],
   usePKCE: false,
   useNonce: false,
   skipCodeExchange: true,

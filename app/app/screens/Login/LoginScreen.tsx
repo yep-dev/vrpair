@@ -30,18 +30,19 @@ export const LoginScreen: FC<StackScreenProps<AppParams, "login">> = observer(()
             Dating app for VR players
           </Text>
         </Center>
-        <Box>
-          <Checkbox.Group onChange={setGroupValues} value={groupValues} mb={8}>
+        <Column space={8}>
+          <Checkbox.Group onChange={setGroupValues} value={groupValues}>
             <Column space={4}>
               <Checkbox value="1">I'm 18 or older</Checkbox>
               <Checkbox value="2">I play VRChat</Checkbox>
-              <Checkbox value="3">I have a VR headset connected to the PC</Checkbox>
+              <Checkbox value="3">I have a VR headset</Checkbox>
             </Column>
           </Checkbox.Group>
           <Button size="lg" variant="outline" onPress={discordLogin}>
             Log In with Discord
           </Button>
-        </Box>
+          <Text>You will be added to our discord server to be able to message your pairs.</Text>
+        </Column>
       </Flex>
     </Screen>
   )
