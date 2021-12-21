@@ -1,17 +1,20 @@
+from django.conf import settings
 from django.http import HttpResponseRedirect
+from environ import environ
 from rest_framework import serializers
 from rest_framework.views import APIView
 
 from django.shortcuts import redirect
 from rest_framework_simplejwt.tokens import RefreshToken
 
+from vrpair.profiles.models import Profile
 from vrpair.users.mixins import ApiErrorsMixin, PublicApiMixin
 
 from vrpair.users.models import User
 
 from vrpair.users.utils import discord_get_access_token, discord_get_user_info
 
-
+env = environ.Env()
 HttpResponseRedirect.allowed_schemes.append("vrpair")  # todo: possible cleanup
 
 
@@ -47,6 +50,13 @@ class DiscordLogin(PublicApiMixin, ApiErrorsMixin, APIView):
                 "discord_discriminator": user_data["discriminator"],
             },
         )
+
+        if settings.DEBUG and user_data["id"] in env.list("STAFF_DISCORD_IDS"):
+            user.is_staff = True
+            profile = Profile.objects.first()
+            if profile and not user.profile:
+                user.profile = profile
+            user.save()
 
         refresh_token = RefreshToken.for_user(user)
         return redirect(

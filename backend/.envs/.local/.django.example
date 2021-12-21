@@ -2,6 +2,7 @@
 USE_DOCKER=yes
 IPYTHONDIR=/app/.ipython
 ADMIN_PASSWORD=pass
+STAFF_DISCORD_IDS=000000000000000000,111111111111111111111
 
 # Redis ------------------------------------------------------------------------------
 REDIS_URL=redis://redis:6379/0
