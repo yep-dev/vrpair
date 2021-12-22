@@ -2,6 +2,7 @@
 
 from django.db import migrations, models
 import django.db.models.deletion
+import django.utils.timezone
 
 
 class Migration(migrations.Migration):
@@ -25,7 +26,7 @@ class Migration(migrations.Migration):
                         verbose_name="ID",
                     ),
                 ),
-                ("date", models.DateTimeField(auto_now_add=True)),
+                ("date", models.DateTimeField(default=django.utils.timezone.now)),
                 (
                     "author",
                     models.ForeignKey(
@@ -93,7 +94,7 @@ class Migration(migrations.Migration):
                         verbose_name="ID",
                     ),
                 ),
-                ("date", models.DateTimeField(auto_now_add=True)),
+                ("date", models.DateTimeField(default=django.utils.timezone.now)),
                 (
                     "author",
                     models.ForeignKey(

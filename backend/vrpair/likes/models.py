@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 from vrpair.profiles.models import Profile
 
@@ -8,7 +9,7 @@ class LikedProfile(models.Model):
         Profile, on_delete=models.CASCADE, related_name="liked_profiles"
     )
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name="likes")
-    date = models.DateTimeField(auto_now_add=True)
+    date = models.DateTimeField(default=timezone.now)
 
     class Meta:
         unique_together = ["author", "profile"]
@@ -19,7 +20,7 @@ class SkippedProfile(models.Model):
         Profile, on_delete=models.CASCADE, related_name="skipped_profiles"
     )
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name="skips")
-    date = models.DateTimeField(auto_now_add=True)
+    date = models.DateTimeField(default=timezone.now)
 
     class Meta:
         unique_together = ["author", "profile"]

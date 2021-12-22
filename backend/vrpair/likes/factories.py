@@ -11,7 +11,7 @@ from vrpair.profiles.models import Profile
 class LikedProfileFactory(DjangoModelFactory):
     author = factory.Iterator(Profile.objects.order_by("?"))
     # profile has to be passed
-    date = FuzzyDateTime(timezone.now() - relativedelta(months=3), timezone.now())
+    date = FuzzyDateTime(timezone.now() - relativedelta(months=3))
 
     class Meta:
         model = LikedProfile
@@ -20,7 +20,7 @@ class LikedProfileFactory(DjangoModelFactory):
 class SkippedProfileFactory(DjangoModelFactory):
     author = factory.Iterator(Profile.objects.order_by("?"))
     # profile has to be passed
-    date = FuzzyDateTime(timezone.now() - relativedelta(months=3), timezone.now())
+    date = FuzzyDateTime(timezone.now() - relativedelta(months=3))
 
     class Meta:
         model = SkippedProfile
@@ -28,7 +28,7 @@ class SkippedProfileFactory(DjangoModelFactory):
 
 class PairFactory(DjangoModelFactory):
     # profile1 and profile2 have to be passed
-    date = FuzzyDateTime(timezone.now() - relativedelta(months=3), timezone.now())
+    date = FuzzyDateTime(timezone.now() - relativedelta(months=3))
 
     class Meta:
         model = Pair
