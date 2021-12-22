@@ -12,6 +12,10 @@ class LikedProfileSerializer(serializers.ModelSerializer):
     profile = ProfileSerializer()
 
 
+class LikeSerializer(LikedProfileSerializer):
+    profile = ProfileSerializer(source="author")
+
+
 class SkippedProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = SkippedProfile

@@ -6,7 +6,11 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from vrpair.likes.models import LikedProfile, Pair, SkippedProfile
-from vrpair.likes.serializers import LikedProfileSerializer, PairSerializer
+from vrpair.likes.serializers import (
+    LikedProfileSerializer,
+    PairSerializer,
+    LikeSerializer,
+)
 
 
 class LikeProfile(APIView):
@@ -39,7 +43,7 @@ class LikedProfileList(generics.ListAPIView):
 
 
 class LikeList(generics.ListAPIView):
-    serializer_class = LikedProfileSerializer
+    serializer_class = LikeSerializer
 
     def get_queryset(self):
         return LikedProfile.objects.filter(profile=self.request.user.profile)
@@ -55,7 +59,7 @@ class PairList(generics.ListAPIView):
         )
         for pair in pairs:
             if pair.profile1 == self.request.user:
-                pair.profile = pair.profile1
-            else:
                 pair.profile = pair.profile2
+            else:
+                pair.profile = pair.profile1
         return pairs
