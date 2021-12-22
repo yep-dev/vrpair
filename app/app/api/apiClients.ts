@@ -18,18 +18,23 @@ export const useSetupApiClients = (handleRefreshToken) => {
     baseClient.current.extend({
       hooks: {
         beforeRequest: [
-          async () => {
+          async (request) => {
             const accessToken = await getSecureValue("accessToken")
             if (!accessToken || isTokenExpired(accessToken)) {
               await handleRefreshToken.current()
-            }
-          },
-          async (request) => {
-            const accessToken = await getSecureValue("accessToken")
-
-            if (accessToken) {
+            } else {
               request.headers.set("Authorization", `Bearer ${accessToken}`)
             }
+          },
+        ],
+        afterResponse: [
+          async (request, options, response) => {
+            if (response.status === 403 || response.status === 401) {
+              const accessToken = await handleRefreshToken.current()
+              request.headers.set("Authorization", `Bearer ${accessToken}`)
+              return ky(request)
+            }
+            return response
           },
         ],
       },

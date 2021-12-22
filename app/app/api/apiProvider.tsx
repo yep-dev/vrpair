@@ -29,12 +29,11 @@ export const ApiProvider: FC = ({ children }) => {
         if (data?.access) {
           await setSecureValue("accessToken", data.access)
           userStore.setIsAuthenticated(true)
-        } else {
-          userStore.setIsAuthenticated(false)
+          return data.access
         }
-      } else {
-        userStore.setIsAuthenticated(false)
       }
+      userStore.setIsAuthenticated(false)
+      return null
     }
   }, [])
 
