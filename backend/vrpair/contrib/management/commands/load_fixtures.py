@@ -31,5 +31,6 @@ class Command(BaseCommand):
 
         for liked_profile in LikedProfile.objects.order_by("?")[:1000]:
             PairFactory(profile1=liked_profile.author, profile2=liked_profile.profile)
+            liked_profile.delete()
 
         self.stdout.write(self.style.SUCCESS("Full fixtures loaded"))
