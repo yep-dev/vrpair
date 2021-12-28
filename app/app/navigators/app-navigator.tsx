@@ -59,6 +59,16 @@ export type TabParams = {
 }
 const Tab = createBottomTabNavigator<TabParams>()
 
+const tabProps = {
+  listeners: ({ navigation, route }) => ({
+    blur: () => {
+      if (route.state && route.state.index > 0) {
+        navigation.popToTop()
+      }
+    },
+  }),
+}
+
 const Tabs = () => (
   <Tab.Navigator screenOptions={{ tabBarShowLabel: false, headerShown: false }}>
     <Tab.Screen
@@ -70,9 +80,20 @@ const Tabs = () => (
       name="profilesList"
       component={ProfilesListStack}
       options={{ tabBarIcon: ProfileSearchIcon }}
+      {...tabProps}
     />
-    <Tab.Screen name="likes" component={LikesStack} options={{ tabBarIcon: HeartBalloonsIcon }} />
-    <Tab.Screen name="user" component={UserMenuScreen} options={{ tabBarIcon: ProfileIcon }} />
+    <Tab.Screen
+      name="likes"
+      component={LikesStack}
+      options={{ tabBarIcon: HeartBalloonsIcon }}
+      {...tabProps}
+    />
+    <Tab.Screen
+      name="user"
+      component={UserMenuScreen}
+      options={{ tabBarIcon: ProfileIcon }}
+      {...tabProps}
+    />
   </Tab.Navigator>
 )
 
