@@ -4,6 +4,7 @@ import ky from "ky"
 
 import { useStore } from "mobx/utils"
 import { getSecureValue, setSecureValue } from "utils/keychain"
+import { atob } from "utils/misc"
 
 const { API_URL } = require("config/env")
 
