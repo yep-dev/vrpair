@@ -18,6 +18,7 @@ import { ProfileDetailsScreen } from "screens/profiles/ProfileDetails/ProfileDet
 import { ProfilesListScreen } from "screens/profiles/ProfilesList/ProfilesListScreen"
 import { ProfilesCarouselScreen } from "screens/ProfilesCarousel/ProfilesCarouselScreen"
 import { UserMenuScreen } from "screens/user/UserMenu/UserMenu"
+import { colors } from "theme/colors"
 
 // ---------------- Root ----------------
 
@@ -70,7 +71,14 @@ const tabProps = {
 }
 
 const Tabs = () => (
-  <Tab.Navigator screenOptions={{ tabBarShowLabel: false, headerShown: false }}>
+  <Tab.Navigator
+    screenOptions={{
+      tabBarShowLabel: false,
+      headerShown: false,
+      tabBarActiveTintColor: colors.blue[500],
+      tabBarInactiveTintColor: colors.gray[500],
+    }}
+  >
     <Tab.Screen
       name="profilesCarousel"
       component={ProfilesCarouselScreen}
