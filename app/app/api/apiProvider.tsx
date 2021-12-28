@@ -1,41 +1,17 @@
-import React, { FC, useContext, useEffect, useRef, useState, createContext } from "react"
+import React, { FC, useContext, useState, createContext } from "react"
 
 import { useSetupApiClients } from "api/apiClients"
 import { likesApi } from "api/likes"
 import { profilesApi } from "api/profiles"
-import { usersApi } from "api/users"
-import { useStore } from "mobx/utils"
-import { getSecureValue, setSecureValue } from "utils/keychain"
 
 const setupApis = (clients) => ({
   profiles: profilesApi(clients),
-  users: usersApi(clients),
   likes: likesApi(clients),
 })
 
 export const ApiProvider: FC = ({ children }) => {
-  const { userStore } = useStore()
-  const handleRefreshToken = useRef<() => void>()
-  const clients = useSetupApiClients(handleRefreshToken)
+  const clients = useSetupApiClients()
   const [apis] = useState(setupApis(clients))
-
-  // refresh token handler needs to access api client reference whle client is being created
-  // refresh handler is set here after creating the client to stop this circular dependency
-  useEffect(() => {
-    handleRefreshToken.current = async () => {
-      const refreshToken = await getSecureValue("refreshToken")
-      if (refreshToken) {
-        const data = await apis.users.tokenRefresh({ refreshToken })
-        if (data?.access) {
-          await setSecureValue("accessToken", data.access)
-          userStore.setIsAuthenticated(true)
-          return data.access
-        }
-      }
-      userStore.setIsAuthenticated(false)
-      return null
-    }
-  }, [])
 
   return <ApiContext.Provider value={{ ...apis, ...clients }}>{children}</ApiContext.Provider>
 }
