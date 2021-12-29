@@ -1,6 +1,7 @@
 import { useRef } from "react"
 
 import ky from "ky"
+import { useQueryClient } from "react-query"
 
 import { useStore } from "mobx/utils"
 import { getSecureValue, setSecureValue } from "utils/keychain"
@@ -16,21 +17,25 @@ function isTokenExpired(token) {
 export const useSetupApiClients = () => {
   const baseClient = useRef(ky.create({ prefixUrl: API_URL }))
   const { userStore } = useStore()
+  const queryClient = useQueryClient()
 
   const handleRefreshToken = async () => {
     const refreshToken = await getSecureValue("refreshToken")
-    // todo: check refresh token expiration date and handle 401
-    if (refreshToken) {
-      const data = <any>(
-        await baseClient.current
-          .post("users/token-refresh", { json: { refresh: refreshToken } })
-          .json()
-      )
-      if (data?.access) {
-        await setSecureValue("accessToken", data.access)
-        userStore.setIsAuthenticated(true)
-        return data.access
-      }
+    if (refreshToken && !isTokenExpired(refreshToken)) {
+      try {
+        const data = await queryClient.fetchQuery(
+          "refresh",
+          (): Promise<{ access: string }> =>
+            baseClient.current
+              .post("users/token-refresh", { json: { refresh: refreshToken } })
+              .json(),
+        )
+        if (data?.access) {
+          await setSecureValue("accessToken", data.access)
+          userStore.setIsAuthenticated(true)
+          return data.access
+        }
+      } catch {}
     }
     userStore.setIsAuthenticated(false)
     return null
