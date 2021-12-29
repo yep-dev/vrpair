@@ -9,6 +9,7 @@ class LikedProfile(models.Model):
         Profile, on_delete=models.CASCADE, related_name="liked_profiles"
     )
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name="likes")
+    skipped = models.BooleanField(default=False)
     date = models.DateTimeField(default=timezone.now)
 
     class Meta:
@@ -33,6 +34,8 @@ class Pair(models.Model):
     profile2 = models.ForeignKey(
         Profile, on_delete=models.CASCADE, related_name="pair2"
     )
+    contacted1 = models.BooleanField(default=False)
+    contacted2 = models.BooleanField(default=False)
     date = models.DateTimeField(auto_now_add=True)
 
     class Meta:

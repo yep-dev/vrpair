@@ -9,7 +9,9 @@ import {
   NavigationState,
   SceneRendererProps,
 } from "react-native-tab-view"
+import { useQuery } from "react-query"
 
+import { TBadges } from "api/likes"
 import { Screen } from "components"
 import { RoundBadge } from "components/RoundBadge/RoundBadge"
 import { LikedScreen } from "screens/likes/Liked/LikedScreen"
@@ -30,7 +32,7 @@ const routes = [
     label: "Pairs",
   },
   {
-    key: "likesYou",
+    key: "likes",
     label: "Likes You",
   },
   {
@@ -40,6 +42,7 @@ const routes = [
 ]
 
 export const LikesTabsScreen: FC = () => {
+  const { data: badgesData } = useQuery<TBadges>("badges", { enabled: false })
   const [navigationState, setNavigationState] = useState<NavigationState<Route>>({
     routes,
     index: 0,
@@ -93,7 +96,13 @@ export const LikesTabsScreen: FC = () => {
   const renderIcon = ({ route }: { route: Route }) => <Text>{route.label}</Text>
 
   const renderBadge = ({ route }: { route: Route }) => {
-    return <RoundBadge>32</RoundBadge>
+    if (["pairs", "likes"].includes(route.key)) {
+      if (badgesData && badgesData[route.key] > 0) {
+        return <RoundBadge>{badgesData[route.key]}</RoundBadge>
+      }
+    }
+
+    return null
   }
 
   const handleIndexChange = (index) => setNavigationState((state) => ({ ...state, index }))
@@ -110,7 +119,7 @@ export const LikesTabsScreen: FC = () => {
 
   const renderScene = SceneMap({
     pairs: PairsScreen,
-    likesYou: LikesYouScreen,
+    likes: LikesYouScreen,
     liked: LikedScreen,
   })
 

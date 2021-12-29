@@ -6,11 +6,11 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack"
 import { observer } from "mobx-react-lite"
 
 import { TProfile } from "api/profiles"
-import { HeartBalloonsIcon } from "components/icons/HeartBalloonsIcon"
 import { ProfileIcon } from "components/icons/ProfileIcon"
 import { ProfileSearchIcon } from "components/icons/ProfileSearchIcon"
 import { ProfileStackIcon } from "components/icons/ProfileStackIcon"
 import { useStore } from "mobx/utils"
+import { LikesIcon } from "navigators/components/LikesIcon"
 import { navigationRef } from "navigators/utils"
 import { LikesTabsScreen } from "screens/likes/LikesTabs/LikesTabsScreen"
 import { LoginScreen } from "screens/Login/LoginScreen"
@@ -93,7 +93,7 @@ const Tabs = () => (
     <Tab.Screen
       name="likes"
       component={LikesStack}
-      options={{ tabBarIcon: HeartBalloonsIcon }}
+      options={{ tabBarIcon: LikesIcon }}
       {...tabProps}
     />
     <Tab.Screen

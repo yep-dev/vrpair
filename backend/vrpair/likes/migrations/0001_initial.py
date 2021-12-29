@@ -60,6 +60,8 @@ class Migration(migrations.Migration):
                         verbose_name="ID",
                     ),
                 ),
+                ("contacted1", models.BooleanField(default=False)),
+                ("contacted2", models.BooleanField(default=False)),
                 ("date", models.DateTimeField(auto_now_add=True)),
                 (
                     "profile1",
@@ -94,6 +96,7 @@ class Migration(migrations.Migration):
                         verbose_name="ID",
                     ),
                 ),
+                ("skipped", models.BooleanField(default=False)),
                 ("date", models.DateTimeField(default=django.utils.timezone.now)),
                 (
                     "author",

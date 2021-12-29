@@ -42,24 +42,40 @@ class LikedProfileList(generics.ListAPIView):
         return LikedProfile.objects.filter(author=self.request.user.profile)
 
 
-class LikeList(generics.ListAPIView):
-    serializer_class = LikeSerializer
+class LikeList(generics.GenericAPIView):
+    def get(self, request):
+        likes = LikedProfile.objects.filter(profile=self.request.user.profile)
+        data = LikeSerializer(likes, many=True).data
 
-    def get_queryset(self):
-        return LikedProfile.objects.filter(profile=self.request.user.profile)
-
-
-class PairList(generics.ListAPIView):
-    serializer_class = PairSerializer
-
-    def get_queryset(self):
-        pairs = Pair.objects.filter(
-            Q(profile1=self.request.user.profile)
-            | Q(profile2=self.request.user.profile)
+        return Response(
+            {
+                "results": data,
+                "likes_badge": likes.count(),
+            }
         )
+
+
+class PairList(generics.GenericAPIView):
+    def get(self, request):
+        pairs = Pair.objects.filter(
+            Q(profile1=request.user.profile) | Q(profile2=request.user.profile)
+        )
+        pairs_badge = 0
         for pair in pairs:
-            if pair.profile1 == self.request.user:
+            if pair.profile1 == request.user:
                 pair.profile = pair.profile2
+                if not pair.contacted1:
+                    pairs_badge += 1
             else:
+                if not pair.contacted2:
+                    pairs_badge += 1
                 pair.profile = pair.profile1
-        return pairs
+
+        data = PairSerializer(pairs, many=True).data
+
+        return Response(
+            {
+                "results": data,
+                "pairs_badge": pairs_badge,
+            }
+        )
