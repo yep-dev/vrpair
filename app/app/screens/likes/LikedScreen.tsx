@@ -5,8 +5,7 @@ import { useQuery } from "react-query"
 
 import { useApi } from "api/apiProvider"
 import { TProfileAndDate } from "api/likes"
-import { ProfileCard } from "components/ProfileCard/ProfileCard"
-import { QueryContainer } from "components/QueryContainer/QueryContainer"
+import { ProfileCard, QueryContainer } from "components"
 
 export const LikedScreen: FC = () => {
   const api = useApi()

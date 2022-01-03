@@ -12,11 +12,10 @@ import {
 import { useQuery } from "react-query"
 
 import { TBadges } from "api/likes"
-import { Screen } from "components"
-import { RoundBadge } from "components/RoundBadge/RoundBadge"
-import { LikedScreen } from "screens/likes/Liked/LikedScreen"
-import { LikesYouScreen } from "screens/likes/LikesYou/LikesYouScreen"
-import { PairsScreen } from "screens/likes/Pairs/PairsScreen"
+import { RoundBadge, Screen } from "components"
+import { LikedScreen } from "screens/likes/LikedScreen"
+import { LikesYouScreen } from "screens/likes/LikesYouScreen"
+import { PairsScreen } from "screens/likes/PairsScreen"
 import { colors } from "theme/colors"
 
 type Route = {

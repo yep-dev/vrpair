@@ -3,8 +3,8 @@ import React, { FC } from "react"
 import { useQuery } from "react-query"
 
 import { TBadges } from "api/likes"
-import { HeartBalloonsIcon } from "components/icons/HeartBalloonsIcon"
-import { RoundBadge } from "components/RoundBadge/RoundBadge"
+import { RoundBadge } from "components"
+import { HeartBalloonsIcon } from "components/icons"
 
 type Props = {
   focused: boolean

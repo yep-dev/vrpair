@@ -4,9 +4,7 @@ import Carousel, { ICarouselInstance } from "react-native-reanimated-carousel"
 import { useQuery } from "react-query"
 
 import { useApi } from "api/apiProvider"
-import { Screen } from "components"
-import { Profile } from "components/Profile/Profile"
-import { ProfileOverlays } from "components/ProfileOverlays/ProfileOverlays"
+import { Screen, Profile, ProfileOverlays } from "components"
 
 export const ProfilesCarouselScreen: FC = () => {
   const api = useApi()

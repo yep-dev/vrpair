@@ -5,8 +5,7 @@ import { useQuery } from "react-query"
 
 import { useApi } from "api/apiProvider"
 import { TProfile } from "api/profiles"
-import { Screen } from "components"
-import { ProfileCard } from "components/ProfileCard/ProfileCard"
+import { Screen, ProfileCard } from "components"
 
 export const ProfilesListScreen: FC = () => {
   const api = useApi()

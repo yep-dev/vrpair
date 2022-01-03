@@ -4,9 +4,7 @@ import { RouteProp } from "@react-navigation/native"
 import { useMutation } from "react-query"
 
 import { useApi } from "api/apiProvider"
-import { Screen } from "components"
-import { Profile } from "components/Profile/Profile"
-import { ProfileOverlays } from "components/ProfileOverlays/ProfileOverlays"
+import { Screen, Profile, ProfileOverlays } from "components"
 import { ProfilesListParams } from "navigators/app-navigator"
 
 type Props = {

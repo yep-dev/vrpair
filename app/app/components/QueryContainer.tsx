@@ -4,7 +4,7 @@ import { Box, Center, Text } from "native-base"
 import { UseQueryResult } from "react-query"
 
 import { TLikesResponse } from "api/likes"
-import { SmileyUnhappy } from "components/icons/SmileyUnhappy"
+import { SmileyUnhappy } from "components/icons"
 
 type Props = {
   query: UseQueryResult<TLikesResponse>

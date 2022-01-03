@@ -20,7 +20,8 @@
     "build-ios": "react-native bundle --entry-file index.js --platform ios --dev false --bundle-output ios/main.jsbundle --assets-dest ios",
     "build-android": "react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res",
     "clean": "react-native-clean-project",
-    "clean-all": "npx react-native clean-project-auto"
+    "clean-all": "npx react-native clean-project-auto",
+    "barrels": "barrelsby -DS -d ./app/components -l replace -e _ -e index"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "1.15.14",
@@ -36,7 +37,7 @@
     "mobx": "^6.3.8",
     "mobx-react-lite": "^3.2.2",
     "mobx-state-tree": "^5.1.0",
-    "native-base": "3.2.2",
+    "native-base": "3.3.0-rc.10",
     "react": "17.0.2",
     "react-native": "0.66.3",
     "react-native-app-auth": "6.4.0",
@@ -77,6 +78,7 @@
     "babel-jest": "^27.3.1",
     "babel-loader": "^8.2.3",
     "babel-plugin-module-resolver": "^4.1.0",
+    "barrelsby": "^2.3.1",
     "detox": "^19.0.0",
     "eslint": "^8.2.0",
     "eslint-config-prettier": "^8.3.0",
