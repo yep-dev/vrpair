@@ -15,6 +15,7 @@ import { LoginScreen } from "screens/LoginScreen"
 import { ProfileDetailsScreen } from "screens/profiles/ProfileDetailsScreen"
 import { ProfilesListScreen } from "screens/profiles/ProfilesListScreen"
 import { ProfilesCarouselScreen } from "screens/ProfilesCarouselScreen"
+import { DiscordIntegrationScreen } from "screens/user/DiscordIntegrationScreen"
 import { UserMenuScreen } from "screens/user/UserMenu"
 import { colors } from "theme/colors"
 
@@ -96,7 +97,7 @@ const Tabs = () => (
     />
     <Tab.Screen
       name="user"
-      component={UserMenuScreen}
+      component={UsersStack}
       options={{ tabBarIcon: ProfileIcon }}
       {...tabProps}
     />
@@ -132,6 +133,20 @@ const LikesStack = () => (
     <Likes.Screen name="likesTabs" component={LikesTabsScreen} />
     <Likes.Screen name="profileDetails" component={ProfileDetailsScreen} />
   </Likes.Navigator>
+)
+
+// ---------------- User ----------------
+export type UserParams = {
+  userMenu
+  discordIntegration
+}
+const User = createNativeStackNavigator<UserParams>()
+
+const UsersStack = () => (
+  <User.Navigator initialRouteName="userMenu" screenOptions={{ headerShown: false }}>
+    <User.Screen name="userMenu" component={UserMenuScreen} />
+    <User.Screen name="discordIntegration" component={DiscordIntegrationScreen} />
+  </User.Navigator>
 )
 
 /**

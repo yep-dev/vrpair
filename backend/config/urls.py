@@ -19,7 +19,7 @@ from vrpair.likes.views import (
     SkipProfile,
 )
 from vrpair.profiles.views import ProfileList
-from vrpair.users.views import DiscordLogin
+from vrpair.users.views import DiscordLogin, ForceToken, CurrentUser
 
 urlpatterns = [
     path(settings.ADMIN_URL, admin.site.urls),
@@ -52,7 +52,8 @@ api_paths = [
     path("profiles/profile-list", ProfileList.as_view(), name="profile_list"),
     # users
     path("users/discord-login", DiscordLogin.as_view(), name="discord_login"),
-    path("users/token-refresh", TokenRefreshView.as_view(), name="token_refresh"),
+    path("users/refresh-token", TokenRefreshView.as_view(), name="refresh_refresh"),
+    path("users/current-user", CurrentUser.as_view(), name="current_user"),
 ]
 
 
