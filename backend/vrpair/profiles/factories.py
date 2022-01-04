@@ -4,6 +4,7 @@ from factory.faker import faker
 from factory.django import DjangoModelFactory
 
 from vrpair.profiles.models import Profile, Preferences
+from vrpair.users.factories import UserFactory
 from vrpair.utils.enums import GenderEnum, RoleEnum, WeekDayEnum, SetupEnum, BoolEnum
 from vrpair.utils.factory import MultipleFuzzyChoice
 
@@ -51,6 +52,7 @@ class ProfileFactory(DjangoModelFactory):
     )
     # verified todo
     preferences = factory.SubFactory(PreferencesFactory)
+    user = factory.SubFactory(UserFactory)
 
     class Meta:
         model = Profile

@@ -11,7 +11,6 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ("profiles", "0001_initial"),
         ("auth", "0012_alter_user_first_name_max_length"),
     ]
 
@@ -58,14 +57,6 @@ class Migration(migrations.Migration):
                         related_query_name="user",
                         to="auth.Group",
                         verbose_name="groups",
-                    ),
-                ),
-                (
-                    "profile",
-                    models.OneToOneField(
-                        null=True,
-                        on_delete=django.db.models.deletion.SET_NULL,
-                        to="profiles.profile",
                     ),
                 ),
                 (

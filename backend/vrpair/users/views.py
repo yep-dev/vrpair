@@ -1,16 +1,20 @@
 from django.conf import settings
 from django.http import HttpResponseRedirect
 from environ import environ
-from rest_framework import serializers
+from rest_framework import serializers, permissions
+from rest_framework.generics import get_object_or_404
+from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from django.shortcuts import redirect
 from rest_framework_simplejwt.tokens import RefreshToken
 
+from vrpair.profiles.factories import ProfileFactory
 from vrpair.profiles.models import Profile
 from vrpair.users.mixins import ApiErrorsMixin, PublicApiMixin
 
 from vrpair.users.models import User
+from vrpair.users.serializers import UserSerializer
 
 from vrpair.users.utils import discord_get_access_token, discord_get_user_info
 
@@ -53,15 +57,36 @@ class DiscordLogin(PublicApiMixin, ApiErrorsMixin, APIView):
 
         if settings.DEBUG and user_data["id"] in env.list("STAFF_DISCORD_IDS"):
             user.is_staff = True
-            profile = Profile.objects.first()
-            if profile and not user.profile:
-                user.profile = profile
             user.save()
+            try:
+                user.profile
+            except Profile.DoesNotExist:
+                ProfileFactory(user=user)
 
         refresh_token = RefreshToken.for_user(user)
         return redirect(
             f"vrpair://oauth?accessToken={refresh_token.access_token}&refreshToken={refresh_token}"
         )
+
+
+class ForceToken(APIView):
+    permission_classes = [permissions.IsAdminUser]
+
+    def get(self, request, profile_id):
+        profile = get_object_or_404(Profile, id=profile_id)
+        refresh = RefreshToken.for_user(profile.user)
+        return Response(
+            {
+                "refresh": str(refresh),
+                "access": str(refresh.access_token),
+            }
+        )
+
+
+class CurrentUser(APIView):
+    def get(self, request):
+        serializer = UserSerializer(request.user)
+        return Response(serializer.data)
 
 
 # class LogoutApi(ApiAuthMixin, ApiErrorsMixin, APIView):
