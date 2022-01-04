@@ -1,9 +1,15 @@
 import React, { FC } from "react"
 
-import { Box, IconButton } from "native-base"
+import { useNavigation } from "@react-navigation/native"
+import { Box, IconButton, Row } from "native-base"
+import { useMutation, useQueryClient } from "react-query"
 
+import { useApi } from "api/apiProvider"
 import { CircleHeartIcon, CircleXIcon } from "components/icons"
+import { SynchronizeArrowsIcon } from "components/icons/SynchronizeArrowsIcon"
+import { useStore } from "mobx/utils"
 import { colors } from "theme/colors"
+import { setSecureValue } from "utils/keychain"
 import { inject, pressedBackground } from "utils/misc"
 
 const FloatingButton = inject(IconButton, {
@@ -19,24 +25,66 @@ const BackgroundOverlay = inject(Box, {
 })
 
 type Props = {
+  profileId: number
   liked?: boolean
   skipped?: boolean
-  handleLike(): void
-  handleSkip(): void
+  moveCarousel?(): void
 }
 
-export const ProfileOverlays: FC<Props> = ({ liked, skipped, handleLike, handleSkip }) => {
+export const ProfileOverlays: FC<Props> = ({ profileId, liked, skipped, moveCarousel }) => {
+  const api = useApi()
+  const { userStore } = useStore()
+  const queryClient = useQueryClient()
+  const { navigate } = useNavigation()
+  const likeProfile = useMutation(api.likes.likeProfile)
+  const skipProfile = useMutation(api.likes.skipProfile)
+  const forceToken = useMutation(api.users.forceToken, {
+    onSuccess: async ({ access, refresh }) => {
+      await setSecureValue("accessToken", access)
+      await setSecureValue("refreshToken", refresh)
+    },
+  })
+
+  const handleLike = () => {
+    moveCarousel && moveCarousel()
+    likeProfile.mutate({ profileId })
+  }
+
+  const handleSkip = () => {
+    moveCarousel && moveCarousel()
+    skipProfile.mutate({ profileId })
+  }
+
+  const handleSwitchUser = async () => {
+    forceToken.mutate({ profileId })
+    queryClient.resetQueries()
+    navigate("profilesCarousel")
+  }
+
   return (
     <>
-      <BackgroundOverlay left={8}>
-        <FloatingButton
-          size={16}
-          colorScheme="gray"
-          icon={<CircleXIcon color={colors.gray["400"]} />}
-          onPress={handleSkip}
-          backgroundColor={skipped ? pressedBackground("gray") : undefined}
-        />
-      </BackgroundOverlay>
+      <Row position="absolute" bottom={0} left={0}>
+        <BackgroundOverlay left={8}>
+          <FloatingButton
+            size={16}
+            colorScheme="gray"
+            icon={<CircleXIcon color={colors.gray["400"]} />}
+            onPress={handleSkip}
+            backgroundColor={skipped ? pressedBackground("gray") : undefined}
+          />
+        </BackgroundOverlay>
+        {userStore.staffAuthenticated && (
+          <BackgroundOverlay left={32}>
+            <FloatingButton
+              size={16}
+              colorScheme="gray"
+              icon={<SynchronizeArrowsIcon color={colors.gray["400"]} />}
+              onPress={handleSwitchUser}
+              backgroundColor={skipped ? pressedBackground("gray") : undefined}
+            />
+          </BackgroundOverlay>
+        )}
+      </Row>
       <BackgroundOverlay right={8}>
         <FloatingButton
           size={16}

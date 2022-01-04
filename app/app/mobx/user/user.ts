@@ -3,11 +3,15 @@ import { Instance, SnapshotOut, types } from "mobx-state-tree"
 export const UserModel = types
   .model("User")
   .props({
-    isAuthenticated: types.maybe(types.boolean),
+    authenticated: types.maybe(types.boolean),
+    staffAuthenticated: types.maybe(types.boolean),
   })
   .actions((self) => ({
-    setIsAuthenticated: (isAuthenticated: boolean) => {
-      self.isAuthenticated = isAuthenticated
+    setAuthenticated: (authenticated: boolean) => {
+      self.authenticated = authenticated
+    },
+    setStaffAuthenticated: (staffAuthenticated: boolean) => {
+      self.staffAuthenticated = staffAuthenticated
     },
   }))
 

@@ -52,6 +52,9 @@ api_paths = [
     path("profiles/profile-list", ProfileList.as_view(), name="profile_list"),
     # users
     path("users/discord-login", DiscordLogin.as_view(), name="discord_login"),
+    path(
+        "users/force-token/<int:profile_id>", ForceToken.as_view(), name="force_token"
+    ),
     path("users/refresh-token", TokenRefreshView.as_view(), name="refresh_refresh"),
     path("users/current-user", CurrentUser.as_view(), name="current_user"),
 ]

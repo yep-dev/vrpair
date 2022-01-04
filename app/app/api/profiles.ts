@@ -1,4 +1,4 @@
-import { KyInstance } from "ky/distribution/types/ky"
+import { TClients } from "api/apiClients"
 
 export type TProfile = {
   // 1
@@ -43,7 +43,7 @@ type Props = {
   signal?: AbortSignal
 }
 
-export const profilesApi = ({ client }: { client: KyInstance }) => ({
+export const profilesApi = ({ client }: TClients) => ({
   profileList: async ({ signal }: Props): Promise<TProfileListResult> =>
     await client
       .get("profiles/profile-list", {

@@ -1,5 +1,8 @@
 import { authorize } from "react-native-app-auth"
+import { useQueryClient } from "react-query"
 
+import { useApi } from "api/apiProvider"
+import { TUser } from "api/users"
 import { API_URL, OAUTH_DISCORD_CLIENT_ID } from "config/env"
 import { useStore } from "mobx/utils"
 import { setSecureValue } from "utils/keychain"
@@ -20,6 +23,8 @@ const discordConfig = {
 
 export const useDiscordLogin = () => {
   const { userStore } = useStore()
+  const queryClient = useQueryClient()
+  const api = useApi()
 
   return async () => {
     try {
@@ -32,7 +37,14 @@ export const useDiscordLogin = () => {
       if (accessToken && refreshToken) {
         await setSecureValue("accessToken", accessToken)
         await setSecureValue("refreshToken", refreshToken)
-        await userStore.setIsAuthenticated(true)
+        await userStore.setAuthenticated(true)
+
+        const data = await queryClient.fetchQuery<TUser>("currentUser", api.users.currentUser)
+        if (data.isStaff) {
+          await setSecureValue("staffAccessToken", accessToken)
+          await setSecureValue("staffRefreshToken", refreshToken)
+          await userStore.setStaffAuthenticated(true)
+        }
       } // todo: no token handling
     }
   }

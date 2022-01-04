@@ -39,7 +39,7 @@ export const AppNavigator = observer((props: NavigationProps) => {
         }}
         initialRouteName="login"
       >
-        {userStore.isAuthenticated ? (
+        {userStore.authenticated ? (
           <App.Screen name="tabs" component={Tabs} />
         ) : (
           <App.Screen name="login" component={LoginScreen} />
@@ -71,6 +71,7 @@ const tabProps = {
 
 const Tabs = () => (
   <Tab.Navigator
+    initialRouteName="profilesCarousel"
     screenOptions={{
       tabBarShowLabel: false,
       headerShown: false,

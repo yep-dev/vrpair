@@ -3,10 +3,12 @@ import React, { FC, useContext, useState, createContext } from "react"
 import { useSetupApiClients } from "api/apiClients"
 import { likesApi } from "api/likes"
 import { profilesApi } from "api/profiles"
+import { usersApi } from "api/users"
 
 const setupApis = (clients) => ({
-  profiles: profilesApi(clients),
   likes: likesApi(clients),
+  profiles: profilesApi(clients),
+  users: usersApi(clients),
 })
 
 export const ApiProvider: FC = ({ children }) => {

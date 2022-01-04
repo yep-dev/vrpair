@@ -3,6 +3,8 @@ import * as Keychain from "react-native-keychain"
 enum Key {
   refreshToken = "refreshToken",
   accessToken = "accessToken",
+  staffAccessToken = "staffAccessToken",
+  staffRefreshToken = "staffRefreshToken",
 }
 
 type SetSecureValue = (key: keyof typeof Key, value: string) => Promise<false | Keychain.Result>

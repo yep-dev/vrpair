@@ -11,14 +11,6 @@ export const ProfilesCarouselScreen: FC = () => {
   const { data } = useQuery("profileList", api.profiles.profileList, { staleTime: 60 * 1000 })
   const carousel = useRef<ICarouselInstance | null>(null)
 
-  const handleLike = () => {
-    carousel.current?.next()
-  }
-
-  const handleSkip = () => {
-    carousel.current?.next()
-  }
-
   return (
     <Screen>
       {data ? (
@@ -30,7 +22,7 @@ export const ProfilesCarouselScreen: FC = () => {
           renderItem={(profile) => <Profile profile={profile} />}
         />
       ) : null}
-      <ProfileOverlays handleLike={handleLike} handleSkip={handleSkip} />
+      <ProfileOverlays profileId={2} moveCarousel={() => carousel.current?.next()} />
     </Screen>
   )
 }

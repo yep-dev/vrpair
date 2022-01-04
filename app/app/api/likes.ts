@@ -1,5 +1,4 @@
-import { KyInstance } from "ky/distribution/types/ky"
-
+import { TClients } from "api/apiClients"
 import { TProfile } from "api/profiles"
 
 type Props = {
@@ -20,7 +19,7 @@ export type TBadges = {
   likes?: number
 }
 
-export const likesApi = ({ client }: { client: KyInstance }) => ({
+export const likesApi = ({ client }: TClients) => ({
   likeProfile: async ({ profileId }): Promise<{}> =>
     await client.post("likes/like-profile", {
       json: { profileId },
