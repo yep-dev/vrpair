@@ -17,7 +17,7 @@ import { ProfileDetailsScreen } from "screens/profiles/ProfileDetailsScreen"
 import { ProfilesListScreen } from "screens/profiles/ProfilesListScreen"
 import { ProfilesCarouselScreen } from "screens/ProfilesCarouselScreen"
 import { DiscordIntegrationScreen } from "screens/user/DiscordIntegrationScreen"
-import { UserMenuScreen } from "screens/user/UserMenu"
+import { UserMenuScreen } from "screens/user/UserMenu/UserMenuScreen"
 import { colors } from "theme/colors"
 
 // ---------------- Root ----------------

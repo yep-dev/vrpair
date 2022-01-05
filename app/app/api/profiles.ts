@@ -50,4 +50,11 @@ export const profilesApi = ({ client }: TClients) => ({
         signal,
       })
       .json(),
+
+  currentProfile: async ({ signal }: Props): Promise<TProfile> =>
+    await client
+      .get("profiles/current-profile", {
+        signal,
+      })
+      .json(),
 })
