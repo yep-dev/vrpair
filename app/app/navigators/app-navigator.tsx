@@ -1,6 +1,7 @@
 import React from "react"
 
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
+import { useReduxDevToolsExtension } from "@react-navigation/devtools"
 import { NavigationContainer, DarkTheme } from "@react-navigation/native"
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
 import { observer } from "mobx-react-lite"
@@ -30,6 +31,8 @@ const App = createNativeStackNavigator<AppParams>()
 
 export const AppNavigator = observer((props: NavigationProps) => {
   const { userStore } = useStore()
+
+  useReduxDevToolsExtension(navigationRef)
 
   return (
     <NavigationContainer ref={navigationRef} theme={DarkTheme} {...props}>
