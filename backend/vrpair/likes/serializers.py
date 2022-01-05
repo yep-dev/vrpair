@@ -7,7 +7,7 @@ from vrpair.profiles.serializers import ProfileSerializer
 class LikedProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = LikedProfile
-        fields = ["profile", "date"]
+        fields = ["id", "profile", "date"]
 
     profile = ProfileSerializer()
 
@@ -19,7 +19,7 @@ class LikeSerializer(LikedProfileSerializer):
 class SkippedProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = SkippedProfile
-        fields = ["profile", "date"]
+        fields = ["id", "profile", "date"]
 
     profile = ProfileSerializer()
 
@@ -27,6 +27,6 @@ class SkippedProfileSerializer(serializers.ModelSerializer):
 class PairSerializer(serializers.ModelSerializer):
     class Meta:
         model = Pair
-        fields = ["profile", "date"]
+        fields = ["id", "profile", "date"]
 
     profile = ProfileSerializer()

@@ -6,6 +6,7 @@ type Props = {
 }
 
 export type TProfileAndDate = {
+  id: number
   date: string
   profile: TProfile
 }
