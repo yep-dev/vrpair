@@ -21,7 +21,9 @@ export const UserMenuScreen: FC = () => {
     <Screen>
       {/* <Option>View Your Profile</Option> */}
       {/* <Option>Edit Profile</Option> */}
-      <Option onPress={() => navigate("discordIntegration")}>Discord Integration</Option>
+      <Option onPress={() => navigate("user", { screen: "discordIntegration" })}>
+        Discord Integration
+      </Option>
       {/* <Option>Settings</Option> */}
       {/* <Option>Support the app</Option> */}
       <Option

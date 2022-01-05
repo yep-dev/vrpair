@@ -63,13 +63,7 @@ export type TabParams = {
 const Tab = createBottomTabNavigator<TabParams>()
 
 const tabProps = {
-  listeners: ({ navigation, route }) => ({
-    blur: () => {
-      if (route.state && route.state.index > 0) {
-        navigation.popToTop()
-      }
-    },
-  }),
+  listeners: ({ navigation }) => ({ blur: () => navigation.setParams({ screen: undefined }) }),
 }
 
 const Tabs = () => (
@@ -80,6 +74,7 @@ const Tabs = () => (
       headerShown: false,
       tabBarActiveTintColor: colors.blue[500],
       tabBarInactiveTintColor: colors.gray[500],
+      unmountOnBlur: true,
     }}
   >
     <Tab.Screen
