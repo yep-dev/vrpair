@@ -62,7 +62,7 @@ class PairList(generics.GenericAPIView):
         )
         pairs_badge = 0
         for pair in pairs:
-            if pair.profile1 == request.user:
+            if pair.profile1 == request.user.profile:
                 pair.profile = pair.profile2
                 if not pair.contacted1:
                     pairs_badge += 1
