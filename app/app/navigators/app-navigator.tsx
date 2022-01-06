@@ -74,7 +74,6 @@ const Tabs = () => (
       headerShown: false,
       tabBarActiveTintColor: colors.blue[500],
       tabBarInactiveTintColor: colors.gray[500],
-      unmountOnBlur: true,
     }}
   >
     <Tab.Screen
@@ -85,19 +84,19 @@ const Tabs = () => (
     <Tab.Screen
       name="profilesList"
       component={ProfilesListStack}
-      options={{ tabBarIcon: ProfileSearchIcon }}
+      options={{ tabBarIcon: ProfileSearchIcon, unmountOnBlur: true }}
       {...tabProps}
     />
     <Tab.Screen
       name="likes"
       component={LikesStack}
-      options={{ tabBarIcon: LikesIcon }}
+      options={{ tabBarIcon: LikesIcon, unmountOnBlur: true }}
       {...tabProps}
     />
     <Tab.Screen
       name="user"
       component={UsersStack}
-      options={{ tabBarIcon: ProfileIcon }}
+      options={{ tabBarIcon: ProfileIcon, unmountOnBlur: true }}
       {...tabProps}
     />
   </Tab.Navigator>
