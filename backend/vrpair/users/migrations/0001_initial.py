@@ -2,7 +2,6 @@
 
 import django.core.management.utils
 from django.db import migrations, models
-import django.db.models.deletion
 import django.utils.timezone
 
 

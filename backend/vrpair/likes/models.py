@@ -40,3 +40,14 @@ class Pair(models.Model):
 
     class Meta:
         unique_together = ["profile1", "profile2"]
+
+    def save(self, *args, **kwargs):
+        if self.profile1_id > self.profile2_id:
+            profile1_id = self.profile1_id
+            self.profile1_id = self.profile2_id
+            self.profile2_id = profile1_id
+
+            contacted1 = self.contacted1
+            self.contacted1 = self.contacted2
+            self.contacted2 = contacted1
+        super().save(*args, **kwargs)
