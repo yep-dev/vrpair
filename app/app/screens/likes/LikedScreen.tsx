@@ -16,7 +16,7 @@ export const LikedScreen: FC = () => {
       <FlatList<TProfileAndDate>
         data={query?.data?.results}
         renderItem={({ item }) => <ProfileCard tab="likes" {...item} liked />}
-        keyExtractor={(item) => item.profile.username}
+        keyExtractor={(item) => item.profile.id.toString()}
       />
     </QueryContainer>
   )

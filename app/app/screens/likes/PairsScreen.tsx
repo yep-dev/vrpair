@@ -24,7 +24,7 @@ export const PairsScreen: FC = () => {
       <FlatList<TProfileAndDate>
         data={query?.data?.results}
         renderItem={({ item }) => <ProfileCard tab="likes" {...item} />}
-        keyExtractor={(item) => item.profile.username}
+        keyExtractor={(item) => item.profile.id.toString()}
       />
     </QueryContainer>
   )
