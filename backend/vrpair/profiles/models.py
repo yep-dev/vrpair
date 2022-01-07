@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.postgres.fields import ArrayField
 
-from vrpair.users.models import User
 from vrpair.utils.enums import SetupEnum, RoleEnum, GenderEnum, BoolEnum, WeekDayEnum
 from datetime import date
 
@@ -52,7 +51,6 @@ class Profile(models.Model):
     # internal
     visible = models.BooleanField(default=True)
     preferences = models.OneToOneField(Preferences, on_delete=models.CASCADE)
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     @property
     def age(self):

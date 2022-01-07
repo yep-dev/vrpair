@@ -4,6 +4,8 @@ from django.db import models
 from django.core.management.utils import get_random_secret_key
 from django.utils import timezone
 
+from vrpair.profiles.models import Profile
+
 
 class UserManager(models.Manager):
     def get_by_natural_key(self, username):
@@ -24,6 +26,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = "discord_id"
     is_anonymous = False
     is_authenticated = True
+
+    profile = models.OneToOneField(Profile, null=True, on_delete=models.SET_NULL)
 
     objects = UserManager()
 
