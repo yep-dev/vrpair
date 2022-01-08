@@ -52,7 +52,7 @@ class ProfileFactory(DjangoModelFactory):
     )
     # verified todo
     preferences = factory.SubFactory(PreferencesFactory)
-    user = factory.SubFactory(UserFactory)
+    user = factory.RelatedFactory(UserFactory, factory_related_name="profile")
 
     class Meta:
         model = Profile
