@@ -5,7 +5,7 @@ import { Button } from "native-base"
 
 import { Screen } from "components"
 import { useStore } from "mobx/utils"
-import { DebugInfo } from "screens/user/UserMenu/DebugInfo"
+import { StaffTools } from "screens/user/UserMenu/StaffTools"
 import { removeSecureValue } from "utils/keychain"
 import { inject } from "utils/misc"
 
@@ -39,7 +39,7 @@ export const UserMenuScreen: FC = () => {
       >
         Logout
       </Option>
-      {userStore.staffAuthenticated && <DebugInfo />}
+      {userStore.staffAuthenticated && <StaffTools />}
     </Screen>
   )
 }

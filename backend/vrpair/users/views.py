@@ -2,6 +2,7 @@ from django.conf import settings
 from django.http import HttpResponseRedirect
 from environ import environ
 from rest_framework import serializers, permissions
+from rest_framework.exceptions import ValidationError, NotFound
 from rest_framework.generics import get_object_or_404
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -70,9 +71,16 @@ class DiscordLogin(PublicApiMixin, ApiErrorsMixin, APIView):
 class ForceToken(APIView):
     permission_classes = [permissions.IsAdminUser]
 
-    def get(self, request, profile_id):
-        profile = get_object_or_404(Profile, id=profile_id)
-        refresh = RefreshToken.for_user(profile.user)
+    def get(self, request):
+        if profile_id := request.query_params.get("profileId"):
+            profile = get_object_or_404(Profile, id=profile_id)
+            user = profile.user
+        elif user_id := request.query_params.get("userId"):
+            user = get_object_or_404(User, id=user_id)
+        else:
+            raise ValidationError("Missing profileId or userId param")
+
+        refresh = RefreshToken.for_user(user)
         return Response(
             {
                 "refresh": str(refresh),

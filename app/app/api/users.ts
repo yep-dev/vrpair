@@ -24,9 +24,13 @@ export const usersApi = ({ client, staffClient }: TClients) => ({
       })
       .json(),
 
-  forceToken: async ({ signal, profileId }: Props & { profileId: number }): Promise<TTokens> =>
+  forceToken: async ({
+    signal,
+    ...data
+  }: Props & ({ userId: string } | { profileId: string })): Promise<TTokens> =>
     await staffClient
-      .get(`users/force-token/${profileId}`, {
+      .get(`users/force-token`, {
+        searchParams: { ...data },
         signal,
       })
       .json(),

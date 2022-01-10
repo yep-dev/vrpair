@@ -1,15 +1,14 @@
 import React, { FC } from "react"
 
-import { useNavigation } from "@react-navigation/native"
 import { Box, IconButton, Row } from "native-base"
-import { useMutation, useQueryClient } from "react-query"
+import { useMutation } from "react-query"
 
 import { useApi } from "api/apiProvider"
 import { CircleHeartIcon, CircleXIcon } from "components/icons"
 import { SynchronizeArrowsIcon } from "components/icons/SynchronizeArrowsIcon"
 import { useStore } from "mobx/utils"
 import { colors } from "theme/colors"
-import { setSecureValue } from "utils/keychain"
+import { useForceToken } from "utils/hooks"
 import { inject, pressedBackground } from "utils/misc"
 
 const FloatingButton = inject(IconButton, {
@@ -34,16 +33,9 @@ type Props = {
 export const ProfileOverlays: FC<Props> = ({ profileId, liked, skipped, moveCarousel }) => {
   const api = useApi()
   const { userStore } = useStore()
-  const queryClient = useQueryClient()
-  const { navigate } = useNavigation()
   const likeProfile = useMutation(api.likes.likeProfile)
   const skipProfile = useMutation(api.likes.skipProfile)
-  const forceToken = useMutation(api.users.forceToken, {
-    onSuccess: async ({ access, refresh }) => {
-      await setSecureValue("accessToken", access)
-      await setSecureValue("refreshToken", refresh)
-    },
-  })
+  const forceToken = useForceToken()
 
   const handleLike = () => {
     moveCarousel && moveCarousel()
@@ -56,9 +48,7 @@ export const ProfileOverlays: FC<Props> = ({ profileId, liked, skipped, moveCaro
   }
 
   const handleSwitchUser = async () => {
-    forceToken.mutate({ profileId })
-    queryClient.resetQueries()
-    navigate("profilesCarousel")
+    forceToken.mutate({ profileId: profileId.toString() })
   }
 
   return (
