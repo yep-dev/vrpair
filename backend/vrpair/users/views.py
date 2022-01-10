@@ -57,11 +57,9 @@ class DiscordLogin(PublicApiMixin, ApiErrorsMixin, APIView):
 
         if settings.DEBUG and user_data["id"] in env.list("STAFF_DISCORD_IDS"):
             user.is_staff = True
+            if user.profile_id is None:
+                user.profile = ProfileFactory(user=user)
             user.save()
-            try:
-                user.profile
-            except Profile.DoesNotExist:
-                ProfileFactory(user=user)
 
         refresh_token = RefreshToken.for_user(user)
         return redirect(
