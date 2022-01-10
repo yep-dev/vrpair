@@ -5,7 +5,9 @@ import { useReduxDevToolsExtension } from "@react-navigation/devtools"
 import { NavigationContainer, DarkTheme } from "@react-navigation/native"
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
 import { observer } from "mobx-react-lite"
+import { useQuery } from "react-query"
 
+import { useApi } from "api/apiProvider"
 import { TProfile } from "api/profiles"
 import { ProfileIcon, ProfileSearchIcon, ProfileStackIcon } from "components/icons"
 import { useStore } from "mobx/utils"
@@ -26,12 +28,16 @@ interface NavigationProps extends Partial<React.ComponentProps<typeof Navigation
 export type AppParams = {
   login
   tabs
+  setup
 }
 const App = createNativeStackNavigator<AppParams>()
 
 export const AppNavigator = observer((props: NavigationProps) => {
   const { userStore } = useStore()
-
+  const api = useApi()
+  const { data: hasProfile } = useQuery("currentUser", api.users.currentUser, {
+    select: (user) => user.hasProfile,
+  })
   useReduxDevToolsExtension(navigationRef)
 
   return (
@@ -43,7 +49,11 @@ export const AppNavigator = observer((props: NavigationProps) => {
         initialRouteName="login"
       >
         {userStore.authenticated ? (
-          <App.Screen name="tabs" component={Tabs} />
+          hasProfile ? (
+            <App.Screen name="tabs" component={Tabs} />
+          ) : (
+            <App.Screen name="setup" component={ProfilesListScreen} />
+          )
         ) : (
           <App.Screen name="login" component={LoginScreen} />
         )}

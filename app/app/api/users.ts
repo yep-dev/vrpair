@@ -1,6 +1,7 @@
 import { TClients } from "api/apiClients"
 
 export type TUser = {
+  hasProfile: boolean
   id: number
   discordUsername: string
   discordDiscriminator: string
