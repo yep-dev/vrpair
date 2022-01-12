@@ -1,15 +1,23 @@
 import React, { FC } from "react"
 import { FlatList } from "react-native"
 
-import { useQuery } from "react-query"
+import { useQuery, useQueryClient } from "react-query"
 
 import { useApi } from "api/apiProvider"
-import { TProfileAndDate } from "api/likes"
+import { TBadges, TProfileAndDate } from "api/likes"
 import { ProfileCard, QueryContainer } from "components"
 
 export const LikesYouScreen: FC = () => {
   const api = useApi()
-  const query = useQuery("likesList", api.likes.likesList)
+  const queryClient = useQueryClient()
+  const query = useQuery("likesList", api.likes.likesList, {
+    onSuccess: (data) => {
+      queryClient.setQueryData<TBadges>("badges", (badges) => ({
+        ...badges,
+        likes: data.likesBadge,
+      }))
+    },
+  })
 
   return (
     <QueryContainer query={query} text="You have no likes yet">
