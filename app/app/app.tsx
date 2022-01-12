@@ -9,11 +9,8 @@ import { ApiProvider } from "api/apiProvider"
 import { RootStore, RootStoreContext } from "mobx/root-store"
 import { setupRootStore } from "mobx/setup-root-store"
 import { AppNavigator, canExit } from "navigators/app-navigator"
-import { useBackButtonHandler, useNavigationPersistence } from "navigators/utils"
+import { useBackButtonHandler } from "navigators/utils"
 import { theme } from "theme"
-import * as storage from "utils/storage"
-
-export const NAVIGATION_PERSISTENCE_KEY = "NAVIGATION_STATE"
 
 const queryClient = new QueryClient()
 
@@ -21,11 +18,6 @@ export function App() {
   const [rootStore, setRootStore] = useState<RootStore | undefined>(undefined)
 
   useBackButtonHandler(canExit)
-  const {
-    initialNavigationState,
-    onNavigationStateChange,
-    isRestored: isNavigationStateRestored,
-  } = useNavigationPersistence(storage, NAVIGATION_PERSISTENCE_KEY)
 
   useEffect(() => {
     ;(async () => {
@@ -39,7 +31,7 @@ export function App() {
   // In iOS: application:didFinishLaunchingWithOptions:
   // In Android: https://stackoverflow.com/a/45838109/204044
   // You can replace with your own loading component if you wish.
-  if (!rootStore || !isNavigationStateRestored) return null
+  if (!rootStore) return null
 
   return (
     <RootStoreContext.Provider value={rootStore}>
@@ -47,10 +39,7 @@ export function App() {
         <NativeBaseProvider theme={theme} config={{ suppressColorAccessibilityWarning: true }}>
           <QueryClientProvider client={queryClient}>
             <ApiProvider>
-              <AppNavigator
-                initialState={initialNavigationState}
-                onStateChange={onNavigationStateChange}
-              />
+              <AppNavigator />
             </ApiProvider>
           </QueryClientProvider>
         </NativeBaseProvider>

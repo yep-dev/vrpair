@@ -12,19 +12,22 @@ import { TProfile } from "api/profiles"
 import { ProfileIcon, ProfileSearchIcon, ProfileStackIcon } from "components/icons"
 import { useStore } from "mobx/utils"
 import { LikesIcon } from "navigators/components/LikesIcon"
-import { navigationRef } from "navigators/utils"
+import { navigationRef, useNavigationPersistence } from "navigators/utils"
 import { LikesTabsScreen } from "screens/likes/LikesTabsScreen"
 import { LoginScreen } from "screens/LoginScreen"
 import { ProfileDetailsScreen } from "screens/profiles/ProfileDetailsScreen"
 import { ProfilesListScreen } from "screens/profiles/ProfilesListScreen"
 import { ProfilesCarouselScreen } from "screens/ProfilesCarouselScreen"
+import { SetupWizardScreen } from "screens/setup/SetupWizardScreen"
 import { DiscordIntegrationScreen } from "screens/user/DiscordIntegrationScreen"
 import { UserMenuScreen } from "screens/user/UserMenu/UserMenuScreen"
 import { colors } from "theme/colors"
+import * as storage from "utils/storage"
+
+export const NAVIGATION_PERSISTENCE_KEY = "NAVIGATION_STATE"
 
 // ---------------- Root ----------------
 
-interface NavigationProps extends Partial<React.ComponentProps<typeof NavigationContainer>> {}
 export type AppParams = {
   login
   tabs
@@ -32,16 +35,27 @@ export type AppParams = {
 }
 const App = createNativeStackNavigator<AppParams>()
 
-export const AppNavigator = observer((props: NavigationProps) => {
+export const AppNavigator = observer(() => {
   const { userStore } = useStore()
   const api = useApi()
-  const { data: hasProfile } = useQuery("currentUser", api.users.currentUser, {
+  const { data: hasProfile, isLoading } = useQuery("currentUser", api.users.currentUser, {
     select: (user) => user.hasProfile,
   })
   useReduxDevToolsExtension(navigationRef)
 
-  return (
-    <NavigationContainer ref={navigationRef} theme={DarkTheme} {...props}>
+  const {
+    initialNavigationState,
+    onNavigationStateChange,
+    isRestored: isNavigationStateRestored,
+  } = useNavigationPersistence(storage, NAVIGATION_PERSISTENCE_KEY)
+
+  return isNavigationStateRestored && !isLoading ? (
+    <NavigationContainer
+      ref={navigationRef}
+      theme={DarkTheme}
+      initialState={initialNavigationState}
+      onStateChange={onNavigationStateChange}
+    >
       <App.Navigator
         screenOptions={{
           headerShown: false,
@@ -49,17 +63,17 @@ export const AppNavigator = observer((props: NavigationProps) => {
         initialRouteName="login"
       >
         {userStore.authenticated ? (
-          hasProfile ? (
+          hasProfile || isLoading ? (
             <App.Screen name="tabs" component={Tabs} />
           ) : (
-            <App.Screen name="setup" component={ProfilesListScreen} />
+            <App.Screen name="setup" component={SetupWizardScreen} />
           )
         ) : (
           <App.Screen name="login" component={LoginScreen} />
         )}
       </App.Navigator>
     </NavigationContainer>
-  )
+  ) : null
 })
 
 // ---------------- Tabs ----------------
