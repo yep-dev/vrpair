@@ -18,7 +18,7 @@ import { LoginScreen } from "screens/LoginScreen"
 import { ProfileDetailsScreen } from "screens/profiles/ProfileDetailsScreen"
 import { ProfilesListScreen } from "screens/profiles/ProfilesListScreen"
 import { ProfilesCarouselScreen } from "screens/ProfilesCarouselScreen"
-import { SetupWizardScreen } from "screens/setup/SetupWizardScreen"
+import { SetupScreen } from "screens/setup/SetupScreen"
 import { DiscordIntegrationScreen } from "screens/user/DiscordIntegrationScreen"
 import { UserMenuScreen } from "screens/user/UserMenu/UserMenuScreen"
 import { colors } from "theme/colors"
@@ -53,7 +53,7 @@ export const AppNavigator = observer(() => {
     <NavigationContainer
       ref={navigationRef}
       theme={DarkTheme}
-      initialState={initialNavigationState}
+      initialState={hasProfile ? initialNavigationState : undefined}
       onStateChange={onNavigationStateChange}
     >
       <App.Navigator
@@ -66,7 +66,7 @@ export const AppNavigator = observer(() => {
           hasProfile || isLoading ? (
             <App.Screen name="tabs" component={Tabs} />
           ) : (
-            <App.Screen name="setup" component={SetupWizardScreen} />
+            <App.Screen name="setup" component={SetupScreen} />
           )
         ) : (
           <App.Screen name="login" component={LoginScreen} />

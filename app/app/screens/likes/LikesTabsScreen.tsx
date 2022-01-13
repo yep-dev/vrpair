@@ -5,16 +5,11 @@ import { SceneMap, NavigationState } from "react-native-tab-view"
 import { useQuery } from "react-query"
 
 import { TBadges } from "api/likes"
-import { RoundBadge, Tabs } from "components"
+import { RoundBadge, Tabs, TabsRoute } from "components"
 import { LikedScreen } from "screens/likes/LikedScreen"
 import { LikesYouScreen } from "screens/likes/LikesYouScreen"
 import { PairsScreen } from "screens/likes/PairsScreen"
 import { colors } from "theme/colors"
-
-type Route = {
-  key: string
-  label: string
-}
 
 const routes = [
   {
@@ -33,12 +28,12 @@ const routes = [
 
 export const LikesTabsScreen: FC = () => {
   const { data: badgesData } = useQuery<TBadges>("badges", { enabled: false })
-  const [navigationState, setNavigationState] = useState<NavigationState<Route>>({
+  const [navigationState, setNavigationState] = useState<NavigationState<TabsRoute>>({
     routes,
     index: 0,
   })
 
-  const renderBadge = ({ route }: { route: Route }) => {
+  const renderBadge = ({ route }: { route: TabsRoute }) => {
     if (["pairs", "likes"].includes(route.key)) {
       if (badgesData && badgesData[route.key] > 0) {
         return <RoundBadge>{badgesData[route.key]}</RoundBadge>

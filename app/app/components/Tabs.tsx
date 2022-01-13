@@ -2,33 +2,36 @@ import React, { FC } from "react"
 import { Animated, StyleSheet, I18nManager, ViewStyle } from "react-native"
 
 import { Text } from "native-base"
-import { TabView, TabBar, NavigationState, SceneRendererProps } from "react-native-tab-view"
+import {
+  TabView,
+  TabBar,
+  NavigationState,
+  SceneRendererProps,
+  TabViewProps,
+} from "react-native-tab-view"
 import { Scene } from "react-native-tab-view/lib/typescript/types"
 
 import { Screen } from "components"
 import { colors } from "theme/colors"
 
-type Route = {
+export type TabsRoute = {
   key: string
   label: string
 }
 
-type State = NavigationState<Route>
+type State = NavigationState<TabsRoute>
 
 type Props = {
-  renderScene: (props: SceneRendererProps & { route: Route }) => React.ReactNode
-  renderBadge?: (scene: Scene<Route>) => React.ReactNode
-  navigationState: any
+  renderBadge?: (scene: Scene<TabsRoute>) => React.ReactNode
   setNavigationState(any): void
-  styles: { indicator: ViewStyle }
+  styles: { indicator: ViewStyle; tabBar?: ViewStyle }
 }
 
-export const Tabs: FC<Props> = ({
-  renderScene,
+export const Tabs: FC<Props & Omit<TabViewProps<TabsRoute>, "onIndexChange">> = ({
   renderBadge,
-  navigationState,
   setNavigationState,
   styles,
+  ...props
 }) => {
   const renderIndicator = (
     props: SceneRendererProps & {
@@ -75,7 +78,7 @@ export const Tabs: FC<Props> = ({
     )
   }
 
-  const renderIcon = ({ route }: { route: Route }) => <Text>{route.label}</Text>
+  const renderIcon = ({ route }: { route: TabsRoute }) => <Text>{route.label}</Text>
 
   const handleIndexChange = (index) => setNavigationState((state) => ({ ...state, index }))
 
@@ -85,25 +88,24 @@ export const Tabs: FC<Props> = ({
       renderLabel={renderIcon}
       renderBadge={renderBadge}
       renderIndicator={renderIndicator}
-      style={s.tabbar}
+      style={[s.tabBar, styles.tabBar]}
     />
   )
 
   return (
     <Screen>
       <TabView
-        navigationState={navigationState}
-        renderScene={renderScene}
         renderTabBar={renderTabBar}
         tabBarPosition="top"
         onIndexChange={handleIndexChange}
+        {...props}
       />
     </Screen>
   )
 }
 
 const s = StyleSheet.create({
-  tabbar: {
+  tabBar: {
     backgroundColor: colors.transparent,
   },
   container: {
