@@ -56,7 +56,6 @@
     "reactotron-mst": "^3.1.4",
     "reactotron-react-js": "^3.3.7",
     "reactotron-react-native": "^5.0.1",
-    "styled-components": "^5.3.3",
     "styled-system": "^5.1.5",
     "use-async-effect": "^2.2.3"
   },
