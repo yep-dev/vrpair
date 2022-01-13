@@ -1,4 +1,5 @@
 import React, { FC, useState } from "react"
+import { StyleSheet } from "react-native"
 
 import { SceneMap, NavigationState } from "react-native-tab-view"
 import { useQuery } from "react-query"
@@ -8,6 +9,7 @@ import { RoundBadge, Tabs } from "components"
 import { LikedScreen } from "screens/likes/LikedScreen"
 import { LikesYouScreen } from "screens/likes/LikesYouScreen"
 import { PairsScreen } from "screens/likes/PairsScreen"
+import { colors } from "theme/colors"
 
 type Route = {
   key: string
@@ -58,6 +60,17 @@ export const LikesTabsScreen: FC = () => {
       renderBadge={renderBadge}
       navigationState={navigationState}
       setNavigationState={setNavigationState}
+      styles={{ indicator: s.indicator }}
     />
   )
 }
+
+const s = StyleSheet.create({
+  indicator: {
+    backgroundColor: colors.gray["800"],
+    width: 48,
+    height: 16,
+    borderRadius: 12,
+    margin: 6,
+  },
+})

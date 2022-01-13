@@ -1,5 +1,5 @@
 import React, { FC } from "react"
-import { Animated, StyleSheet, I18nManager } from "react-native"
+import { Animated, StyleSheet, I18nManager, ViewStyle } from "react-native"
 
 import { Text } from "native-base"
 import { TabView, TabBar, NavigationState, SceneRendererProps } from "react-native-tab-view"
@@ -20,6 +20,7 @@ type Props = {
   renderBadge?: (scene: Scene<Route>) => React.ReactNode
   navigationState: any
   setNavigationState(any): void
+  styles: { indicator: ViewStyle }
 }
 
 export const Tabs: FC<Props> = ({
@@ -27,6 +28,7 @@ export const Tabs: FC<Props> = ({
   renderBadge,
   navigationState,
   setNavigationState,
+  styles,
 }) => {
   const renderIndicator = (
     props: SceneRendererProps & {
@@ -35,7 +37,7 @@ export const Tabs: FC<Props> = ({
     },
   ) => {
     const { position, navigationState, getTabWidth } = props
-    const inputRange = [0, 0.48, 0.49, 0.51, 0.52, 1, 1.48, 1.49, 1.51, 1.52, 2]
+    const inputRange = [0, 1]
 
     const scale = position.interpolate({
       inputRange,
@@ -61,7 +63,7 @@ export const Tabs: FC<Props> = ({
     return (
       <Animated.View
         style={[
-          styles.container,
+          s.container,
           {
             width: `${100 / navigationState.routes.length}%`,
             transform: [{ translateX }] as any,
@@ -83,7 +85,7 @@ export const Tabs: FC<Props> = ({
       renderLabel={renderIcon}
       renderBadge={renderBadge}
       renderIndicator={renderIndicator}
-      style={styles.tabbar}
+      style={s.tabbar}
     />
   )
 
@@ -100,7 +102,7 @@ export const Tabs: FC<Props> = ({
   )
 }
 
-const styles = StyleSheet.create({
+const s = StyleSheet.create({
   tabbar: {
     backgroundColor: colors.transparent,
   },
@@ -108,12 +110,5 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-  },
-  indicator: {
-    backgroundColor: colors.gray["800"],
-    width: 48,
-    height: 16,
-    borderRadius: 12,
-    margin: 6,
   },
 })
