@@ -5,6 +5,7 @@ import { Text } from "native-base"
 import { NavigationState, SceneMap } from "react-native-tab-view"
 
 import { Tabs, TabsRoute } from "components"
+import { Profile1Step } from "screens/setup/Profile1Step"
 import { colors } from "theme/colors"
 
 const routes = ["1", "2", "3", "4"].map((key) => ({ key, label: key }))
@@ -15,7 +16,7 @@ export const SetupScreen = () => {
     index: 0,
   })
   const renderScene = SceneMap({
-    "1": () => <Text>1</Text>,
+    "1": Profile1Step,
     "2": () => <Text>2</Text>,
     "3": () => <Text>3</Text>,
     "4": () => <Text>4</Text>,
