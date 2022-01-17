@@ -7,7 +7,6 @@ import { AlertDialog, Box, Button, Center, Checkbox, Column, Flex, Row, Text } f
 import { Screen } from "components"
 import { CircleHeartIcon } from "components/icons"
 import { AppParams } from "navigators/app-navigator"
-import { colors } from "theme/colors"
 import { useDiscordLogin } from "utils/auth"
 
 const requirements = [
@@ -51,13 +50,13 @@ export const LoginScreen: FC<StackScreenProps<AppParams, "login">> = observer(()
         <Center>
           <Row alignItems="center" justifyContent="center">
             <Box mr={2} mt={0.5}>
-              <CircleHeartIcon color={colors.pink["400"]} />
+              <CircleHeartIcon color="pink.400" />
             </Box>
             <Text fontSize="6xl" fontWeight="light">
               vrpair
             </Text>
           </Row>
-          <Text mt={2} fontSize="md" color={colors.gray["200"]}>
+          <Text mt={2} fontSize="md" color="gray.200">
             Dating app for VR players
           </Text>
         </Center>

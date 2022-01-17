@@ -7,7 +7,6 @@ import { useApi } from "api/apiProvider"
 import { CircleHeartIcon, CircleXIcon } from "components/icons"
 import { SynchronizeArrowsIcon } from "components/icons/SynchronizeArrowsIcon"
 import { useStore } from "mobx/utils"
-import { colors } from "theme/colors"
 import { useForceToken } from "utils/hooks"
 import { inject, pressedBackground } from "utils/misc"
 
@@ -19,7 +18,7 @@ const BackgroundOverlay = inject(Box, {
   position: "absolute",
   bottom: 8,
   display: "flex",
-  backgroundColor: colors.gray["900"],
+  backgroundColor: "gray.900",
   borderRadius: 32,
 })
 
@@ -58,7 +57,7 @@ export const ProfileOverlays: FC<Props> = ({ profileId, liked, skipped, moveCaro
           <FloatingButton
             size={16}
             colorScheme="gray"
-            icon={<CircleXIcon color={colors.gray["400"]} />}
+            icon={<CircleXIcon color="gray.400" />}
             onPress={handleSkip}
             backgroundColor={skipped ? pressedBackground("gray") : undefined}
           />
@@ -68,7 +67,7 @@ export const ProfileOverlays: FC<Props> = ({ profileId, liked, skipped, moveCaro
             <FloatingButton
               size={16}
               colorScheme="gray"
-              icon={<SynchronizeArrowsIcon color={colors.gray["400"]} />}
+              icon={<SynchronizeArrowsIcon color="gray.400" />}
               onPress={handleSwitchUser}
               backgroundColor={skipped ? pressedBackground("gray") : undefined}
             />
@@ -78,7 +77,7 @@ export const ProfileOverlays: FC<Props> = ({ profileId, liked, skipped, moveCaro
       <BackgroundOverlay right={8}>
         <FloatingButton
           size={16}
-          icon={<CircleHeartIcon color={colors.pink["400"]} />}
+          icon={<CircleHeartIcon color="pink.400" />}
           onPress={handleLike}
           backgroundColor={liked ? pressedBackground("pink") : undefined}
         />
