@@ -86,6 +86,7 @@ export type TabParams = {
 }
 const Tab = createBottomTabNavigator<TabParams>()
 
+// fix for https://github.com/react-navigation/react-navigation/issues/6915
 const tabProps = {
   listeners: ({ navigation }) => ({ blur: () => navigation.setParams({ screen: undefined }) }),
 }
