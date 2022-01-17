@@ -14,6 +14,7 @@
     "prettier",
     "react",
     "react-native",
+    "unused-imports",
     "import"
   ],
   "parserOptions": {
@@ -67,6 +68,8 @@
     "no-console": "error",
     "prettier/prettier": "warn",
     "react-native/no-inline-styles": "warn",
+    "no-unused-vars": 0,
+    "unused-imports/no-unused-imports": "error",
     "import/order": [
       "warn",
       {
@@ -103,7 +106,6 @@
     "comma-dangle": 0,
     "multiline-ternary": 0,
     "no-undef": 0,
-    "no-unused-vars": 0,
     "no-use-before-define": 0,
     "quotes": 0,
     "react-native/no-raw-text": 0,
