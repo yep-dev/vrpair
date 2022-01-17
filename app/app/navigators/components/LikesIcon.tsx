@@ -7,9 +7,7 @@ import { RoundBadge } from "components"
 import { HeartBalloonsIcon } from "components/icons"
 
 type Props = {
-  focused: boolean
   color: string
-  size: number
 }
 
 export const LikesIcon: FC<Props> = (props) => {

@@ -1,3 +1,16 @@
+diff --git a/node_modules/native-base/lib/typescript/components/primitives/Icon/types.d.ts b/node_modules/native-base/lib/typescript/components/primitives/Icon/types.d.ts
+index 3eb0d68..f55a015 100644
+--- a/node_modules/native-base/lib/typescript/components/primitives/Icon/types.d.ts
++++ b/node_modules/native-base/lib/typescript/components/primitives/Icon/types.d.ts
+@@ -32,7 +32,7 @@ export interface IIconProps extends Omit<SvgProps, 'opacity' | 'fill' | 'stroke'
+      */
+     name?: string;
+ }
+-export interface IcreateIconProps {
++export interface IcreateIconProps extends IIconProps {
+     /**
+      * The viewBox of the icon.
+      */
 diff --git a/node_modules/native-base/src/components/primitives/Box/index.tsx b/node_modules/native-base/src/components/primitives/Box/index.tsx
 index c9e4892..3bbd9df 100644
 --- a/node_modules/native-base/src/components/primitives/Box/index.tsx

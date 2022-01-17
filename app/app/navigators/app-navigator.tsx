@@ -103,24 +103,27 @@ const Tabs = () => (
     <Tab.Screen
       name="profilesCarousel"
       component={ProfilesCarouselScreen}
-      options={{ tabBarIcon: ProfileStackIcon }}
+      options={{ tabBarIcon: ({ color }) => <ProfileStackIcon color={color} /> }}
     />
     <Tab.Screen
       name="profilesList"
       component={ProfilesListStack}
-      options={{ tabBarIcon: ProfileSearchIcon, unmountOnBlur: true }}
+      options={{
+        tabBarIcon: ({ color }) => <ProfileSearchIcon color={color} />,
+        unmountOnBlur: true,
+      }}
       {...tabProps}
     />
     <Tab.Screen
       name="likes"
       component={LikesStack}
-      options={{ tabBarIcon: LikesIcon, unmountOnBlur: true }}
+      options={{ tabBarIcon: ({ color }) => <LikesIcon color={color} />, unmountOnBlur: true }}
       {...tabProps}
     />
     <Tab.Screen
       name="user"
       component={UsersStack}
-      options={{ tabBarIcon: ProfileIcon, unmountOnBlur: true }}
+      options={{ tabBarIcon: ({ color }) => <ProfileIcon color={color} />, unmountOnBlur: true }}
       {...tabProps}
     />
   </Tab.Navigator>
