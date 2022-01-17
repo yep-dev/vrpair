@@ -1,7 +1,9 @@
 import React, { FC } from "react"
 
-import { View, Text, Input, IInputProps } from "native-base"
+import { View, Text, Input, IInputProps, Column } from "native-base"
 import { useController } from "react-hook-form"
+
+import { ErrorMessage } from "components/fields/ErrorMessage"
 
 type Props = {
   name: string
@@ -16,15 +18,15 @@ export const InputField: FC<Props & IInputProps> = ({
   defaultValue,
   ...inputProps
 }) => {
-  const { field } = useController({
+  const { field, fieldState } = useController({
     name,
     rules: { required: `${label} is required`, ...rules },
     defaultValue,
   })
 
   return (
-    <View>
-      {label && <Text>{label}</Text>}
+    <Column space={1}>
+      <Text fontSize="md">{label}</Text>
       <View>
         <Input
           onChangeText={field.onChange}
@@ -37,6 +39,7 @@ export const InputField: FC<Props & IInputProps> = ({
           {...inputProps}
         />
       </View>
-    </View>
+      <ErrorMessage error={fieldState.error} />
+    </Column>
   )
 }
