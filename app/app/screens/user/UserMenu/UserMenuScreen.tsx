@@ -1,6 +1,7 @@
 import React, { FC } from "react"
 
 import { useNavigation } from "@react-navigation/native"
+import { observer } from "mobx-react-lite"
 import { Button } from "native-base"
 
 import { Screen } from "components"
@@ -14,7 +15,7 @@ const Option = inject(Button, {
   justifyContent: "flex-start",
 })
 
-export const UserMenuScreen: FC = () => {
+export const UserMenuScreen: FC = observer(() => {
   const { navigate } = useNavigation()
   const { userStore } = useStore()
 
@@ -42,4 +43,4 @@ export const UserMenuScreen: FC = () => {
       {userStore.staffAuthenticated && <StaffTools />}
     </Screen>
   )
-}
+})
