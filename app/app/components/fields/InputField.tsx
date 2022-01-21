@@ -1,9 +1,9 @@
 import React, { FC } from "react"
 
-import { View, Text, Input, IInputProps, Column } from "native-base"
+import { Input, IInputProps } from "native-base"
 import { useController } from "react-hook-form"
 
-import { ErrorMessage } from "components/fields/ErrorMessage"
+import { FieldError, FieldLabel } from "components"
 
 type Props = {
   name: string
@@ -25,21 +25,20 @@ export const InputField: FC<Props & IInputProps> = ({
   })
 
   return (
-    <Column space={1}>
-      <Text fontSize="md">{label}</Text>
-      <View>
-        <Input
-          onChangeText={field.onChange}
-          onBlur={field.onBlur}
-          value={field.value}
-          w={{
-            base: "75%",
-            md: "25%",
-          }}
-          {...inputProps}
-        />
-      </View>
-      <ErrorMessage error={fieldState.error} />
-    </Column>
+    <>
+      <FieldLabel label={label} />
+      <Input
+        onChangeText={field.onChange}
+        onBlur={field.onBlur}
+        value={field.value}
+        size="lg"
+        w={{
+          base: "75%",
+          md: "25%",
+        }}
+        {...inputProps}
+      />
+      <FieldError error={fieldState.error} />
+    </>
   )
 }
