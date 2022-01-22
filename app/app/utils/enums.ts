@@ -1,4 +1,7 @@
-export const enums = {
+export type ChoiceEnum = { label: string; color?: string; key: string }
+export type ChoiceEnums = Record<string, Record<string, ChoiceEnum>>
+
+export const enumsDefinitions = {
   gender: {
     male: {
       label: "Male",
@@ -83,3 +86,12 @@ export const enums = {
     },
   },
 }
+
+Object.values(enumsDefinitions).forEach((enum_) => {
+  Object.keys(enum_).forEach((key) => {
+    enum_[key].key = key
+  })
+})
+
+// @ts-ignore https://stackoverflow.com/questions/63223715/typescript-type-narrowing-error-with-foreach
+export const enums: ChoiceEnums = enumsDefinitions
