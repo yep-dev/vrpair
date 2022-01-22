@@ -35,7 +35,7 @@ const s = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    paddingVertical: 10,
+    paddingVertical: 9,
   },
   activeButton: {
     backgroundColor: colors.primary["500"],
