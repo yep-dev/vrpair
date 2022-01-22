@@ -11,8 +11,7 @@ export interface IColorHues {
   900: string
 }
 
-export const colors = {
-  contrastThreshold: 7,
+const colorsDefininitions = {
   // Singleton colors
   white: "#FFFFFF",
   black: "#000000",
@@ -80,32 +79,23 @@ export const colors = {
     800: "#27272a",
     900: "#121214",
   },
-  // Undefined colors
-  warmGray: {},
-  // Derived colors
-  danger: {},
-  error: {},
-  success: {},
-  warning: {},
-  muted: {},
-  primary: {},
-  info: {},
-  secondary: {},
-  light: {},
-  tertiary: {},
 }
 
-colors.warmGray = colors.gray
-
-colors.danger = colors.red
-colors.error = colors.red
-colors.success = colors.green
-colors.warning = colors.red
-colors.muted = colors.gray
-colors.primary = colors.pink
-colors.secondary = colors.blue
-colors.tertiary = colors.green
-colors.info = colors.blue
-colors.light = colors.pink
+export const colors = {
+  ...colorsDefininitions,
+  contrastThreshold: 7,
+  // Derived colors
+  warmGray: colorsDefininitions.gray,
+  danger: colorsDefininitions.red,
+  error: colorsDefininitions.red,
+  success: colorsDefininitions.green,
+  warning: colorsDefininitions.red,
+  muted: colorsDefininitions.gray,
+  primary: colorsDefininitions.pink,
+  info: colorsDefininitions.blue,
+  secondary: colorsDefininitions.blue,
+  light: colorsDefininitions.gray,
+  tertiary: colorsDefininitions.green,
+}
 
 export type IColors = typeof colors
