@@ -1,12 +1,20 @@
 import React from "react"
 import { Platform, StyleProp, ViewStyle } from "react-native"
 
-import { Box, IBoxProps, KeyboardAvoidingView, ScrollView, StatusBar, View } from "native-base"
+import {
+  Box,
+  IBoxProps,
+  IScrollViewProps,
+  KeyboardAvoidingView,
+  ScrollView,
+  StatusBar,
+  View,
+} from "native-base"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 
 const isIos = Platform.OS === "ios"
 
-export interface ScreenProps extends IBoxProps {
+type Props = {
   children?: React.ReactNode
   style?: StyleProp<ViewStyle>
   backgroundColor?: string
@@ -14,9 +22,10 @@ export interface ScreenProps extends IBoxProps {
   unsafe?: boolean
   keyboardShouldPersistTaps?: "handled" | "always" | "never"
   scroll?: boolean
-}
+  scrollProps?: IScrollViewProps
+} & IBoxProps
 
-export const Screen = (props: ScreenProps) => {
+export const Screen = (props: Props) => {
   const insets = useSafeAreaInsets()
   const insetStyle = { paddingTop: props.unsafe ? 0 : insets.top, flex: 1 }
 
@@ -28,6 +37,7 @@ export const Screen = (props: ScreenProps) => {
           <ScrollView
             keyboardShouldPersistTaps={props.keyboardShouldPersistTaps || "handled"}
             style={{ flex: 1 }}
+            {...props.scrollProps}
           >
             <Box style={{ flex: 1 }} {...props}>
               {props.children}
