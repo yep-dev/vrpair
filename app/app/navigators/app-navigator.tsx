@@ -12,7 +12,7 @@ import { TProfile } from "api/profiles"
 import { ProfileIcon, ProfileSearchIcon, ProfileStackIcon } from "components/icons"
 import { useStore } from "mobx/utils"
 import { LikesIcon } from "navigators/components/LikesIcon"
-import { navigationRef, useNavigationPersistence } from "navigators/utils"
+import { navigationRef } from "navigators/utils"
 import { LikesTabsScreen } from "screens/likes/LikesTabsScreen"
 import { LoginScreen } from "screens/LoginScreen"
 import { ProfileDetailsScreen } from "screens/profiles/ProfileDetailsScreen"
@@ -22,7 +22,6 @@ import { SetupScreen } from "screens/setup/SetupScreen"
 import { DiscordIntegrationScreen } from "screens/user/DiscordIntegrationScreen"
 import { UserMenuScreen } from "screens/user/UserMenu/UserMenuScreen"
 import { colors } from "theme/colors"
-import * as storage from "utils/storage"
 
 export const NAVIGATION_PERSISTENCE_KEY = "NAVIGATION_STATE"
 
@@ -43,19 +42,8 @@ export const AppNavigator = observer(() => {
   })
   useReduxDevToolsExtension(navigationRef)
 
-  const {
-    initialNavigationState,
-    onNavigationStateChange,
-    isRestored: isNavigationStateRestored,
-  } = useNavigationPersistence(storage, NAVIGATION_PERSISTENCE_KEY)
-
-  return isNavigationStateRestored && !isLoading ? (
-    <NavigationContainer
-      ref={navigationRef}
-      theme={DarkTheme}
-      initialState={hasProfile ? initialNavigationState : undefined}
-      onStateChange={onNavigationStateChange}
-    >
+  return !isLoading ? (
+    <NavigationContainer ref={navigationRef} theme={DarkTheme}>
       <App.Navigator
         screenOptions={{
           headerShown: false,
