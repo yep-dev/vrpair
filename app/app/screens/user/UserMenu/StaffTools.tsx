@@ -4,7 +4,7 @@ import { Button, Column, Input, Text } from "native-base"
 import { useQuery } from "react-query"
 
 import { useApi } from "api/apiProvider"
-import { useForceToken } from "utils/hooks"
+import { useForceToken } from "utils/auth"
 
 export const StaffTools: FC = () => {
   const [userId, setUserId] = useState("")

@@ -7,7 +7,7 @@ import { useMutation } from "react-query"
 import { useApi } from "api/apiProvider"
 import { CircleHeartIcon, CircleXIcon, SynchronizeArrowsIcon } from "components/icons"
 import { useStore } from "mobx/utils"
-import { useForceToken } from "utils/hooks"
+import { useForceToken } from "utils/auth"
 import { inject, pressedBackground } from "utils/misc"
 
 const FloatingButton = inject(IconButton, {
