@@ -25,7 +25,7 @@ export const navigationRef = createNavigationContainerRef()
 /**
  * Gets the current screen from any navigation state.
  */
-export function getActiveRouteName(state: NavigationState | PartialState<NavigationState>) {
+export const getActiveRouteName = (state: NavigationState | PartialState<NavigationState>) => {
   // @ts-ignore
   const route = state.routes[state.index]
 
@@ -40,7 +40,7 @@ export function getActiveRouteName(state: NavigationState | PartialState<Navigat
  * Hook that handles Android back button presses and forwards those on to
  * the navigation or allows exiting the app.
  */
-export function useBackButtonHandler(canExit: (routeName: string) => boolean) {
+export const useBackButtonHandler = (canExit: (routeName: string) => boolean) => {
   const canExitRef = useRef(canExit)
 
   useEffect(() => {
@@ -83,7 +83,7 @@ export function useBackButtonHandler(canExit: (routeName: string) => boolean) {
 /**
  * Custom hook for persisting navigation state.
  */
-export function useNavigationPersistence(storage: any, persistenceKey: string) {
+export const useNavigationPersistence = (storage: any, persistenceKey: string) => {
   const [initialNavigationState, setInitialNavigationState] = useState()
 
   // This feature is particularly useful in development mode.
@@ -132,19 +132,19 @@ export function useNavigationPersistence(storage: any, persistenceKey: string) {
  * prop. If you have access to the navigation prop, do not use this.
  * More info: https://reactnavigation.org/docs/navigating-without-navigation-prop/
  */
-export function navigate(name: any, params?: any) {
+export const navigate = (name: any, params?: any) => {
   if (navigationRef.isReady()) {
     navigationRef.navigate(name as never, params as never)
   }
 }
 
-export function goBack() {
+export const goBack = () => {
   if (navigationRef.isReady() && navigationRef.canGoBack()) {
     navigationRef.goBack()
   }
 }
 
-export function resetRoot(params = { index: 0, routes: [] }) {
+export const resetRoot = (params = { index: 0, routes: [] }) => {
   if (navigationRef.isReady()) {
     navigationRef.resetRoot(params)
   }

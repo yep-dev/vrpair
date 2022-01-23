@@ -14,6 +14,7 @@
     "prettier",
     "react",
     "react-native",
+    "prefer-arrow",
     "unused-imports",
     "import"
   ],
@@ -41,7 +42,10 @@
       "version": "detect"
     },
     "import/parsers": {
-      "@typescript-eslint/parser": [".ts", ".tsx"]
+      "@typescript-eslint/parser": [
+        ".ts",
+        ".tsx"
+      ]
     },
     "import/resolver": {
       "typescript": {
@@ -69,11 +73,16 @@
     "prettier/prettier": "warn",
     "react-native/no-inline-styles": "warn",
     "no-unused-vars": 0,
+    "prefer-arrow/prefer-arrow-functions": "error",
     "unused-imports/no-unused-imports": "error",
     "import/order": [
       "warn",
       {
-        "groups": ["builtin", "external", "internal"],
+        "groups": [
+          "builtin",
+          "external",
+          "internal"
+        ],
         "pathGroups": [
           {
             "pattern": "react",
@@ -84,7 +93,9 @@
             "group": "builtin"
           }
         ],
-        "pathGroupsExcludedImportTypes": ["react"],
+        "pathGroupsExcludedImportTypes": [
+          "react"
+        ],
         "newlines-between": "always",
         "alphabetize": {
           "order": "asc",

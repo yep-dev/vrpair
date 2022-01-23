@@ -14,7 +14,7 @@ import { theme } from "theme"
 
 const queryClient = new QueryClient()
 
-export function App() {
+export const App = () => {
   const [rootStore, setRootStore] = useState<RootStore | undefined>(undefined)
 
   useBackButtonHandler(canExit)

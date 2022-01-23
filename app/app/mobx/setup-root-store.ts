@@ -7,13 +7,13 @@ import { RootStoreModel, RootStore } from "./root-store"
 
 const ROOT_STATE_STORAGE_KEY = "root"
 
-export async function createEnvironment() {
+export const createEnvironment = async () => {
   const env = new Environment()
   await env.setup()
   return env
 }
 
-export async function setupRootStore() {
+export const setupRootStore = async () => {
   let rootStore: RootStore
   let data: any
 

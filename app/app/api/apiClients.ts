@@ -10,7 +10,7 @@ import { atob } from "utils/misc"
 
 const { API_URL } = require("config/env")
 
-function isTokenExpired(token) {
+const isTokenExpired = (token) => {
   const expiry = JSON.parse(atob(token.split(".")[1])).exp
   return Math.floor(new Date().getTime() / 1000) >= expiry
 }
