@@ -1,6 +1,6 @@
 import { onSnapshot } from "mobx-state-tree"
 
-import * as storage from "utils/storage"
+import { storage } from "utils/storage"
 
 import { Environment } from "./environment"
 import { RootStoreModel, RootStore } from "./root-store"

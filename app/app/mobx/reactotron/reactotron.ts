@@ -11,7 +11,7 @@ import { ReactotronConfig, DEFAULT_REACTOTRON_CONFIG } from "mobx/reactotron/rea
 import { Tron } from "mobx/reactotron/tron"
 import { RootStore } from "mobx/root-store"
 import { goBack, resetRoot, navigate } from "navigators/utils"
-import { clear } from "utils/storage"
+import { storage } from "utils/storage"
 
 // Teach TypeScript about the bad things we want to do.
 declare global {
@@ -153,7 +153,7 @@ export class Reactotron {
         command: "resetStore",
         handler: () => {
           console.tron.log("resetting store")
-          clear()
+          storage.clear()
         },
       })
 

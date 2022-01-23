@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage"
 
-export async function loadString(key: string): Promise<string | null> {
+const loadString = async (key: string): Promise<string | null> => {
   try {
     return await AsyncStorage.getItem(key)
   } catch {
@@ -9,7 +9,7 @@ export async function loadString(key: string): Promise<string | null> {
   }
 }
 
-export async function saveString(key: string, value: string): Promise<boolean> {
+const saveString = async (key: string, value: string): Promise<boolean> => {
   try {
     await AsyncStorage.setItem(key, value)
     return true
@@ -18,7 +18,7 @@ export async function saveString(key: string, value: string): Promise<boolean> {
   }
 }
 
-export async function load(key: string): Promise<any | null> {
+const load = async (key: string): Promise<any | null> => {
   try {
     const item = await AsyncStorage.getItem(key)
     return item !== null ? JSON.parse(item) : null
@@ -27,7 +27,7 @@ export async function load(key: string): Promise<any | null> {
   }
 }
 
-export async function save(key: string, value: any): Promise<boolean> {
+const save = async (key: string, value: any): Promise<boolean> => {
   try {
     await AsyncStorage.setItem(key, JSON.stringify(value))
     return true
@@ -36,14 +36,27 @@ export async function save(key: string, value: any): Promise<boolean> {
   }
 }
 
-export async function remove(key: string): Promise<void> {
+const remove = async (key: string): Promise<void> => {
   try {
     await AsyncStorage.removeItem(key)
   } catch {}
 }
 
-export async function clear(): Promise<void> {
+const clear = async (): Promise<void> => {
   try {
     await AsyncStorage.clear()
   } catch {}
+}
+
+if (__DEV__) {
+  global.AsyncStorage = AsyncStorage
+}
+
+export const storage = {
+  loadString,
+  saveString,
+  load,
+  save,
+  remove,
+  clear,
 }

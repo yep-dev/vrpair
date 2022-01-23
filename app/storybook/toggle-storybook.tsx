@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { DevSettings } from "react-native"
 
-import { loadString, saveString } from "utils/storage"
+import { storage } from "utils/storage"
 
 /**
  * Toggle Storybook mode, in __DEV__ mode only.
@@ -20,7 +20,7 @@ export function ToggleStorybook(props) {
   useEffect(() => {
     if (__DEV__ && DevSettings) {
       // Load the setting from storage if it's there
-      loadString("devStorybook").then((storedSetting) => {
+      storage.loadString("devStorybook").then((storedSetting) => {
         // Set the initial value
         setShowStorybook(storedSetting === "on")
 
@@ -31,7 +31,7 @@ export function ToggleStorybook(props) {
             show = !show
 
             // Write it back to storage
-            saveString("devStorybook", show ? "on" : "off")
+            storage.saveString("devStorybook", show ? "on" : "off")
 
             // Return it to change the local state
             return show
