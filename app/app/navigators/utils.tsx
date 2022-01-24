@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react"
+import { useEffect, useRef } from "react"
 import { BackHandler } from "react-native"
 
 import {
@@ -7,8 +7,6 @@ import {
   NavigationAction,
   createNavigationContainerRef,
 } from "@react-navigation/native"
-
-import { storageGet, storageSet } from "utils/misc"
 
 /* eslint-disable */
 export const RootNavigation = {
@@ -83,52 +81,6 @@ export const useBackButtonHandler = (canExit: (routeName: string) => boolean) =>
 }
 
 /**
- * Custom hook for persisting navigation state.
- */
-export const useNavigationPersistence = (storage: any, persistenceKey: string) => {
-  const [initialNavigationState, setInitialNavigationState] = useState()
-
-  // This feature is particularly useful in development mode.
-  // It is selectively enabled in development mode with
-  // the following approach. If you'd like to use navigation persistence
-  // in production, remove the __DEV__ and set the state to true
-  const [isRestored, setIsRestored] = useState(!__DEV__)
-
-  const routeNameRef = useRef<string | undefined>()
-
-  const onNavigationStateChange = (state) => {
-    const previousRouteName = routeNameRef.current
-    const currentRouteName = getActiveRouteName(state)
-
-    if (previousRouteName !== currentRouteName) {
-      // track screens.
-      // eslint-disable-next-line no-console
-      __DEV__ && console.tron.log && console.tron.log(currentRouteName)
-    }
-
-    // Save the current route name for later comparision
-    routeNameRef.current = currentRouteName
-
-    // Persist state to storage
-    storageSet(persistenceKey, state)
-  }
-
-  const restoreState = async () => {
-    try {
-      const state = storageGet(persistenceKey)
-      if (state) setInitialNavigationState(state)
-    } finally {
-      setIsRestored(true)
-    }
-  }
-
-  useEffect(() => {
-    if (!isRestored) restoreState()
-  }, [isRestored])
-
-  return { onNavigationStateChange, restoreState, isRestored, initialNavigationState }
-}
-
 /**
  * use this to navigate to navigate without the navigation
  * prop. If you have access to the navigation prop, do not use this.
