@@ -1,6 +1,7 @@
 import React from "react"
 
 import { transparentize } from "native-base/src/theme/tools"
+import { MMKV } from "react-native-mmkv"
 
 import { theme } from "theme"
 
@@ -38,3 +39,7 @@ export const atob = (input = "") => {
 
   return output
 }
+
+export const storage = new MMKV()
+export const storageSet = (key: string, value: any) => storage.set(key, JSON.stringify(value))
+export const storageGet = (key: string) => JSON.parse(storage.getString(key) || "{}")

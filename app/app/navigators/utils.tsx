@@ -8,6 +8,8 @@ import {
   createNavigationContainerRef,
 } from "@react-navigation/native"
 
+import { storageGet, storageSet } from "utils/misc"
+
 /* eslint-disable */
 export const RootNavigation = {
   navigate(_name: string, _params?: any) {},
@@ -108,12 +110,12 @@ export const useNavigationPersistence = (storage: any, persistenceKey: string) =
     routeNameRef.current = currentRouteName
 
     // Persist state to storage
-    storage.save(persistenceKey, state)
+    storageSet(persistenceKey, state)
   }
 
   const restoreState = async () => {
     try {
-      const state = await storage.load(persistenceKey)
+      const state = storageGet(persistenceKey)
       if (state) setInitialNavigationState(state)
     } finally {
       setIsRestored(true)
