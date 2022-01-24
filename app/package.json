@@ -55,9 +55,6 @@
     "react-native-ui-lib": "~6.7.1",
     "react-native-unimodules": "~0.14.10",
     "react-query": "^3.34.0",
-    "reactotron-mst": "^3.1.4",
-    "reactotron-react-js": "^3.3.7",
-    "reactotron-react-native": "^5.0.1",
     "styled-system": "^5.1.5",
     "use-async-effect": "^2.2.3"
   },

@@ -31,12 +31,7 @@ export const setupRootStore = async () => {
     // but please inform us what happened
     // @ts-ignore
     // eslint-disable-next-line no-console
-    __DEV__ && console.tron.error(e.message, null)
-  }
-
-  // reactotron logging
-  if (__DEV__) {
-    env.reactotron.setRootStore(rootStore, data)
+    __DEV__ && console.error(e.message, null)
   }
 
   // track changes & save to storage
