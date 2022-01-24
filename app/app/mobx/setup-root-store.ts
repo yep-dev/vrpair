@@ -1,4 +1,5 @@
-import { onSnapshot } from "mobx-state-tree"
+import { createMstDebugger } from "mobx-flipper"
+import { addMiddleware, onSnapshot } from "mobx-state-tree"
 
 import { storage } from "utils/misc"
 
@@ -36,6 +37,10 @@ export const setupRootStore = async () => {
 
   // track changes & save to storage
   onSnapshot(rootStore, (snapshot) => storage.setObj(ROOT_STATE_STORAGE_KEY, snapshot))
+
+  if (__DEV__) {
+    addMiddleware(rootStore, createMstDebugger(rootStore))
+  }
 
   return rootStore
 }
