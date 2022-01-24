@@ -40,6 +40,21 @@ export const atob = (input = "") => {
   return output
 }
 
-export const storage = new MMKV()
-export const storageSet = (key: string, value: any) => storage.set(key, JSON.stringify(value))
-export const storageGet = (key: string) => JSON.parse(storage.getString(key) || "{}")
+class Storage extends MMKV {
+  setObj(key: string, value: any) {
+    this.set(key, JSON.stringify(value))
+  }
+
+  getObj(key: string) {
+    return JSON.parse(this.getString(key) || "{}")
+  }
+
+  all() {
+    return this.getAllKeys().reduce((obj, key) => ({ ...obj, [key]: this.getObj(key) }), {})
+  }
+}
+export const storage = new Storage()
+
+if (__DEV__) {
+  global.storage = storage
+}

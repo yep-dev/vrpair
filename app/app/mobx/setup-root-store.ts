@@ -1,6 +1,6 @@
 import { onSnapshot } from "mobx-state-tree"
 
-import { storageGet, storageSet } from "utils/misc"
+import { storage } from "utils/misc"
 
 import { Environment } from "./environment"
 import { RootStoreModel, RootStore } from "./root-store"
@@ -21,7 +21,7 @@ export const setupRootStore = async () => {
   const env = await createEnvironment()
   try {
     // load data from storage
-    data = storageGet(ROOT_STATE_STORAGE_KEY)
+    data = storage.getObj(ROOT_STATE_STORAGE_KEY)
     rootStore = RootStoreModel.create(data, env)
   } catch (e) {
     // if there's any problems loading, then let's at least fallback to an empty state
@@ -35,7 +35,7 @@ export const setupRootStore = async () => {
   }
 
   // track changes & save to storage
-  onSnapshot(rootStore, (snapshot) => storageSet(ROOT_STATE_STORAGE_KEY, snapshot))
+  onSnapshot(rootStore, (snapshot) => storage.setObj(ROOT_STATE_STORAGE_KEY, snapshot))
 
   return rootStore
 }
