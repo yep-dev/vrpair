@@ -7,7 +7,7 @@ import { Button } from "native-base"
 import { Screen } from "components"
 import { useStore } from "mobx/utils"
 import { StaffTools } from "screens/user/UserMenu/StaffTools"
-import { removeSecureValue } from "utils/keychain"
+import { useLogout } from "utils/auth"
 import { inject } from "utils/misc"
 
 const Option = inject(Button, {
@@ -18,6 +18,7 @@ const Option = inject(Button, {
 export const UserMenuScreen: FC = observer(() => {
   const { navigate } = useNavigation()
   const { userStore } = useStore()
+  const logout = useLogout()
 
   return (
     <Screen>
@@ -28,18 +29,7 @@ export const UserMenuScreen: FC = observer(() => {
       </Option>
       {/* <Option>Settings</Option> */}
       {/* <Option>Support the app</Option> */}
-      <Option
-        onPress={async () => {
-          await removeSecureValue("accessToken")
-          await removeSecureValue("refreshToken")
-          await userStore.setAuthenticated(false)
-          await removeSecureValue("accessToken")
-          await removeSecureValue("refreshToken")
-          await userStore.setStaffAuthenticated(false)
-        }}
-      >
-        Logout
-      </Option>
+      <Option onPress={() => logout()}>Logout</Option>
       {userStore.staffAuthenticated && <StaffTools />}
     </Screen>
   )

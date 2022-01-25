@@ -25,12 +25,14 @@ type Props = {
   renderBadge?: (scene: Scene<TabsRoute>) => React.ReactNode
   setNavigationState(any): void
   styles: { indicator: ViewStyle; tabBar?: ViewStyle }
+  disableTabNavigation?: boolean
 }
 
 export const Tabs: FC<Props & Omit<TabViewProps<TabsRoute>, "onIndexChange">> = ({
   renderBadge,
   setNavigationState,
   styles,
+  disableTabNavigation,
   ...props
 }) => {
   const renderIndicator = (
@@ -89,6 +91,7 @@ export const Tabs: FC<Props & Omit<TabViewProps<TabsRoute>, "onIndexChange">> = 
       renderBadge={renderBadge}
       renderIndicator={renderIndicator}
       style={[s.tabBar, styles.tabBar]}
+      onTabPress={({ preventDefault }) => disableTabNavigation && preventDefault()}
     />
   )
 

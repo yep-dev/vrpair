@@ -28,6 +28,8 @@ export const SetupScreen = () => {
       navigationState={navigationState}
       setNavigationState={setNavigationState}
       styles={{ indicator: s.indicator, tabBar: s.tabBar }}
+      swipeEnabled={false}
+      disableTabNavigation
     />
   )
 }

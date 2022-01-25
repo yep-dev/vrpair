@@ -86,6 +86,7 @@ export const colors = {
   contrastThreshold: 7,
   // Derived colors
   warmGray: colorsDefininitions.gray,
+  coolGray: colorsDefininitions.gray,
   danger: colorsDefininitions.red,
   error: colorsDefininitions.red,
   success: colorsDefininitions.green,

@@ -6,7 +6,8 @@ import { useApi } from "api/apiProvider"
 import { TUser } from "api/users"
 import { API_URL, OAUTH_DISCORD_CLIENT_ID } from "config/env"
 import { useStore } from "mobx/utils"
-import { setSecureValue } from "utils/keychain"
+import { removeSecureValue, setSecureValue } from "utils/keychain"
+import { storage } from "utils/misc"
 
 const discordConfig = {
   serviceConfiguration: {
@@ -64,4 +65,20 @@ export const useForceToken = () => {
       navigate("profilesCarousel")
     },
   })
+}
+
+export const useLogout = () => {
+  const { userStore } = useStore()
+
+  return async ({ logoutStaff = false } = {}) => {
+    storage.clearAll()
+    await removeSecureValue("accessToken")
+    await removeSecureValue("refreshToken")
+    await userStore.setAuthenticated(false)
+    if (logoutStaff) {
+      await removeSecureValue("staffAccessToken")
+      await removeSecureValue("staffRefreshToken")
+      await userStore.setStaffAuthenticated(false)
+    }
+  }
 }
