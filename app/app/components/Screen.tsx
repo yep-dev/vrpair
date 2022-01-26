@@ -1,51 +1,74 @@
-import React from "react"
+import React, { FC, ReactNode } from "react"
 import { Platform, StyleProp, ViewStyle } from "react-native"
 
 import {
   Box,
-  IBoxProps,
+  Heading,
+  IconButton,
   IScrollViewProps,
   KeyboardAvoidingView,
+  Row,
   ScrollView,
   StatusBar,
   View,
 } from "native-base"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 
+import { ArrowLeftIcon } from "components/icons/ArrowLeftIcon"
+
 const isIos = Platform.OS === "ios"
 
 type Props = {
-  children?: React.ReactNode
-  style?: StyleProp<ViewStyle>
-  backgroundColor?: string
-  statusBar?: "light-content" | "dark-content"
   unsafe?: boolean
-  keyboardShouldPersistTaps?: "handled" | "always" | "never"
+  statusBar?: "light-content" | "dark-content"
+  handlePrev?(): void
+  heading?: string
+  headingRight?: ReactNode
   scroll?: boolean
   scrollProps?: IScrollViewProps
-} & IBoxProps
+  style?: StyleProp<ViewStyle>
+  backgroundColor?: string
+} & IScrollViewProps
 
-export const Screen = (props: Props) => {
+export const Screen: FC<Props> = ({
+  unsafe,
+  statusBar,
+  handlePrev,
+  heading,
+  headingRight,
+  scroll,
+  children,
+  ...props
+}) => {
   const insets = useSafeAreaInsets()
-  const insetStyle = { paddingTop: props.unsafe ? 0 : insets.top, flex: 1 }
-
+  const insetStyle = { paddingTop: unsafe ? 0 : insets.top }
   return (
-    <KeyboardAvoidingView behavior={isIos ? "padding" : undefined} style={{ flex: 1 }}>
-      <StatusBar barStyle={props.statusBar || "light-content"} />
-      <View style={insetStyle} bg="gray.900">
-        {props.scroll ? (
-          <ScrollView
-            keyboardShouldPersistTaps={props.keyboardShouldPersistTaps || "handled"}
-            style={{ flex: 1 }}
-            {...props.scrollProps}
-          >
-            <Box style={{ flex: 1 }} {...props}>
-              {props.children}
-            </Box>
+    <KeyboardAvoidingView behavior={isIos ? "padding" : undefined} flex={1}>
+      <StatusBar barStyle={statusBar || "light-content"} />
+      <View style={insetStyle} flex={1} bg="gray.900">
+        {heading && (
+          <Row space={2} alignItems="center" ml={2} mr={5}>
+            {handlePrev && (
+              <IconButton
+                icon={<ArrowLeftIcon color="primary.500" />}
+                onPress={handlePrev}
+                size="lg"
+                variant="ghost"
+              />
+            )}
+            <Heading mt={1} flex={1}>
+              {heading}
+            </Heading>
+            {headingRight}
+          </Row>
+        )}
+        {scroll ? (
+          <ScrollView flex={1} {...props}>
+            {children}
           </ScrollView>
         ) : (
-          <Box style={{ flex: 1 }} {...props}>
-            {props.children}
+          <Box flex={1} {...props}>
+            {children}
           </Box>
         )}
       </View>
