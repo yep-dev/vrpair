@@ -1,4 +1,4 @@
-import React, { FC } from "react"
+import React, { FC, ReactNode } from "react"
 import { Animated, StyleSheet, I18nManager, ViewStyle } from "react-native"
 
 import { Text } from "native-base"
@@ -22,7 +22,7 @@ export type TabsRoute = {
 type State = NavigationState<TabsRoute>
 
 type Props = {
-  renderBadge?: (scene: Scene<TabsRoute>) => React.ReactNode
+  renderBadge?: (scene: Scene<TabsRoute>) => ReactNode
   setNavigationState(any): void
   styles: { indicator: ViewStyle; tabBar?: ViewStyle }
   disableTabNavigation?: boolean
@@ -80,14 +80,14 @@ export const Tabs: FC<Props & Omit<TabViewProps<TabsRoute>, "onIndexChange">> = 
     )
   }
 
-  const renderIcon = ({ route }: { route: TabsRoute }) => <Text>{route.label}</Text>
+  const renderLabel = ({ route }: { route: TabsRoute }) => <Text>{route.label}</Text>
 
   const handleIndexChange = (index) => setNavigationState((state) => ({ ...state, index }))
 
   const renderTabBar = (props: SceneRendererProps & { navigationState: State }) => (
     <TabBar
       {...props}
-      renderLabel={renderIcon}
+      renderLabel={renderLabel}
       renderBadge={renderBadge}
       renderIndicator={renderIndicator}
       style={[s.tabBar, styles.tabBar]}

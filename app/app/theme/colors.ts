@@ -68,7 +68,7 @@ const colorsDefininitions = {
     900: "#7f1d1d",
   },
   gray: {
-    50: "#fafafa",
+    50: "#fff",
     100: "#f4f4f5",
     200: "#e4e4e7",
     300: "#d4d4d8",

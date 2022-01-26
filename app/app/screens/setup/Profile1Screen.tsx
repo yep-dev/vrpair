@@ -8,7 +8,7 @@ import { useQuery } from "react-query"
 import { useApi } from "api/apiProvider"
 import { FieldError, FieldLabel, InputField, RadioGroupField } from "components"
 import { CheckboxField } from "components/fields/CheckboxField"
-import { SetupStep } from "screens/setup/SetupStep"
+import { SetupScreen } from "screens/setup/SetupScreen"
 import { useLogout } from "utils/auth"
 import { enums } from "utils/enums"
 import { storage } from "utils/misc"
@@ -17,7 +17,7 @@ const { gender, femAvatar } = enums
 
 const name = "profile1"
 
-export const Profile1Step: FC<SceneRendererProps> = ({ jumpTo }) => {
+export const Profile1Screen: FC<SceneRendererProps> = ({ jumpTo }) => {
   const [logoutDialogOpen, setLogoutDialogOpen] = useState(false)
   const cancelRef = useRef(null)
 
@@ -32,12 +32,13 @@ export const Profile1Step: FC<SceneRendererProps> = ({ jumpTo }) => {
 
   return (
     <FormProvider {...form}>
-      <SetupStep
+      <SetupScreen
         name={name}
         heading="Profile"
         handlePrev={() => {
           setLogoutDialogOpen(true)
         }}
+        routeKey="1"
         handleNext={form.handleSubmit(() => jumpTo("2"))}
       >
         <Column space={5}>
@@ -130,7 +131,7 @@ export const Profile1Step: FC<SceneRendererProps> = ({ jumpTo }) => {
             </AlertDialog.Content>
           </AlertDialog>
         </Column>
-      </SetupStep>
+      </SetupScreen>
     </FormProvider>
   )
 }

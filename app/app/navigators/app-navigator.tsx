@@ -18,7 +18,7 @@ import { LoginScreen } from "screens/LoginScreen"
 import { ProfileDetailsScreen } from "screens/profiles/ProfileDetailsScreen"
 import { ProfilesListScreen } from "screens/profiles/ProfilesListScreen"
 import { ProfilesCarouselScreen } from "screens/ProfilesCarouselScreen"
-import { SetupScreen } from "screens/setup/SetupScreen"
+import { Profile1Screen } from "screens/setup/Profile1Screen"
 import { DiscordIntegrationScreen } from "screens/user/DiscordIntegrationScreen"
 import { UserMenuScreen } from "screens/user/UserMenu/UserMenuScreen"
 import { colors } from "theme/colors"
@@ -54,7 +54,7 @@ export const AppNavigator = observer(() => {
           hasProfile || isLoading ? (
             <App.Screen name="tabs" component={Tabs} />
           ) : (
-            <App.Screen name="setup" component={SetupScreen} />
+            <App.Screen name="setup" component={SetupStack} />
           )
         ) : (
           <App.Screen name="login" component={LoginScreen} />
@@ -63,6 +63,21 @@ export const AppNavigator = observer(() => {
     </NavigationContainer>
   ) : null
 })
+
+// ---------------- Setup ----------------
+export type SetupParams = {
+  profile1
+  profile2
+  preferences1
+  preferences2
+}
+const Setup = createNativeStackNavigator<SetupParams>()
+
+const SetupStack = () => (
+  <Setup.Navigator initialRouteName="profile1" screenOptions={{ headerShown: false }}>
+    <Setup.Screen name="profile1" component={Profile1Screen} />
+  </Setup.Navigator>
+)
 
 // ---------------- Tabs ----------------
 
