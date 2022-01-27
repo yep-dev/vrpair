@@ -1,23 +1,25 @@
 import React, { FC, useRef, useState } from "react"
 
+import { NativeStackScreenProps } from "@react-navigation/native-stack"
 import { AlertDialog, Button, Column, Input, Row, Text, View } from "native-base"
 import { Controller, FormProvider, useForm } from "react-hook-form"
-import { SceneRendererProps } from "react-native-tab-view"
 import { useQuery } from "react-query"
 
 import { useApi } from "api/apiProvider"
 import { FieldError, FieldLabel, InputField, RadioGroupField } from "components"
 import { CheckboxField } from "components/fields/CheckboxField"
+import { SetupParams } from "navigators/app-navigator"
 import { SetupScreen } from "screens/setup/SetupScreen"
 import { useLogout } from "utils/auth"
 import { enums } from "utils/enums"
 import { storage } from "utils/misc"
 
 const { gender, femAvatar } = enums
-
 const name = "profile1"
 
-export const Profile1Screen: FC<SceneRendererProps> = ({ jumpTo }) => {
+type Props = NativeStackScreenProps<SetupParams, "profile1">
+
+export const Profile1Screen: FC<Props> = ({ navigation: { navigate } }) => {
   const [logoutDialogOpen, setLogoutDialogOpen] = useState(false)
   const cancelRef = useRef(null)
 
@@ -39,7 +41,7 @@ export const Profile1Screen: FC<SceneRendererProps> = ({ jumpTo }) => {
           setLogoutDialogOpen(true)
         }}
         routeKey="1"
-        handleNext={form.handleSubmit(() => jumpTo("2"))}
+        handleNext={form.handleSubmit(() => navigate("setup", { screen: "profile2" }))}
       >
         <Column space={5}>
           <InputField name="username" label="Username" defaultValue={discordUsername} />

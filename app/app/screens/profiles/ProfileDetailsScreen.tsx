@@ -1,13 +1,11 @@
 import React, { FC } from "react"
 
-import { RouteProp } from "@react-navigation/native"
+import { NativeStackScreenProps } from "@react-navigation/native-stack"
 
 import { Screen, Profile, ProfileOverlays } from "components"
 import { ProfilesListParams } from "navigators/app-navigator"
 
-type Props = {
-  route: RouteProp<ProfilesListParams, "profileDetails">
-}
+type Props = NativeStackScreenProps<ProfilesListParams, "profileDetails">
 
 export const ProfileDetailsScreen: FC<Props> = ({ route }) => {
   const { profile, liked, skipped } = route.params
