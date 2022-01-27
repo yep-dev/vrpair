@@ -1,6 +1,6 @@
 import React, { FC, useEffect } from "react"
 
-import { Button, Row, View } from "native-base"
+import { Button, Column, Row } from "native-base"
 import { useFormContext } from "react-hook-form"
 
 import { Screen } from "components"
@@ -62,7 +62,7 @@ export const SetupScreen: FC<Props> = ({
         </Row>
       }
     >
-      <View>{children}</View>
+      <Column space={6}>{children}</Column>
       <Row mb={12} space={2}>
         <Button onPress={handleNext} flex={1} size="lg">
           Next
