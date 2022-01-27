@@ -32,13 +32,13 @@ export const enumsDefinitions = {
   },
   setup: {
     quest: {
-      label: "Quest Standalone",
+      label: "Quest",
     },
     pcvr: {
       label: "PC Half-Body",
     },
     fbt: {
-      label: "FBT",
+      label: "Full-Body",
     },
   },
   role: {
