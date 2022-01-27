@@ -1,12 +1,14 @@
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import { BackHandler } from "react-native"
 
 import {
-  PartialState,
-  NavigationState,
-  NavigationAction,
   createNavigationContainerRef,
+  NavigationAction,
+  NavigationState,
+  PartialState,
 } from "@react-navigation/native"
+
+import { storage } from "utils/misc"
 
 /* eslint-disable */
 export const RootNavigation = {
@@ -81,6 +83,36 @@ export const useBackButtonHandler = (canExit: (routeName: string) => boolean) =>
 }
 
 /**
+ * Custom hook for persisting navigation state.
+ */
+export const useNavigationPersistence = (persistenceKey: string) => {
+  const [initialNavigationState, setInitialNavigationState] = useState()
+  const [isRestored, setIsRestored] = useState(!__DEV__)
+  const routeNameRef = useRef<string | undefined>()
+
+  const onNavigationStateChange = (state) => {
+    if (__DEV__) {
+      routeNameRef.current = getActiveRouteName(state)
+      storage.setObj(persistenceKey, state)
+    }
+  }
+
+  const restoreState = async () => {
+    try {
+      const state = storage.getObj(persistenceKey)
+      if (state && Object.keys(state).length !== 0) setInitialNavigationState(state)
+    } finally {
+      setIsRestored(true)
+    }
+  }
+
+  useEffect(() => {
+    if (!isRestored) restoreState()
+  }, [isRestored])
+
+  return { onNavigationStateChange, restoreState, isRestored, initialNavigationState }
+}
+
 /**
  * use this to navigate to navigate without the navigation
  * prop. If you have access to the navigation prop, do not use this.
