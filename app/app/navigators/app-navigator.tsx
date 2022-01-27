@@ -18,7 +18,9 @@ import { LoginScreen } from "screens/LoginScreen"
 import { ProfileDetailsScreen } from "screens/profiles/ProfileDetailsScreen"
 import { ProfilesListScreen } from "screens/profiles/ProfilesListScreen"
 import { ProfilesCarouselScreen } from "screens/ProfilesCarouselScreen"
+import { Preferences1Screen } from "screens/setup/Preferences1Screen"
 import { Profile1Screen } from "screens/setup/Profile1Screen"
+import { Profile2Screen } from "screens/setup/Profile2Screen"
 import { DiscordIntegrationScreen } from "screens/user/DiscordIntegrationScreen"
 import { UserMenuScreen } from "screens/user/UserMenu/UserMenuScreen"
 import { colors } from "theme/colors"
@@ -87,6 +89,8 @@ const Setup = createNativeStackNavigator<SetupParams>()
 const SetupStack = () => (
   <Setup.Navigator initialRouteName="profile1" screenOptions={{ headerShown: false }}>
     <Setup.Screen name="profile1" component={Profile1Screen} />
+    <Setup.Screen name="profile2" component={Profile2Screen} />
+    <Setup.Screen name="preferences1" component={Preferences1Screen} />
   </Setup.Navigator>
 )
 

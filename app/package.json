@@ -24,6 +24,7 @@
     "barrels": "barrelsby -DS -d ./app/components -l replace -e _ -e index"
   },
   "dependencies": {
+    "@miblanchard/react-native-slider": "~2.1.0",
     "@react-native-async-storage/async-storage": "~1.15.14",
     "@react-native-community/masked-view": "~0.1.11",
     "@react-native-picker/picker": "~2.2.1",

@@ -1,6 +1,6 @@
 import React, { FC } from "react"
 
-import { Checkbox, ICheckboxProps } from "native-base"
+import { Checkbox, ICheckboxProps, View } from "native-base"
 import { useController } from "react-hook-form"
 
 import { FieldError, FieldLabel } from "components"
@@ -19,10 +19,10 @@ export const CheckboxField: FC<Props> = ({ name, label, rules, ...props }) => {
   })
 
   return (
-    <>
+    <View>
       {label && <FieldLabel label={label} />}
       <Checkbox {...props} onChange={field.onChange} value={field.value} />
       <FieldError error={fieldState.error} />
-    </>
+    </View>
   )
 }

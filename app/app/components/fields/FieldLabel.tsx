@@ -1,13 +1,13 @@
 import React, { FC } from "react"
 
-import { Text } from "native-base"
+import { ITextProps, Text } from "native-base"
 
 type Props = {
   label: string
-}
+} & ITextProps
 
-export const FieldLabel: FC<Props> = ({ label }) => (
-  <Text fontSize="md" mb={2}>
+export const FieldLabel: FC<Props> = ({ label, ...props }) => (
+  <Text fontSize="md" mb={2} {...props}>
     {label}
   </Text>
 )
