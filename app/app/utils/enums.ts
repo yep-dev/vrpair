@@ -73,15 +73,15 @@ export const enumsDefinitions = {
   },
   femAvatar: {
     true: {
-      label: "Feminine Avatar",
+      label: "Feminine",
       color: "pink",
     },
     false: {
-      label: "Masculine Avatar",
+      label: "Masculine",
       color: "blue",
     },
     any: {
-      label: "Any Gender Avatar",
+      label: "Any",
       color: "green",
     },
   },

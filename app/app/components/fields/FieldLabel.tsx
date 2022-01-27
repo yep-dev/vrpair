@@ -7,7 +7,7 @@ type Props = {
 }
 
 export const FieldLabel: FC<Props> = ({ label }) => (
-  <Text fontSize="md" mb={1}>
+  <Text fontSize="md" mb={2}>
     {label}
   </Text>
 )

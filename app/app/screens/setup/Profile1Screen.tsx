@@ -98,12 +98,18 @@ export const Profile1Screen: FC<Props> = ({ navigation: { navigate } }) => {
             Transgender
           </CheckboxField>
         </View>
-        <RadioGroupField
-          name="femAvatar"
-          label="Avatar"
-          rules={{ required: "Select your avatar type" }}
-          items={[femAvatar.true, femAvatar.false]}
-        />
+        <View>
+          <RadioGroupField
+            name="femAvatar"
+            label="Avatar type"
+            rules={{ required: "Select your avatar type" }}
+            items={[femAvatar.true, femAvatar.false]}
+          />
+          <Row justifyContent="space-evenly" mt={1}>
+            <Text>Includes femboy</Text>
+            <Text>Includes tomboy</Text>
+          </Row>
+        </View>
         <AlertDialog
           isOpen={logoutDialogOpen}
           onClose={() => setLogoutDialogOpen(false)}
