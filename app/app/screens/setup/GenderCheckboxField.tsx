@@ -16,7 +16,7 @@ const rows = [
 export const GenderCheckboxField = () => {
   const { field, fieldState } = useController({
     name: "gender",
-    rules: { required: "Select genders that you prefer" },
+    rules: { required: "Select preferred genders" },
     defaultValue: [],
   })
 

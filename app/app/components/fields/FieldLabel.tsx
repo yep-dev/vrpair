@@ -7,7 +7,7 @@ type Props = {
 } & ITextProps
 
 export const FieldLabel: FC<Props> = ({ label, ...props }) => (
-  <Text fontSize="md" mb={2} {...props}>
+  <Text fontSize="lg" mb={2} {...props}>
     {label}
   </Text>
 )
