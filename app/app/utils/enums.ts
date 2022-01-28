@@ -26,7 +26,7 @@ export const enumsDefinitions = {
       color: "pink",
     },
     nonBinary: {
-      label: "Non-binary",
+      label: "Non-Binary",
       color: "gray",
     },
   },

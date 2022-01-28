@@ -30,8 +30,8 @@ export const Preferences1Screen: FC<Props> = ({ navigation: { navigate } }) => {
         <GenderCheckboxField />
         <RadioGroupField
           name="femAvatar"
-          label="Preferred avatar type"
-          rules={{ required: "Select preferred avatar  type" }}
+          label="Preferred Avatar Type"
+          rules={{ required: "Select preferred avatar type" }}
           items={Object.values(enums.femAvatar)}
         />
         <AgeRangeField />

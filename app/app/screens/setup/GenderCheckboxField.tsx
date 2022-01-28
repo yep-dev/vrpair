@@ -32,7 +32,7 @@ export const GenderCheckboxField = () => {
 
   return (
     <Checkbox.Group onChange={handleChange} value={field.value}>
-      <FieldLabel label="Preferred genders" />
+      <FieldLabel label="Preferred Genders" />
       {rows.map((row, i) => (
         <Row key={i} flex={1}>
           {row.map(({ key, label }) => (

@@ -30,7 +30,7 @@ export const Profile2Screen: FC<Props> = ({ navigation: { navigate } }) => {
       >
         <RadioGroupField
           name="setup"
-          label="VR setup"
+          label="VR Setup"
           rules={{ required: "Select your VR setup type" }}
           items={[setup.quest, setup.pcvr, setup.fbt]}
         />

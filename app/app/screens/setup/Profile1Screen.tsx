@@ -45,7 +45,7 @@ export const Profile1Screen: FC<Props> = ({ navigation: { navigate } }) => {
       >
         <InputField name="username" label="Username" defaultValue={discordUsername} />
         <View>
-          <FieldLabel label="Birth date" />
+          <FieldLabel label="Birth Date" />
           <Row space={2} alignItems="center">
             <Controller
               control={form.control}
@@ -101,7 +101,7 @@ export const Profile1Screen: FC<Props> = ({ navigation: { navigate } }) => {
         <View>
           <RadioGroupField
             name="femAvatar"
-            label="Avatar type"
+            label="Avatar Type"
             rules={{ required: "Select your avatar type" }}
             items={[femAvatar.true, femAvatar.false]}
           />

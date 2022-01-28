@@ -19,7 +19,7 @@ export const AgeRangeField = () => {
 
   return (
     <View>
-      <FieldLabel label="Preferred age range" mb={6} />
+      <FieldLabel label="Preferred Age Range" mb={6} />
       <Slider
         onValueChange={(value) => {
           ageMin.field.onChange(value[0])
