@@ -21,7 +21,7 @@ export const RadioGroup = ({ items, value, onChange }: TRadioGroup) => {
           key={key}
           style={[s.button, value === key && s.activeButton]}
         >
-          <Text color="primary.500" style={value === key && s.textActive}>
+          <Text color="primary.500" fontWeight="bold" style={value === key && s.textActive}>
             {label}
           </Text>
         </TouchableOpacity>
