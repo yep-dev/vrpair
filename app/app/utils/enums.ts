@@ -56,19 +56,25 @@ export const enumsDefinitions = {
     },
   },
   mute: {
-    true: {
-      label: "Mute Only",
+    any: {
+      label: "No Preference",
     },
     false: {
       label: "Not Mute",
     },
+    true: {
+      label: "Mute Only",
+    },
   },
   furry: {
-    true: {
-      label: "Furry Only",
+    any: {
+      label: "No Preference",
     },
     false: {
       label: "Not Furry",
+    },
+    true: {
+      label: "Furry Only",
     },
   },
   femAvatar: {

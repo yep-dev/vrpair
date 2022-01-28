@@ -8,13 +8,21 @@ import { TRadioGroup } from "components/RadioGroup"
 type Props = {
   name: string
   label: string
+  defaultValue?: string
   rules?: any // todo
 } & Omit<TRadioGroup, "value" | "onChange">
 
-export const RadioGroupField: FC<Props> = ({ name, label, rules, ...radioGroupProps }) => {
+export const RadioGroupField: FC<Props> = ({
+  name,
+  label,
+  rules,
+  defaultValue,
+  ...radioGroupProps
+}) => {
   const { field, fieldState } = useController({
     name,
-    rules: { required: `${label} is required`, ...rules },
+    rules,
+    defaultValue,
   })
 
   return (
