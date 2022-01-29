@@ -5,8 +5,9 @@ import { KyInstance } from "ky/distribution/types/ky"
 import { useQueryClient } from "react-query"
 
 import { useStore } from "mobx/utils"
+import { NAVIGATION_PERSISTENCE_KEY } from "navigators/app-navigator"
 import { getSecureValue, setSecureValue } from "utils/keychain"
-import { atob } from "utils/misc"
+import { atob, storage } from "utils/misc"
 
 const { API_URL } = require("config/env")
 
@@ -41,6 +42,7 @@ export const useSetupApiClients = () => {
       } catch {}
     }
     setAuthenticated(false)
+    storage.delete(NAVIGATION_PERSISTENCE_KEY)
     return null
   }
 

@@ -88,11 +88,9 @@ export const useBackButtonHandler = (canExit: (routeName: string) => boolean) =>
 export const useNavigationPersistence = (persistenceKey: string) => {
   const [initialNavigationState, setInitialNavigationState] = useState()
   const [isRestored, setIsRestored] = useState(!__DEV__)
-  const routeNameRef = useRef<string | undefined>()
 
   const onNavigationStateChange = (state) => {
     if (__DEV__) {
-      routeNameRef.current = getActiveRouteName(state)
       storage.setObj(persistenceKey, state)
     }
   }
