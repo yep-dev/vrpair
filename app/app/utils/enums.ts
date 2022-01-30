@@ -7,9 +7,6 @@ export const enumsDefinitions = {
       label: "Male",
       color: "blue",
     },
-    maleCis: {
-      label: "Cis Male",
-    },
     maleTrans: {
       label: "Trans Male",
       color: "blue",
@@ -17,9 +14,6 @@ export const enumsDefinitions = {
     female: {
       label: "Female",
       color: "pink",
-    },
-    femaleCis: {
-      label: "Cis Female",
     },
     femaleTrans: {
       label: "Trans Female",

@@ -16,21 +16,21 @@ export const Preferences: FC<{ preferences: TPreferences }> = ({ preferences }) 
         <Tag colorScheme="green">Everyone</Tag>
       ) : (
         <TagRow space={2}>
-          {["maleCis", "maleTrans"].some((value) => preferences.gender.includes(value)) && (
+          {["male", "maleTrans"].some((value) => preferences.gender.includes(value)) && (
             <Tag colorScheme={enums.gender.male.color}>
-              {genderIncludes(["maleCis", "maleTrans"])
+              {genderIncludes(["male", "maleTrans"])
                 ? enums.gender.male.label
-                : genderIncludes(["maleCis"])
-                ? enums.gender.maleCis.label
+                : genderIncludes(["male"])
+                ? enums.gender.male.label
                 : enums.gender.maleTrans.label}
             </Tag>
           )}
-          {["femaleCis", "femaleTrans"].some((value) => preferences.gender.includes(value)) && (
+          {["female", "femaleTrans"].some((value) => preferences.gender.includes(value)) && (
             <Tag colorScheme={enums.gender.female.color}>
-              {genderIncludes(["femaleCis", "femaleTrans"])
+              {genderIncludes(["female", "femaleTrans"])
                 ? enums.gender.female.label
-                : genderIncludes(["femaleCis"])
-                ? enums.gender.femaleCis.label
+                : genderIncludes(["female"])
+                ? enums.gender.female.label
                 : enums.gender.femaleTrans.label}
             </Tag>
           )}

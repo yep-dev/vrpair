@@ -61,8 +61,8 @@ export const ProfileCard: FC<Props> = ({ tab, profile, date, liked, skipped }) =
               {profile.username}, {profile.age}
             </Text>
             <TagRow space={1}>
-              <Tag colorScheme={enums.gender[profile.gender.replace("Cis", "")].color}>
-                {enums.gender[profile.gender.replace("Cis", "")].label}
+              <Tag colorScheme={enums.gender[profile.gender].color}>
+                {enums.gender[profile.gender].label}
               </Tag>
               <Tag colorScheme={enums.femAvatar[profile.femAvatar.toString()].color}>
                 {enums.femAvatar[profile.femAvatar.toString()].label}
