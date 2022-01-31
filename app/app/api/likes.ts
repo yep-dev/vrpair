@@ -21,14 +21,14 @@ export type TBadges = {
 }
 
 export const likesApi = ({ client }: TClients) => ({
-  likeProfile: async ({ profileId }): Promise<{}> =>
+  likeProfile: async (json: { profileId: number }): Promise<{}> =>
     await client.post("likes/like-profile", {
-      json: { profileId },
+      json,
     }),
 
-  skipProfile: async ({ profileId }): Promise<{}> =>
+  skipProfile: async (json: { profileId: number }): Promise<{}> =>
     await client.post("likes/skip-profile", {
-      json: { profileId },
+      json,
     }),
 
   likedProfileList: async ({ signal }: Props): Promise<TLikesResponse> =>
