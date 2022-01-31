@@ -63,7 +63,7 @@ export const Profile1Screen: FC<Props> = ({ navigation: { navigate } }) => {
                   keyboardType="number-pad"
                 />
               )}
-              name="birth.month"
+              name="birthMonth"
             />
             <Text fontSize="2xl">/</Text>
             <Controller
@@ -81,11 +81,11 @@ export const Profile1Screen: FC<Props> = ({ navigation: { navigate } }) => {
                   placeholder="YYYY"
                 />
               )}
-              name="birth.year"
+              name="birthYear"
             />
           </Row>
-          <FieldError error={errors.birth?.month} />
-          <FieldError error={errors.birth?.year} />
+          <FieldError error={errors.birthYear} />
+          <FieldError error={errors.birthMonth} />
         </View>
         <View>
           <RadioGroupField

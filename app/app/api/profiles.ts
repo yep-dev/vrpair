@@ -35,6 +35,36 @@ export type TPreferences = {
   furry: string
 }
 
+export type ProfileForm = {
+  // 1
+  birthMonth: string
+  birthYear: string
+  femAvatar: string
+  gender: string
+  trans: boolean
+  username: string
+  // 2
+  furry: boolean
+  mute: boolean
+  role: string
+  setup: string
+
+  preferences: PreferencesForm
+}
+
+export type PreferencesForm = {
+  // 1
+  ageMax: number
+  ageMin: number
+  femAvatar: string
+  gender: string[]
+  // 2
+  furry: string
+  mute: string
+  role: string[]
+  setup: string[]
+}
+
 export type TProfileListResult = {
   results: TProfile[]
 }
@@ -55,6 +85,13 @@ export const profilesApi = ({ client }: TClients) => ({
     await client
       .get("profiles/current-profile", {
         signal,
+      })
+      .json(),
+
+  createProfile: async (json: ProfileForm): Promise<{}> =>
+    await client
+      .post("profiles/create-profile", {
+        json,
       })
       .json(),
 })
