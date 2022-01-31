@@ -24,14 +24,23 @@ class Migration(migrations.Migration):
                         verbose_name="ID",
                     ),
                 ),
+                ("age_max", models.PositiveSmallIntegerField(null=True)),
+                ("age_min", models.PositiveSmallIntegerField()),
+                (
+                    "fem_avatar",
+                    models.CharField(
+                        choices=[("true", "True"), ("false", "False"), ("any", "Any")],
+                        max_length=8,
+                    ),
+                ),
                 (
                     "gender",
                     django.contrib.postgres.fields.ArrayField(
                         base_field=models.CharField(
                             choices=[
-                                ("maleCis", "Malecis"),
+                                ("male", "Male"),
                                 ("maleTrans", "Maletrans"),
-                                ("femaleCis", "Femalecis"),
+                                ("female", "Female"),
                                 ("femaleTrans", "Femaletrans"),
                                 ("nonBinary", "Nonbinary"),
                             ],
@@ -40,15 +49,6 @@ class Migration(migrations.Migration):
                         size=None,
                     ),
                 ),
-                (
-                    "fem_avatar",
-                    models.CharField(
-                        choices=[("true", "True"), ("false", "False"), ("any", "Any")],
-                        max_length=8,
-                    ),
-                ),
-                ("age_min", models.PositiveSmallIntegerField()),
-                ("age_max", models.PositiveSmallIntegerField(null=True)),
                 (
                     "setup",
                     django.contrib.postgres.fields.ArrayField(
@@ -111,9 +111,9 @@ class Migration(migrations.Migration):
                     "gender",
                     models.CharField(
                         choices=[
-                            ("maleCis", "Malecis"),
+                            ("male", "Male"),
                             ("maleTrans", "Maletrans"),
-                            ("femaleCis", "Femalecis"),
+                            ("female", "Female"),
                             ("femaleTrans", "Femaletrans"),
                             ("nonBinary", "Nonbinary"),
                         ],

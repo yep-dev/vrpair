@@ -23,7 +23,7 @@ class Preferences(models.Model):
 
 class Profile(models.Model):
     # 1
-    username = models.CharField(max_length=32, null=True)
+    username = models.CharField(max_length=32)
     birth_date = models.DateField()
     gender = models.CharField(max_length=12, choices=GenderEnum.choices)
     fem_avatar = models.BooleanField()

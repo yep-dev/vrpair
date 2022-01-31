@@ -1,12 +1,23 @@
 from django.db import models
 
 
+class GenderBaseEnum(models.TextChoices):
+    male = "male"
+    female = "female"
+    nonBinary = "nonBinary"
+
+
 class GenderEnum(models.TextChoices):
-    maleCis = "maleCis"
+    male = "male"
     maleTrans = "maleTrans"
-    femaleCis = "femaleCis"
+    female = "female"
     femaleTrans = "femaleTrans"
     nonBinary = "nonBinary"
+
+
+class BinaryEnum(models.TextChoices):
+    true = "true"
+    false = "false"
 
 
 class BoolEnum(models.TextChoices):
