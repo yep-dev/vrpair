@@ -5,6 +5,7 @@ import { useReduxDevToolsExtension } from "@react-navigation/devtools"
 import { NavigationContainer, DarkTheme } from "@react-navigation/native"
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
 import { observer } from "mobx-react-lite"
+import { ErrorBoundary } from "react-error-boundary"
 import { useQuery } from "react-query"
 
 import { useApi } from "api/apiProvider"
@@ -25,6 +26,7 @@ import { Profile2Screen } from "screens/setup/Profile2Screen"
 import { DiscordIntegrationScreen } from "screens/user/DiscordIntegrationScreen"
 import { UserMenuScreen } from "screens/user/UserMenu/UserMenuScreen"
 import { colors } from "theme/colors"
+import { storage } from "utils/misc"
 
 export const NAVIGATION_PERSISTENCE_KEY = "navigationState"
 
@@ -52,29 +54,38 @@ export const AppNavigator = observer(() => {
   } = useNavigationPersistence(NAVIGATION_PERSISTENCE_KEY)
 
   return isNavigationStateRestored && !isLoading ? (
-    <NavigationContainer
-      ref={navigationRef}
-      theme={DarkTheme}
-      initialState={initialNavigationState}
-      onStateChange={onNavigationStateChange}
+    <ErrorBoundary
+      fallback={<></>}
+      onError={(error) => {
+        if (error.message === "Cannot read property 'props' of undefined") {
+          storage.clearAll()
+        }
+      }}
     >
-      <App.Navigator
-        screenOptions={{
-          headerShown: false,
-        }}
-        initialRouteName="login"
+      <NavigationContainer
+        ref={navigationRef}
+        theme={DarkTheme}
+        initialState={initialNavigationState}
+        onStateChange={onNavigationStateChange}
       >
-        {userStore.authenticated ? (
-          hasProfile || isLoading ? (
-            <App.Screen name="tabs" component={Tabs} />
+        <App.Navigator
+          screenOptions={{
+            headerShown: false,
+          }}
+          initialRouteName="login"
+        >
+          {userStore.authenticated ? (
+            hasProfile || isLoading ? (
+              <App.Screen name="tabs" component={Tabs} />
+            ) : (
+              <App.Screen name="setup" component={SetupStack} />
+            )
           ) : (
-            <App.Screen name="setup" component={SetupStack} />
-          )
-        ) : (
-          <App.Screen name="login" component={LoginScreen} />
-        )}
-      </App.Navigator>
-    </NavigationContainer>
+            <App.Screen name="login" component={LoginScreen} />
+          )}
+        </App.Navigator>
+      </NavigationContainer>
+    </ErrorBoundary>
   ) : null
 })
 
