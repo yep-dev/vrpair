@@ -88,7 +88,7 @@ export const profilesApi = ({ client }: TClients) => ({
       })
       .json(),
 
-  createProfile: async (json: ProfileForm): Promise<{}> =>
+  createProfile: async (json: ProfileForm): Promise<TProfile> =>
     await client
       .post("profiles/create-profile", {
         json,

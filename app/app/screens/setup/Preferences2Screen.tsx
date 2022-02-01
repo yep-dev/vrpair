@@ -2,9 +2,11 @@ import React, { FC } from "react"
 
 import { NativeStackScreenProps } from "@react-navigation/native-stack"
 import { FormProvider, useForm } from "react-hook-form"
-import { useMutation } from "react-query"
+import { useMutation, useQueryClient } from "react-query"
 
 import { useApi } from "api/apiProvider"
+import { TProfile } from "api/profiles"
+import { TUser } from "api/users"
 import { RadioGroupField } from "components"
 import { CheckboxGroupField } from "components/fields/CheckboxGroupField"
 import { SetupParams } from "navigators/app-navigator"
@@ -19,7 +21,20 @@ type Props = NativeStackScreenProps<SetupParams, "preferences2">
 export const Preferences2Screen: FC<Props> = ({ navigation: { navigate } }) => {
   const form = useForm({ defaultValues: storage.getObj(name)?.values })
   const api = useApi()
-  const createProfile = useMutation(api.profiles.createProfile)
+  const queryClient = useQueryClient()
+  const createProfile = useMutation(api.profiles.createProfile, {
+    onSuccess: (data) => {
+      queryClient.setQueryData<TUser>(
+        "currentUser",
+        (user) =>
+          ({
+            ...user,
+            hasProfile: true,
+          } as TUser),
+      )
+      queryClient.setQueryData<TProfile>("currentProfile", data)
+    },
+  })
 
   const handleSubmit = (preferences2) => {
     createProfile.mutate({
