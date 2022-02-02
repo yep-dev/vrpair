@@ -36,7 +36,11 @@ class ProfileSerializer(serializers.ModelSerializer):
             "description",
             "verified",
             "preferences",
+            # custom
+            "likes",
         ]
+
+    likes = serializers.ReadOnlyField()
 
 
 class CurrentProfileSerializer(ProfileSerializer):

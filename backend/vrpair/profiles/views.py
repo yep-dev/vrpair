@@ -13,8 +13,18 @@ from vrpair.utils.models import get_or_none
 
 
 class ProfileList(generics.ListAPIView):
-    queryset = Profile.objects.filter(visible=True).order_by("?")
     serializer_class = ProfileSerializer
+
+    def get_queryset(self):
+        profile = self.request.user.profile
+        likes = RatedProfile.objects.filter(profile=profile).values_list(
+            "author_id", flat=True
+        )
+        queryset = Profile.objects.filter(visible=True).order_by("?")
+        for item in queryset:
+            if item.id in likes:
+                item.likes = True
+        return queryset
 
 
 class ProfileFeed(generics.ListAPIView):

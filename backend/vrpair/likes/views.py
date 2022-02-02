@@ -39,6 +39,7 @@ class LikesList(generics.GenericAPIView):
         )
         for like in likes:
             like.profile = like.author
+            like.profile.likes = True
         data = RatedProfileSerializer(likes, many=True).data
 
         return Response(

@@ -42,6 +42,8 @@ export const ProfileCard: FC<Props> = ({ tab, profile }) => {
         }}
         px="4"
         py="3"
+        borderLeftWidth={2}
+        borderLeftColor={profile.likes ? "yellow.500" : "transparent"}
       >
         <Row space={3}>
           <Box>
