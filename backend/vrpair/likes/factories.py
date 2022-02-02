@@ -1,29 +1,26 @@
 import factory
+from factory.faker import faker
+from factory import random as _random
 from dateutil.relativedelta import relativedelta
 from django.utils import timezone
 from factory.django import DjangoModelFactory
 from factory.fuzzy import FuzzyDateTime
 
-from vrpair.likes.models import LikedProfile, SkippedProfile, Pair
+from vrpair.likes.models import Pair, RatedProfile
 from vrpair.profiles.models import Profile
 
+random = _random.randgen
+fake = faker.Faker()
 
-class LikedProfileFactory(DjangoModelFactory):
+
+class RatedProfileFactory(DjangoModelFactory):
     author = factory.Iterator(Profile.objects.order_by("?"))
     # profile has to be passed
+    liked = factory.LazyFunction(lambda: random.random() < 0.3)
     date = FuzzyDateTime(timezone.now() - relativedelta(months=3))
 
     class Meta:
-        model = LikedProfile
-
-
-class SkippedProfileFactory(DjangoModelFactory):
-    author = factory.Iterator(Profile.objects.order_by("?"))
-    # profile has to be passed
-    date = FuzzyDateTime(timezone.now() - relativedelta(months=3))
-
-    class Meta:
-        model = SkippedProfile
+        model = RatedProfile
 
 
 class PairFactory(DjangoModelFactory):

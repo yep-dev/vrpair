@@ -33,18 +33,17 @@ export const ProfileOverlays: FC<Props> = observer(
   ({ profileId, liked, skipped, moveCarousel }) => {
     const api = useApi()
     const { userStore } = useStore()
-    const likeProfile = useMutation(api.likes.likeProfile)
-    const skipProfile = useMutation(api.likes.skipProfile)
+    const rateProfile = useMutation(api.likes.rateProfile)
     const forceToken = useForceToken()
 
     const handleLike = () => {
       moveCarousel && moveCarousel()
-      likeProfile.mutate({ profileId })
+      rateProfile.mutate({ profileId, liked: true })
     }
 
     const handleSkip = () => {
       moveCarousel && moveCarousel()
-      skipProfile.mutate({ profileId })
+      rateProfile.mutate({ profileId, liked: false })
     }
 
     const handleSwitchUser = async () => {

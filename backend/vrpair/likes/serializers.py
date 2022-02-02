@@ -1,32 +1,19 @@
 from rest_framework import serializers
 
-from vrpair.likes.models import LikedProfile, SkippedProfile, Pair
+from vrpair.likes.models import RatedProfile, Pair
 from vrpair.profiles.serializers import ProfileSerializer
+from vrpair.utils.serializers import FlattenMixin
 
 
-class LikedProfileSerializer(serializers.ModelSerializer):
+class RatedProfileSerializer(FlattenMixin, serializers.ModelSerializer):
     class Meta:
-        model = LikedProfile
-        fields = ["id", "profile", "date"]
-
-    profile = ProfileSerializer()
-
-
-class LikeSerializer(LikedProfileSerializer):
-    profile = ProfileSerializer(source="author")
+        model = RatedProfile
+        fields = ["id", "liked", "date"]
+        flatten = [("profile", ProfileSerializer)]
 
 
-class SkippedProfileSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = SkippedProfile
-        fields = ["id", "profile", "date"]
-
-    profile = ProfileSerializer()
-
-
-class PairSerializer(serializers.ModelSerializer):
+class PairSerializer(FlattenMixin, serializers.ModelSerializer):
     class Meta:
         model = Pair
-        fields = ["id", "profile", "date"]
-
-    profile = ProfileSerializer()
+        fields = ["id", "date"]
+        flatten = [("profile", ProfileSerializer)]

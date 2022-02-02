@@ -5,47 +5,41 @@ from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from vrpair.likes.models import LikedProfile, Pair, SkippedProfile
+from vrpair.likes.models import Pair, RatedProfile
 from vrpair.likes.serializers import (
-    LikedProfileSerializer,
     PairSerializer,
-    LikeSerializer,
+    RatedProfileSerializer,
 )
 
 
-class LikeProfile(APIView):
+class RateProfile(APIView):
     def post(self, request):
         try:
-            LikedProfile.objects.create(
-                author=request.user.profile, profile_id=request.data["profile_id"]
+            RatedProfile.objects.create(
+                author=request.user.profile,
+                profile_id=request.data["profile_id"],
+                liked=request.data["liked"],
             )
         except IntegrityError:
             raise ValidationError
         return Response(status=status.HTTP_201_CREATED)
 
 
-class SkipProfile(APIView):
-    def post(self, request):
-        try:
-            SkippedProfile.objects.create(
-                author=request.user.profile, profile_id=request.data["profile_id"]
-            )
-        except IntegrityError:
-            raise ValidationError
-        return Response(status=status.HTTP_201_CREATED)
-
-
-class LikedProfileList(generics.ListAPIView):
-    serializer_class = LikedProfileSerializer
+class LikedList(generics.ListAPIView):
+    serializer_class = RatedProfileSerializer
 
     def get_queryset(self):
-        return LikedProfile.objects.filter(author=self.request.user.profile)
+        return RatedProfile.objects.filter(author=self.request.user.profile, liked=True)
 
 
-class LikeList(generics.GenericAPIView):
+class LikesList(generics.GenericAPIView):
     def get(self, request):
-        likes = LikedProfile.objects.filter(profile=self.request.user.profile)
-        data = LikeSerializer(likes, many=True).data
+        likes = RatedProfile.objects.filter(
+            profile=self.request.user.profile, liked=True
+        )
+        for like in likes:
+            like.profile = like.author
+        data = RatedProfileSerializer(likes, many=True).data
 
         return Response(
             {

@@ -20,6 +20,12 @@ export type TProfile = {
   description: string
   verified: boolean
   preferences: TPreferences
+
+  // custom
+  likes?: boolean
+  liked?: boolean
+  paired?: boolean
+  date?: string
 }
 
 export type TPreferences = {

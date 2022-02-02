@@ -12,11 +12,10 @@ from rest_framework_simplejwt.views import (
 )
 
 from vrpair.likes.views import (
-    LikeProfile,
-    LikedProfileList,
     PairList,
-    LikeList,
-    SkipProfile,
+    RateProfile,
+    LikesList,
+    LikedList,
 )
 from vrpair.profiles.views import ProfileList, CurrentProfile, CreateProfile
 from vrpair.users.views import DiscordLogin, ForceToken, CurrentUser
@@ -31,17 +30,16 @@ if settings.DEBUG:
 
 api_paths = [
     # likes
-    path("likes/like-profile", LikeProfile.as_view(), name="like_profile"),
-    path("likes/skip-profile", SkipProfile.as_view(), name="skip_profile"),
+    path("likes/rate-profile", RateProfile.as_view(), name="rate_profile"),
     path(
-        "likes/liked-profile-list",
-        LikedProfileList.as_view(),
-        name="liked_profile_list",
+        "likes/liked-list",
+        LikedList.as_view(),
+        name="liked_list",
     ),
     path(
-        "likes/like-list",
-        LikeList.as_view(),
-        name="like_list",
+        "likes/likes-list",
+        LikesList.as_view(),
+        name="likes_list",
     ),
     path(
         "likes/pair-list",

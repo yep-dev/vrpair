@@ -2,6 +2,7 @@ from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from vrpair.likes.models import RatedProfile
 from vrpair.profiles.models import Profile
 from vrpair.profiles.serializers import (
     ProfileSerializer,
@@ -14,6 +15,14 @@ from vrpair.utils.models import get_or_none
 class ProfileList(generics.ListAPIView):
     queryset = Profile.objects.filter(visible=True).order_by("?")
     serializer_class = ProfileSerializer
+
+
+class ProfileFeed(generics.ListAPIView):
+    serializer_class = ProfileSerializer
+
+    def get_queryset(self):
+        profile = self.request.user.profile
+        return RatedProfile.objects.filter(profile=profile, liked=True)
 
 
 class CurrentProfile(APIView):

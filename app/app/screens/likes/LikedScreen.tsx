@@ -4,19 +4,19 @@ import { FlatList } from "react-native"
 import { useQuery } from "react-query"
 
 import { useApi } from "api/apiProvider"
-import { TProfileAndDate } from "api/likes"
+import { TProfile } from "api/profiles"
 import { ProfileCard, QueryContainer } from "components"
 
 export const LikedScreen: FC = () => {
   const api = useApi()
-  const query = useQuery("likedProfileList", api.likes.likedProfileList)
+  const query = useQuery("likedProfileList", api.likes.likedList)
 
   return (
     <QueryContainer query={query} text="You didn't like any profile">
-      <FlatList<TProfileAndDate>
+      <FlatList<TProfile>
         data={query?.data?.results}
-        renderItem={({ item }) => <ProfileCard tab="likes" {...item} liked />}
-        keyExtractor={(item) => item.profile.id.toString()}
+        renderItem={({ item }) => <ProfileCard tab="likes" profile={item} />}
+        keyExtractor={(item) => item.id.toString()}
       />
     </QueryContainer>
   )

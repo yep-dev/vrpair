@@ -4,23 +4,10 @@ from django.utils import timezone
 from vrpair.profiles.models import Profile
 
 
-class LikedProfile(models.Model):
-    author = models.ForeignKey(
-        Profile, on_delete=models.CASCADE, related_name="liked_profiles"
-    )
-    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name="likes")
-    skipped = models.BooleanField(default=False)
-    date = models.DateTimeField(default=timezone.now)
-
-    class Meta:
-        unique_together = ["author", "profile"]
-
-
-class SkippedProfile(models.Model):
-    author = models.ForeignKey(
-        Profile, on_delete=models.CASCADE, related_name="skipped_profiles"
-    )
-    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name="skips")
+class RatedProfile(models.Model):
+    author = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name="rated")
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name="rates")
+    liked = models.BooleanField()
     date = models.DateTimeField(default=timezone.now)
 
     class Meta:

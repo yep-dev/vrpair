@@ -15,7 +15,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name="SkippedProfile",
+            name="RatedProfile",
             fields=[
                 (
                     "id",
@@ -26,12 +26,13 @@ class Migration(migrations.Migration):
                         verbose_name="ID",
                     ),
                 ),
+                ("liked", models.BooleanField()),
                 ("date", models.DateTimeField(default=django.utils.timezone.now)),
                 (
                     "author",
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
-                        related_name="skipped_profiles",
+                        related_name="rated",
                         to="profiles.profile",
                     ),
                 ),
@@ -39,7 +40,7 @@ class Migration(migrations.Migration):
                     "profile",
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
-                        related_name="skips",
+                        related_name="rates",
                         to="profiles.profile",
                     ),
                 ),
@@ -82,41 +83,6 @@ class Migration(migrations.Migration):
             ],
             options={
                 "unique_together": {("profile1", "profile2")},
-            },
-        ),
-        migrations.CreateModel(
-            name="LikedProfile",
-            fields=[
-                (
-                    "id",
-                    models.AutoField(
-                        auto_created=True,
-                        primary_key=True,
-                        serialize=False,
-                        verbose_name="ID",
-                    ),
-                ),
-                ("skipped", models.BooleanField(default=False)),
-                ("date", models.DateTimeField(default=django.utils.timezone.now)),
-                (
-                    "author",
-                    models.ForeignKey(
-                        on_delete=django.db.models.deletion.CASCADE,
-                        related_name="liked_profiles",
-                        to="profiles.profile",
-                    ),
-                ),
-                (
-                    "profile",
-                    models.ForeignKey(
-                        on_delete=django.db.models.deletion.CASCADE,
-                        related_name="likes",
-                        to="profiles.profile",
-                    ),
-                ),
-            ],
-            options={
-                "unique_together": {("author", "profile")},
             },
         ),
     ]

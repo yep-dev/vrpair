@@ -25,19 +25,14 @@ const Tag = inject(Badge, {
 type Props = {
   tab: keyof TabParams
   profile: TProfile
-  date?: string
-  liked?: boolean
-  skipped?: boolean
 }
 
-export const ProfileCard: FC<Props> = ({ tab, profile, date, liked, skipped }) => {
+export const ProfileCard: FC<Props> = ({ tab, profile }) => {
   const { navigate } = useNavigation()
 
   return (
     <TouchableOpacity
-      onPress={() =>
-        navigate(tab, { screen: "profileDetails", params: { profile, liked, skipped } })
-      }
+      onPress={() => navigate(tab, { screen: "profileDetails", params: { profile } })}
       delayPressIn={50}
     >
       <Box
@@ -76,10 +71,10 @@ export const ProfileCard: FC<Props> = ({ tab, profile, date, liked, skipped }) =
               {profile.mute && <Tag colorScheme="gray">Mute</Tag>}
               {profile.furry && <Tag colorScheme="gray">Furry</Tag>}
             </TagRow>
-            {date && (
+            {profile.date && (
               <Flex alignItems="flex-end">
                 <Text fontSize="xs">
-                  {formatDistanceToNow(new Date(date), { addSuffix: true })}
+                  {formatDistanceToNow(new Date(profile.date), { addSuffix: true })}
                 </Text>
               </Flex>
             )}

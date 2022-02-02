@@ -5,14 +5,8 @@ type Props = {
   signal?: AbortSignal
 }
 
-export type TProfileAndDate = {
-  id: number
-  date: string
-  profile: TProfile
-}
-
 export type TLikesResponse = {
-  results: TProfileAndDate[]
+  results: TProfile[]
 }
 
 export type TBadges = {
@@ -21,21 +15,16 @@ export type TBadges = {
 }
 
 export const likesApi = ({ client }: TClients) => ({
-  likeProfile: async (json: { profileId: number }): Promise<{}> =>
-    await client.post("likes/like-profile", {
+  rateProfile: async (json: { profileId: number; liked: boolean }): Promise<{}> =>
+    await client.post("likes/rate-profile", {
       json,
     }),
 
-  skipProfile: async (json: { profileId: number }): Promise<{}> =>
-    await client.post("likes/skip-profile", {
-      json,
-    }),
-
-  likedProfileList: async ({ signal }: Props): Promise<TLikesResponse> =>
-    await client.get("likes/liked-profile-list", { signal }).json(),
+  likedList: async ({ signal }: Props): Promise<TLikesResponse> =>
+    await client.get("likes/liked-list", { signal }).json(),
 
   likesList: async ({ signal }: Props): Promise<TLikesResponse & { likesBadge: number }> =>
-    await client.get("likes/like-list", { signal }).json(),
+    await client.get("likes/likes-list", { signal }).json(),
 
   pairsList: async ({ signal }: Props): Promise<TLikesResponse & { pairsBadge: number }> =>
     await client.get("likes/pair-list", { signal }).json(),
