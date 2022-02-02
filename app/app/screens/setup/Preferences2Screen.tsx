@@ -6,8 +6,8 @@ import { FormProvider, useForm } from "react-hook-form"
 import { useMutation, useQueryClient } from "react-query"
 
 import { useApi } from "api/apiProvider"
-import { TProfile } from "api/profiles"
-import { TUser } from "api/users"
+import { profilesKeys, TProfile } from "api/profiles"
+import { TUser, usersKeys } from "api/users"
 import { RadioGroupField } from "components"
 import { CheckboxGroupField } from "components/fields/CheckboxGroupField"
 import { SetupParams } from "navigators/app-navigator"
@@ -29,14 +29,14 @@ export const Preferences2Screen: FC<Props> = ({ navigation: { navigate } }) => {
   const createProfile = useMutation(api.profiles.createProfile, {
     onSuccess: (data) => {
       queryClient.setQueryData<TUser>(
-        "currentUser",
+        usersKeys.currentUser,
         (user) =>
           ({
             ...user,
             hasProfile: true,
           } as TUser),
       )
-      queryClient.setQueryData<TProfile>("currentProfile", data)
+      queryClient.setQueryData<TProfile>(profilesKeys.currentProfile, data)
     },
   })
 

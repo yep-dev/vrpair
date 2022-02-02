@@ -13,6 +13,7 @@ import { useQuery } from "react-query"
 
 import { useApi } from "api/apiProvider"
 import { TProfile } from "api/profiles"
+import { usersKeys } from "api/users"
 import { ProfileIcon, ProfileSearchIcon, ProfileStackIcon } from "components/icons"
 import { useStore } from "mobx/utils"
 import { LikesIcon } from "navigators/components/LikesIcon"
@@ -45,7 +46,7 @@ const App = createNativeStackNavigator<AppParams>()
 export const AppNavigator = observer(() => {
   const { userStore } = useStore()
   const api = useApi()
-  const { data: hasProfile, isLoading } = useQuery("currentUser", api.users.currentUser, {
+  const { data: hasProfile, isLoading } = useQuery(usersKeys.currentUser, api.users.currentUser, {
     select: (user) => user.hasProfile,
   })
   useReduxDevToolsExtension(navigationRef)

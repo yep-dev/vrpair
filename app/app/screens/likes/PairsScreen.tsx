@@ -4,16 +4,16 @@ import { FlatList } from "react-native"
 import { useQuery, useQueryClient } from "react-query"
 
 import { useApi } from "api/apiProvider"
-import { TBadges } from "api/likes"
+import { likesKeys, TBadges } from "api/likes"
 import { TProfile } from "api/profiles"
 import { ProfileCard, QueryContainer } from "components"
 
 export const PairsScreen: FC = () => {
   const api = useApi()
   const queryClient = useQueryClient()
-  const query = useQuery("pairsList", api.likes.pairsList, {
+  const query = useQuery(likesKeys.pairsList, api.likes.pairsList, {
     onSuccess: (data) => {
-      queryClient.setQueryData<TBadges>("badges", (badges) => ({
+      queryClient.setQueryData<TBadges>(likesKeys.badges, (badges) => ({
         ...badges,
         pairs: data.pairsBadge,
       }))

@@ -7,6 +7,7 @@ import { Controller, FormProvider, useForm } from "react-hook-form"
 import { useQuery } from "react-query"
 
 import { useApi } from "api/apiProvider"
+import { usersKeys } from "api/users"
 import { FieldError, FieldLabel, InputField, RadioGroupField } from "components"
 import { CheckboxField } from "components/fields/CheckboxField"
 import { SetupParams } from "navigators/app-navigator"
@@ -29,7 +30,7 @@ export const Profile1Screen: FC<Props> = ({ navigation: { navigate } }) => {
 
   const logout = useLogout()
   const api = useApi()
-  const { data: discordUsername } = useQuery("currentUser", api.users.currentUser, {
+  const { data: discordUsername } = useQuery(usersKeys.currentUser, api.users.currentUser, {
     select: (user) => user.discordUsername,
   })
 

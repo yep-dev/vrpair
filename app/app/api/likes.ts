@@ -14,6 +14,13 @@ export type TBadges = {
   likes?: number
 }
 
+export const likesKeys = {
+  likedList: ["likes", "likedList"],
+  likesList: ["likes", "likesList"],
+  pairsList: ["likes", "pairsList"],
+  badges: ["likes", "badges"],
+}
+
 export const likesApi = ({ client }: TClients) => ({
   rateProfile: async (json: { profileId: number; liked: boolean }): Promise<{}> =>
     await client.post("likes/rate-profile", {

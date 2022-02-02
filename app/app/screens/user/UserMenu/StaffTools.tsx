@@ -4,14 +4,16 @@ import { Button, Column, Input, Text } from "native-base"
 import { useQuery } from "react-query"
 
 import { useApi } from "api/apiProvider"
+import { profilesKeys } from "api/profiles"
+import { usersKeys } from "api/users"
 import { useForceToken } from "utils/auth"
 
 export const StaffTools: FC = () => {
   const [userId, setUserId] = useState("")
   const [profileId, setProfileId] = useState("")
   const api = useApi()
-  const user = useQuery("currentUser", api.users.currentUser)
-  const profile = useQuery("currentProfile", api.profiles.currentProfile)
+  const user = useQuery(usersKeys.currentUser, api.users.currentUser)
+  const profile = useQuery(profilesKeys.currentProfile, api.profiles.currentProfile)
   const forceToken = useForceToken()
 
   return (

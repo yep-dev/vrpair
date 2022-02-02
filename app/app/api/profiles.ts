@@ -79,6 +79,11 @@ type Props = {
   signal?: AbortSignal
 }
 
+export const profilesKeys = {
+  profileList: ["profiles", "profileList"],
+  currentProfile: ["profiles", "currentProfile"],
+}
+
 export const profilesApi = ({ client }: TClients) => ({
   profileList: async ({ signal }: Props): Promise<TProfileListResult> =>
     await client

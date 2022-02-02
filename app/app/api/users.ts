@@ -17,6 +17,10 @@ type Props = {
   signal?: AbortSignal
 }
 
+export const usersKeys = {
+  currentUser: ["users", "currentUser"],
+}
+
 export const usersApi = ({ client, staffClient }: TClients) => ({
   currentUser: async ({ signal }: Props): Promise<TUser> =>
     await client
