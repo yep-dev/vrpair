@@ -6,7 +6,7 @@ import { formatDistanceToNow } from "date-fns"
 import { Badge, Box, Column, Flex, Image, Row, Text } from "native-base"
 
 import { TProfile } from "api/profiles"
-import { TabParams } from "navigators/app-navigator"
+import { TabNavigationProps, TabParams } from "navigators/app-navigator"
 import { enums } from "utils/enums"
 import { inject } from "utils/misc"
 
@@ -28,7 +28,7 @@ type Props = {
 }
 
 export const ProfileCard: FC<Props> = ({ tab, profile }) => {
-  const { navigate } = useNavigation()
+  const { navigate } = useNavigation<TabNavigationProps>()
 
   return (
     <TouchableOpacity

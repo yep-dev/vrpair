@@ -3,7 +3,10 @@ import React from "react"
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import { useReduxDevToolsExtension } from "@react-navigation/devtools"
 import { NavigationContainer, DarkTheme } from "@react-navigation/native"
-import { createNativeStackNavigator } from "@react-navigation/native-stack"
+import {
+  createNativeStackNavigator,
+  NativeStackNavigationProp,
+} from "@react-navigation/native-stack"
 import { observer } from "mobx-react-lite"
 import { ErrorBoundary } from "react-error-boundary"
 import { useQuery } from "react-query"
@@ -109,6 +112,7 @@ const SetupStack = () => (
 
 // ---------------- Tabs ----------------
 
+export type TabNavigationProps = NativeStackNavigationProp<TabParams>
 export type TabParams = {
   profilesCarousel
   profilesList

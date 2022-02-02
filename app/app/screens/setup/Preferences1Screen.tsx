@@ -1,5 +1,6 @@
 import React, { FC } from "react"
 
+import { NavigatorScreenParams } from "@react-navigation/native"
 import { NativeStackScreenProps } from "@react-navigation/native-stack"
 import { FormProvider, useForm } from "react-hook-form"
 
@@ -13,7 +14,10 @@ import { storage } from "utils/misc"
 
 const name = "preferences1"
 
-type Props = NativeStackScreenProps<SetupParams, "preferences1">
+type ParamList = {
+  setup: NavigatorScreenParams<SetupParams>
+}
+export type Props = NativeStackScreenProps<ParamList>
 
 export const Preferences1Screen: FC<Props> = ({ navigation: { navigate } }) => {
   const form = useForm({ defaultValues: storage.getObj(name)?.values })

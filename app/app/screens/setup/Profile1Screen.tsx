@@ -1,5 +1,6 @@
 import React, { FC, useRef, useState } from "react"
 
+import { NavigatorScreenParams } from "@react-navigation/native"
 import { NativeStackScreenProps } from "@react-navigation/native-stack"
 import { AlertDialog, Button, Input, Row, Text, View } from "native-base"
 import { Controller, FormProvider, useForm } from "react-hook-form"
@@ -17,7 +18,10 @@ import { storage } from "utils/misc"
 const { gender, femAvatar } = enums
 const name = "profile1"
 
-type Props = NativeStackScreenProps<SetupParams, "profile1">
+type ParamList = {
+  setup: NavigatorScreenParams<SetupParams>
+}
+export type Props = NativeStackScreenProps<ParamList>
 
 export const Profile1Screen: FC<Props> = ({ navigation: { navigate } }) => {
   const [logoutDialogOpen, setLogoutDialogOpen] = useState(false)

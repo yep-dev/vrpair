@@ -1,5 +1,6 @@
 import React, { FC } from "react"
 
+import { NavigatorScreenParams } from "@react-navigation/native"
 import { NativeStackScreenProps } from "@react-navigation/native-stack"
 import { FormProvider, useForm } from "react-hook-form"
 
@@ -14,7 +15,10 @@ const { setup, role } = enums
 
 const name = "profile2"
 
-type Props = NativeStackScreenProps<SetupParams, "profile2">
+type ParamList = {
+  setup: NavigatorScreenParams<SetupParams>
+}
+export type Props = NativeStackScreenProps<ParamList>
 
 export const Profile2Screen: FC<Props> = ({ navigation: { navigate } }) => {
   const form = useForm({ defaultValues: storage.getObj(name)?.values })

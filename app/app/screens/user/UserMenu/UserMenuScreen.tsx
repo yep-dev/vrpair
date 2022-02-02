@@ -6,6 +6,7 @@ import { Button } from "native-base"
 
 import { Screen } from "components"
 import { useStore } from "mobx/utils"
+import { TabNavigationProps } from "navigators/app-navigator"
 import { StaffTools } from "screens/user/UserMenu/StaffTools"
 import { useLogout } from "utils/auth"
 import { inject } from "utils/misc"
@@ -16,7 +17,7 @@ const Option = inject(Button, {
 })
 
 export const UserMenuScreen: FC = observer(() => {
-  const { navigate } = useNavigation()
+  const { navigate } = useNavigation<TabNavigationProps>()
   const { userStore } = useStore()
   const logout = useLogout()
 

@@ -6,6 +6,7 @@ import { useApi } from "api/apiProvider"
 import { TUser } from "api/users"
 import { API_URL, OAUTH_DISCORD_CLIENT_ID } from "config/env"
 import { useStore } from "mobx/utils"
+import { TabNavigationProps } from "navigators/app-navigator"
 import { removeSecureValue, setSecureValue } from "utils/keychain"
 import { storage } from "utils/misc"
 
@@ -55,7 +56,7 @@ export const useDiscordLogin = () => {
 export const useForceToken = () => {
   const api = useApi()
   const queryClient = useQueryClient()
-  const { navigate } = useNavigation()
+  const { navigate } = useNavigation<TabNavigationProps>()
 
   return useMutation(api.users.forceToken, {
     onSuccess: async ({ access, refresh }) => {
