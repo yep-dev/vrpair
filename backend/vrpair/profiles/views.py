@@ -18,13 +18,14 @@ class ProfileList(generics.ListAPIView):
 
     def get_queryset(self):
         profile = self.request.user.profile
-        likes = RatedProfile.objects.filter(profile=profile).values_list(
-            "author_id", flat=True
+        likes = RatedProfile.objects.filter(profile=profile).values(
+            "author_id",
+            "liked",
         )
+        likes = {like["author_id"]: like["liked"] for like in likes}
         queryset = Profile.objects.filter(visible=True).order_by("?")
         for item in queryset:
-            if item.id in likes:
-                item.likes = True
+            item.likes = likes.get(item.id)
         return queryset
 
 

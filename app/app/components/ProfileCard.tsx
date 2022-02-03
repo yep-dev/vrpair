@@ -4,8 +4,9 @@ import { TouchableOpacity } from "react-native"
 import { useNavigation } from "@react-navigation/native"
 import { formatDistanceToNow } from "date-fns"
 import { Badge, Box, Column, Flex, Image, Row, Text } from "native-base"
+import { useQuery } from "react-query"
 
-import { Profile } from "api/profiles"
+import { Profile, ProfileDetails, profilesKeys } from "api/profiles"
 import { TabNavigationProps, TabParams } from "navigators/app-navigator"
 import { enums } from "utils/enums"
 import { inject } from "utils/misc"
@@ -25,10 +26,20 @@ const Tag = inject(Badge, {
 type Props = {
   tab: keyof TabParams
   profile: Profile
+  hideRated?: boolean
 }
 
-export const ProfileCard: FC<Props> = ({ tab, profile }) => {
+export const ProfileCard: FC<Props> = ({ tab, profile, hideRated }) => {
   const { navigate } = useNavigation<TabNavigationProps>()
+  const { data } = useQuery<ProfileDetails>(profilesKeys.profileDetails(profile.id), {
+    enabled: false,
+  })
+
+  profile = data || profile
+
+  if (hideRated && profile.liked != null) {
+    return null
+  }
 
   return (
     <TouchableOpacity
