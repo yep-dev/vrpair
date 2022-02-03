@@ -186,7 +186,7 @@ const ProfilesListStack = () => (
 // ---------------- Likes ----------------
 export type LikesParams = {
   likesTabs
-  profileDetails: { profile: Profile; liked?: boolean; skipped?: boolean }
+  profileDetails: { profile: Profile }
 }
 const Likes = createNativeStackNavigator<LikesParams>()
 

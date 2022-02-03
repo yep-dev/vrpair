@@ -14,10 +14,6 @@ export type Profile = {
   furry: boolean
 
   // other
-  startHour: string
-  endHour: string
-  weekDays: string
-  description: string
   verified: boolean
 
   // custom
@@ -28,6 +24,11 @@ export type Profile = {
 }
 
 export type ProfileDetails = {
+  startHour: string
+  endHour: string
+  weekDays: string
+  description: string
+
   preferences: Preferences
 } & Profile
 
@@ -85,6 +86,7 @@ type Props = {
 export const profilesKeys = {
   profileList: ["profiles", "profileList"],
   currentProfile: ["profiles", "currentProfile"],
+  profileDetails: (id: number) => ["profiles", "profileDetails", id],
 }
 
 export const profilesApi = ({ client }: Clients) => ({
@@ -106,6 +108,13 @@ export const profilesApi = ({ client }: Clients) => ({
     await client
       .post("profiles/create-profile", {
         json,
+      })
+      .json(),
+
+  profileDetails: async ({ signal, id }: Props & { id: number }): Promise<ProfileDetails> =>
+    await client
+      .get(`profiles/profile-details/${id}`, {
+        signal,
       })
       .json(),
 })

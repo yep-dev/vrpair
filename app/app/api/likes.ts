@@ -1,5 +1,5 @@
 import { Clients } from "api/apiClients"
-import { Profile } from "api/profiles"
+import { Profile, ProfileDetails } from "api/profiles"
 
 type Props = {
   signal?: AbortSignal
@@ -22,10 +22,12 @@ export const likesKeys = {
 }
 
 export const likesApi = ({ client }: Clients) => ({
-  rateProfile: async (json: { profileId: number; liked: boolean }): Promise<{}> =>
-    await client.post("likes/rate-profile", {
-      json,
-    }),
+  rateProfile: async (json: { profileId: number; liked: boolean }): Promise<ProfileDetails> =>
+    await client
+      .post("likes/rate-profile", {
+        json,
+      })
+      .json(),
 
   likedList: async ({ signal }: Props): Promise<LikesResponse> =>
     await client.get("likes/liked-list", { signal }).json(),

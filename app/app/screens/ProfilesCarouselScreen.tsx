@@ -25,7 +25,7 @@ export const ProfilesCarouselScreen: FC = () => {
           renderItem={({ item }) => <Profile profile={item} />}
         />
       ) : null}
-      <ProfileOverlays profileId={2} moveCarousel={() => carousel.current?.next()} />
+      <ProfileOverlays profile={{}} moveCarousel={() => carousel.current?.next()} />
     </Screen>
   )
 }

@@ -8,6 +8,7 @@ from vrpair.profiles.serializers import (
     ProfileSerializer,
     ProfileFormSerializer,
     CurrentProfileSerializer,
+    ProfileDetailsSerializer,
 )
 from vrpair.utils.models import get_or_none
 
@@ -54,3 +55,8 @@ class CreateProfile(APIView):
             request.user.profile = profile
             request.user.save()
         return Response(CurrentProfileSerializer(profile).data)
+
+
+class ProfileDetails(generics.RetrieveAPIView):
+    serializer_class = ProfileDetailsSerializer
+    queryset = Profile.objects.all()

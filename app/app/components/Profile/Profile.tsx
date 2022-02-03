@@ -2,7 +2,7 @@ import React, { FC } from "react"
 
 import { Badge, Image, Text, Row, Column, ScrollView } from "native-base"
 
-import { Profile as TProfile } from "api/profiles"
+import { Profile as TProfile, ProfileDetails } from "api/profiles"
 import { Preferences } from "components"
 import { enums } from "utils/enums"
 import { inject } from "utils/misc"
@@ -16,7 +16,12 @@ export const Tag = inject(Badge, {
   alignSelf: "flex-start",
 })
 
-export const Profile: FC<{ profile: TProfile }> = ({ profile }) => {
+type Props = {
+  profile: TProfile
+  details?: ProfileDetails
+}
+
+export const Profile: FC<Props> = ({ profile, details }) => {
   return (
     <ScrollView>
       <Column m={8} mt={2} space={4} mb={32}>
@@ -45,8 +50,12 @@ export const Profile: FC<{ profile: TProfile }> = ({ profile }) => {
             {profile.furry && <Tag colorScheme="gray">Furry</Tag>}
           </TagRow>
         </Column>
-        <Preferences preferences={profile.preferences} />
-        <Text mb={2}>{profile.description}</Text>
+        {details && (
+          <>
+            {details.preferences && <Preferences preferences={details.preferences} />}
+            <Text mb={2}>{details.description}</Text>
+          </>
+        )}
       </Column>
     </ScrollView>
   )

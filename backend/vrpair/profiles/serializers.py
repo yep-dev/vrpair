@@ -16,7 +16,6 @@ from vrpair.utils.serializers import MultipleChoiceField
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
-        depth = 1
         fields = [
             "id",
             # 1
@@ -30,17 +29,25 @@ class ProfileSerializer(serializers.ModelSerializer):
             "mute",
             "furry",
             # other
-            "start_hour",
-            "end_hour",
-            "week_days",
-            "description",
             "verified",
-            "preferences",
             # custom
             "likes",
         ]
 
     likes = serializers.ReadOnlyField()
+
+
+class ProfileDetailsSerializer(ProfileSerializer):
+    class Meta:
+        model = Profile
+        depth = 1
+        fields = ProfileSerializer.Meta.fields + [
+            "start_hour",
+            "end_hour",
+            "week_days",
+            "description",
+            "preferences",
+        ]
 
 
 class CurrentProfileSerializer(ProfileSerializer):

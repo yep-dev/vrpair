@@ -9,20 +9,24 @@ from vrpair.likes.models import Pair, RatedProfile
 from vrpair.likes.serializers import (
     PairSerializer,
     RatedProfileSerializer,
+    RatedProfileDetailsSerializer,
 )
 
 
 class RateProfile(APIView):
     def post(self, request):
         try:
-            RatedProfile.objects.create(
+            rated_profile = RatedProfile.objects.create(
                 author=request.user.profile,
                 profile_id=request.data["profile_id"],
                 liked=request.data["liked"],
             )
         except IntegrityError:
             raise ValidationError
-        return Response(status=status.HTTP_201_CREATED)
+        return Response(
+            RatedProfileDetailsSerializer(rated_profile).data,
+            status=status.HTTP_201_CREATED,
+        )
 
 
 class LikedList(generics.ListAPIView):
