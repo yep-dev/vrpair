@@ -2,7 +2,7 @@ import React, { FC } from "react"
 
 import { useQuery } from "react-query"
 
-import { TBadges } from "api/likes"
+import { Badges } from "api/likes"
 import { RoundBadge } from "components"
 import { HeartBalloonsIcon } from "components/icons"
 
@@ -11,7 +11,7 @@ type Props = {
 }
 
 export const LikesIcon: FC<Props> = (props) => {
-  const { data } = useQuery<TBadges>("badges", { enabled: false })
+  const { data } = useQuery<Badges>("badges", { enabled: false })
   const likes = data?.likes || 0
   const pairs = data?.pairs || 0
   return (

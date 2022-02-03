@@ -5,7 +5,7 @@ import { useNavigation } from "@react-navigation/native"
 import { formatDistanceToNow } from "date-fns"
 import { Badge, Box, Column, Flex, Image, Row, Text } from "native-base"
 
-import { TProfile } from "api/profiles"
+import { Profile } from "api/profiles"
 import { TabNavigationProps, TabParams } from "navigators/app-navigator"
 import { enums } from "utils/enums"
 import { inject } from "utils/misc"
@@ -24,7 +24,7 @@ const Tag = inject(Badge, {
 
 type Props = {
   tab: keyof TabParams
-  profile: TProfile
+  profile: Profile
 }
 
 export const ProfileCard: FC<Props> = ({ tab, profile }) => {

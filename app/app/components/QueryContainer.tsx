@@ -3,11 +3,11 @@ import React, { FC } from "react"
 import { Box, Center, Text } from "native-base"
 import { UseQueryResult } from "react-query"
 
-import { TLikesResponse } from "api/likes"
+import { LikesResponse } from "api/likes"
 import { SmileyUnhappy } from "components/icons"
 
 type Props = {
-  query: UseQueryResult<TLikesResponse>
+  query: UseQueryResult<LikesResponse>
   text: string
 }
 

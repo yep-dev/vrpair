@@ -88,7 +88,7 @@ export const useSetupApiClients = () => {
   }
 }
 
-export type TClients = {
+export type Clients = {
   baseClient: KyInstance
   client: KyInstance
   staffClient: KyInstance

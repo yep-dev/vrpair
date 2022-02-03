@@ -4,7 +4,7 @@ import { StyleSheet } from "react-native"
 import { SceneMap, NavigationState } from "react-native-tab-view"
 import { useQuery } from "react-query"
 
-import { TBadges } from "api/likes"
+import { Badges } from "api/likes"
 import { RoundBadge, Tabs, TabsRoute } from "components"
 import { LikedScreen } from "screens/likes/LikedScreen"
 import { LikesYouScreen } from "screens/likes/LikesYouScreen"
@@ -27,7 +27,7 @@ const routes = [
 ]
 
 export const LikesTabsScreen: FC = () => {
-  const { data: badgesData } = useQuery<TBadges>("badges", { enabled: false })
+  const { data: badgesData } = useQuery<Badges>("badges", { enabled: false })
   const [navigationState, setNavigationState] = useState<NavigationState<TabsRoute>>({
     routes,
     index: 0,

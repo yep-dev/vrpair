@@ -1,6 +1,6 @@
-import { TClients } from "api/apiClients"
+import { Clients } from "api/apiClients"
 
-export type TProfile = {
+export type Profile = {
   // 1
   id: number
   username: string
@@ -19,7 +19,6 @@ export type TProfile = {
   weekDays: string
   description: string
   verified: boolean
-  preferences: TPreferences
 
   // custom
   likes?: boolean
@@ -28,7 +27,11 @@ export type TProfile = {
   date?: string
 }
 
-export type TPreferences = {
+export type ProfileDetails = {
+  preferences: Preferences
+} & Profile
+
+export type Preferences = {
   // 3
   gender: string[]
   femAvatar: string
@@ -71,8 +74,8 @@ export type PreferencesForm = {
   setup: string[]
 }
 
-export type TProfileListResult = {
-  results: TProfile[]
+export type ProfileListResult = {
+  results: Profile[]
 }
 
 type Props = {
@@ -84,22 +87,22 @@ export const profilesKeys = {
   currentProfile: ["profiles", "currentProfile"],
 }
 
-export const profilesApi = ({ client }: TClients) => ({
-  profileList: async ({ signal }: Props): Promise<TProfileListResult> =>
+export const profilesApi = ({ client }: Clients) => ({
+  profileList: async ({ signal }: Props): Promise<ProfileListResult> =>
     await client
       .get("profiles/profile-list", {
         signal,
       })
       .json(),
 
-  currentProfile: async ({ signal }: Props): Promise<TProfile> =>
+  currentProfile: async ({ signal }: Props): Promise<Profile> =>
     await client
       .get("profiles/current-profile", {
         signal,
       })
       .json(),
 
-  createProfile: async (json: ProfileForm): Promise<TProfile> =>
+  createProfile: async (json: ProfileForm): Promise<Profile> =>
     await client
       .post("profiles/create-profile", {
         json,

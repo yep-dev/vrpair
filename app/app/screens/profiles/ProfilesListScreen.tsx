@@ -4,7 +4,7 @@ import { FlatList } from "react-native"
 import { useQuery } from "react-query"
 
 import { useApi } from "api/apiProvider"
-import { profilesKeys, TProfile } from "api/profiles"
+import { profilesKeys, Profile } from "api/profiles"
 import { Screen, ProfileCard } from "components"
 
 export const ProfilesListScreen: FC = () => {
@@ -16,7 +16,7 @@ export const ProfilesListScreen: FC = () => {
   return (
     <Screen>
       {data?.results && (
-        <FlatList<TProfile>
+        <FlatList<Profile>
           data={data.results}
           renderItem={({ item }) => <ProfileCard tab="profilesList" profile={item} />}
           keyExtractor={(profile) => profile.id.toString()}

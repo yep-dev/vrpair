@@ -6,13 +6,13 @@ import { View, Text } from "native-base"
 import { colors } from "theme/colors"
 import { ChoiceEnum } from "utils/enums"
 
-export type TRadioGroup = {
+export type RadioGroupProps = {
   items: ChoiceEnum[]
   value: string
   onChange(e: string): void
 }
 
-export const RadioGroup = ({ items, value, onChange }: TRadioGroup) => {
+export const RadioGroup = ({ items, value, onChange }: RadioGroupProps) => {
   return (
     <View flexDirection="row" borderColor="primary.500" borderWidth={1} borderRadius={4}>
       {items.map(({ key, label }) => (

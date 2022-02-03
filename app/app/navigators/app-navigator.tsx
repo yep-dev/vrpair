@@ -12,7 +12,7 @@ import { ErrorBoundary } from "react-error-boundary"
 import { useQuery } from "react-query"
 
 import { useApi } from "api/apiProvider"
-import { TProfile } from "api/profiles"
+import { Profile } from "api/profiles"
 import { usersKeys } from "api/users"
 import { ProfileIcon, ProfileSearchIcon, ProfileStackIcon } from "components/icons"
 import { useStore } from "mobx/utils"
@@ -169,7 +169,7 @@ const Tabs = () => (
 // ---------------- ProfilesList ----------------
 export type ProfilesListParams = {
   profilesListMain
-  profileDetails: { profile: TProfile; liked?: boolean; skipped?: boolean }
+  profileDetails: { profile: Profile; liked?: boolean; skipped?: boolean }
 }
 const ProfilesList = createNativeStackNavigator<ProfilesListParams>()
 
@@ -186,7 +186,7 @@ const ProfilesListStack = () => (
 // ---------------- Likes ----------------
 export type LikesParams = {
   likesTabs
-  profileDetails: { profile: TProfile; liked?: boolean; skipped?: boolean }
+  profileDetails: { profile: Profile; liked?: boolean; skipped?: boolean }
 }
 const Likes = createNativeStackNavigator<LikesParams>()
 

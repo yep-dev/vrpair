@@ -3,7 +3,7 @@ import { authorize } from "react-native-app-auth"
 import { useQueryClient, useMutation } from "react-query"
 
 import { useApi } from "api/apiProvider"
-import { TUser } from "api/users"
+import { User } from "api/users"
 import { API_URL, OAUTH_DISCORD_CLIENT_ID } from "config/env"
 import { useStore } from "mobx/utils"
 import { TabNavigationProps } from "navigators/app-navigator"
@@ -42,7 +42,7 @@ export const useDiscordLogin = () => {
         await setSecureValue("refreshToken", refreshToken)
         await userStore.setAuthenticated(true)
 
-        const data = await queryClient.fetchQuery<TUser>("currentUser", api.users.currentUser)
+        const data = await queryClient.fetchQuery<User>("currentUser", api.users.currentUser)
         if (data.isStaff) {
           await setSecureValue("staffAccessToken", accessToken)
           await setSecureValue("staffRefreshToken", refreshToken)
