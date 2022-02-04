@@ -16,7 +16,9 @@ export const LikedScreen: FC = () => {
     <QueryContainer query={query} text="You didn't like any profile">
       <FlatList<Profile>
         data={query?.data?.results}
-        renderItem={({ item }) => <ProfileCard tab="likes" profile={item} />}
+        renderItem={({ item }) => (
+          <ProfileCard tab="likes" profile={item} shouldHide={(profile) => !profile.liked} />
+        )}
         keyExtractor={(item) => item.id.toString()}
       />
     </QueryContainer>

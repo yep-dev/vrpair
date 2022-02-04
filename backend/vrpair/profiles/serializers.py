@@ -3,12 +3,14 @@ import datetime
 from drf_writable_nested import WritableNestedModelSerializer
 from rest_framework import serializers
 
+from vrpair.likes.models import RatedProfile
 from vrpair.profiles.models import Profile, Preferences
 from vrpair.utils.enums import (
     RoleEnum,
     SetupEnum,
     GenderEnum,
 )
+from vrpair.utils.models import get_or_none
 
 from vrpair.utils.serializers import MultipleChoiceField
 
@@ -48,6 +50,19 @@ class ProfileDetailsSerializer(ProfileSerializer):
             "description",
             "preferences",
         ]
+
+    likes = serializers.SerializerMethodField()
+
+    def get_likes(self, obj):
+        return RatedProfile.objects.filter(
+            author=obj, profile=self.context["request"].user.profile, liked=True
+        ).exists()
+
+    def get_liked(self, obj):
+        rated_profile = get_or_none(
+            RatedProfile, author=self.context["request"].user.profile, profile=obj
+        )
+        return rated_profile and rated_profile.liked
 
 
 class CurrentProfileSerializer(ProfileSerializer):

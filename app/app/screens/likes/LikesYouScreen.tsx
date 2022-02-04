@@ -24,7 +24,9 @@ export const LikesYouScreen: FC = () => {
     <QueryContainer query={query} text="You have no likes yet">
       <FlatList<Profile>
         data={query?.data?.results}
-        renderItem={({ item }) => <ProfileCard tab="likes" profile={item} />}
+        renderItem={({ item }) => (
+          <ProfileCard tab="likes" profile={item} shouldHide={(profile) => !profile.likes} />
+        )}
         keyExtractor={(item) => item.id.toString()}
       />
     </QueryContainer>

@@ -26,10 +26,10 @@ const Tag = inject(Badge, {
 type Props = {
   tab: keyof TabParams
   profile: Profile
-  hideRated?: boolean
+  shouldHide?(profile: Profile): boolean
 }
 
-export const ProfileCard: FC<Props> = ({ tab, profile, hideRated }) => {
+export const ProfileCard: FC<Props> = ({ tab, profile, shouldHide }) => {
   const { navigate } = useNavigation<TabNavigationProps>()
   const { data } = useQuery<ProfileDetails>(profilesKeys.profileDetails(profile.id), {
     enabled: false,
@@ -37,7 +37,7 @@ export const ProfileCard: FC<Props> = ({ tab, profile, hideRated }) => {
 
   profile = data || profile
 
-  if (hideRated && profile.liked != null) {
+  if (shouldHide && shouldHide(profile)) {
     return null
   }
 
