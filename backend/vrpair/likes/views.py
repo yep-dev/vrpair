@@ -1,30 +1,31 @@
-from django.db import IntegrityError
 from django.db.models import Q
 from rest_framework import status, generics
-from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
-from rest_framework.views import APIView
 
 from vrpair.likes.models import Pair, RatedProfile
 from vrpair.likes.serializers import (
     PairSerializer,
     RatedProfileSerializer,
     RatedProfileDetailsSerializer,
+    RateProfileSerializer,
 )
 
 
-class RateProfile(APIView):
+class RateProfile(generics.GenericAPIView):
     def post(self, request):
-        try:
-            rated_profile = RatedProfile.objects.create(
-                author=request.user.profile,
-                profile_id=request.data["profile_id"],
-                liked=request.data["liked"],
-            )
-        except IntegrityError:
-            raise ValidationError
+        serializer = RateProfileSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        rated_profile, _ = RatedProfile.objects.update_or_create(
+            author=request.user.profile,
+            profile_id=serializer.data["profile_id"],
+            defaults={"liked": serializer.data["liked"]},
+        )
         return Response(
-            RatedProfileDetailsSerializer(rated_profile).data,
+            RatedProfileDetailsSerializer(
+                rated_profile,
+                context=self.get_serializer_context(),
+            ).data,
             status=status.HTTP_201_CREATED,
         )
 

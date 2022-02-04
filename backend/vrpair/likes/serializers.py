@@ -22,3 +22,8 @@ class PairSerializer(FlattenMixin, serializers.ModelSerializer):
         model = Pair
         fields = ["id", "date"]
         flatten = [("profile", ProfileSerializer)]
+
+
+class RateProfileSerializer(serializers.Serializer):
+    profile_id = serializers.IntegerField()
+    liked = serializers.BooleanField()
