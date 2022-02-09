@@ -56,7 +56,7 @@ export const Screen: FC<Props> = ({
                 variant="ghost"
               />
             )}
-            <Heading mt={1} flex={1}>
+            <Heading mt={1} flex={1} ml={!handlePrev ? 2 : 0} mb={2}>
               {heading}
             </Heading>
             {headingRight}

@@ -30,6 +30,8 @@ export type ProfileDetails = {
   description: string
 
   preferences: Preferences
+
+  liked: boolean
 } & Profile
 
 export type Preferences = {

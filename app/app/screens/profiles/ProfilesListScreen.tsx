@@ -14,7 +14,7 @@ export const ProfilesListScreen: FC = () => {
   })
 
   return (
-    <Screen>
+    <Screen heading="Not liked/skipped">
       {data?.results && (
         <FlatList<Profile>
           data={data.results}
