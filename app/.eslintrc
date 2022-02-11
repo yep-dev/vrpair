@@ -125,6 +125,7 @@
     "react/prop-types": 0,
     "space-before-function-paren": 0,
     "react-native/sort-styles": 0,
+    "no-redeclare": 0,
     "no-restricted-imports": [
       "error",
       {
