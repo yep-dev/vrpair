@@ -7,8 +7,8 @@ SECRET_KEY = env(
     "DJANGO_SECRET_KEY",
     default="vuU2CDBp5X0JjagNO5qfyzBOZJUoFPm0jqPDmTjEortFgtiAMYorBz8XObzAbbJU",
 )
-BASE_URL = "http://10.0.0.4:8000"
-ALLOWED_HOSTS = [BASE_URL.split("//")[-1].split(":")[0]]
+BASE_URL = "http://localhost:8000"
+ALLOWED_HOSTS = [BASE_URL.split("//")[-1].split(":")[0], "localhost"]
 
 # CACHES ------------------------------------------------------------------------------
 CACHES = {
@@ -45,3 +45,8 @@ INSTALLED_APPS += ["django_extensions"]  # noqa F405
 CELERY_TASK_EAGER_PROPAGATES = True
 
 # OTHER ------------------------------------------------------------------------------
+SPECTACULAR_SETTINGS = {
+    "POSTPROCESSING_HOOKS": [
+        "vrpair.contrib.drf_camel_case.camelize_schema.camelize_serializer_fields"
+    ]
+}

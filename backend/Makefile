@@ -15,3 +15,6 @@ reset_data:
 
 reset:
 	make reset_migrations && make reset_data
+
+schema:
+	docker-compose run django python manage.py spectacular --file schema.yml

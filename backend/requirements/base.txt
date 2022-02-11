@@ -21,4 +21,5 @@ djangorestframework==3.12.4  # https://github.com/encode/django-rest-framework
 django-cors-headers==3.9.0 # https://github.com/adamchainz/django-cors-headers
 djangorestframework-simplejwt==5.0.0
 drf-writable-nested==0.6.3
+drf-spectacular==0.21.2
 factory-boy==3.2.1

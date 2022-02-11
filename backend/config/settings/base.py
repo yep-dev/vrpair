@@ -45,6 +45,7 @@ THIRD_PARTY_APPS = [
     "django_celery_beat",
     "rest_framework",
     "rest_framework.authtoken",
+    "drf_spectacular",
     "corsheaders",
 ]
 LOCAL_APPS = [
@@ -215,6 +216,7 @@ REST_FRAMEWORK = {
     "JSON_UNDERSCOREIZE": {
         "no_underscore_before_number": True,
     },
+    "DEFAULT_SCHEMA_CLASS": "vrpair.contrib.schema.CustomSchema",
 }
 
 # django-cors-headers - https://github.com/adamchainz/django-cors-headers#setup
