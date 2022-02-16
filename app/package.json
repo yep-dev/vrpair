@@ -23,7 +23,7 @@
     "clean-all": "npx react-native clean-project-auto",
     "barrels": "barrelsby -DS -d ./app/components -l replace -e _ -e index",
     "openapi": "cd ../backend && make schema",
-    "orval": " rm -r app/apiClient && orval && eslint index.js app/apiClient --fix --ext .ts",
+    "orval": " rm -rf app/api/* && orval && eslint index.js app/api --fix --ext .ts",
     "apiClient": "npm run openapi && npm run orval"
   },
   "dependencies": {

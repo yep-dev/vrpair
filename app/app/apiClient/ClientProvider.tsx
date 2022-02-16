@@ -1,4 +1,4 @@
-import { useRef } from "react"
+import React, { useRef, FC, useContext, createContext } from "react"
 
 import ky from "ky"
 import { KyInstance } from "ky/distribution/types/ky"
@@ -16,8 +16,8 @@ const isTokenExpired = (token) => {
   return Math.floor(new Date().getTime() / 1000) >= expiry
 }
 
-export const useSetupApiClients = () => {
-  const baseClient = useRef(ky.create({ prefixUrl: API_URL }))
+export const ClientProvider: FC = ({ children }) => {
+  const anonymous = useRef(ky.create({ prefixUrl: API_URL }))
   const { userStore } = useStore()
   const queryClient = useQueryClient()
 
@@ -30,7 +30,7 @@ export const useSetupApiClients = () => {
         const data = await queryClient.fetchQuery(
           "refresh",
           (): Promise<{ access: string }> =>
-            baseClient.current
+            anonymous.current
               .post("users/refresh-token", { json: { refresh: refreshToken } })
               .json(),
         )
@@ -69,27 +69,38 @@ export const useSetupApiClients = () => {
     ],
   })
 
-  const client = useRef(
-    baseClient.current.extend({
+  const authenticated = useRef(
+    anonymous.current.extend({
       hooks: getHooks({ isStaff: false }),
     }),
   )
 
-  const staffClient = useRef(
-    baseClient.current.extend({
+  const staff = useRef(
+    anonymous.current.extend({
       hooks: getHooks({ isStaff: true }),
     }),
   )
 
-  return {
-    baseClient: baseClient.current,
-    client: client.current,
-    staffClient: staffClient.current,
-  }
+  return (
+    <ClientContext.Provider
+      value={{
+        anonymous: anonymous.current,
+        authenticated: authenticated.current,
+        staff: staff.current,
+      }}
+    >
+      {children}
+    </ClientContext.Provider>
+  )
 }
 
-export type Clients = {
-  baseClient: KyInstance
-  client: KyInstance
-  staffClient: KyInstance
+export type Client = {
+  anonymous: KyInstance
+  authenticated: KyInstance
+  staff: KyInstance
 }
+
+// incorrect context type to accomodate for initial null,
+// should be consumed with hook anyway - it provides the correct type
+export const ClientContext = createContext<any>(null)
+export const useClient = () => useContext<Client>(ClientContext)

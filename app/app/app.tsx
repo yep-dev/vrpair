@@ -5,7 +5,7 @@ import { NativeBaseProvider } from "native-base"
 import { SafeAreaProvider, initialWindowMetrics } from "react-native-safe-area-context"
 import { QueryClient, QueryClientProvider } from "react-query"
 
-import { ApiProvider } from "api/apiProvider"
+import { ClientProvider } from "apiClient/ClientProvider"
 import { RootStore, RootStoreContext } from "mobx/root-store"
 import { setupRootStore } from "mobx/setup-root-store"
 import { AppNavigator, canExit } from "navigators/app-navigator"
@@ -38,9 +38,9 @@ export const App = () => {
       <SafeAreaProvider initialMetrics={initialWindowMetrics}>
         <NativeBaseProvider theme={theme} config={{ suppressColorAccessibilityWarning: true }}>
           <QueryClientProvider client={queryClient}>
-            <ApiProvider>
+            <ClientProvider>
               <AppNavigator />
-            </ApiProvider>
+            </ClientProvider>
           </QueryClientProvider>
         </NativeBaseProvider>
       </SafeAreaProvider>
