@@ -1,16 +1,15 @@
 import React, { FC } from "react"
 import { FlatList } from "react-native"
 
-import { useQuery } from "react-query"
-
-import { useApi } from "api/apiProvider"
-import { profilesKeys, Profile } from "api/profiles"
-import { Screen, ProfileCard } from "components"
+import { Profile } from "api/index.schemas"
+import { useProfileList } from "api/profiles"
+import { ProfileCard, Screen } from "components"
 
 export const ProfilesListScreen: FC = () => {
-  const api = useApi()
-  const { data } = useQuery(profilesKeys.profileList, api.profiles.profileList, {
-    staleTime: 60 * 1000,
+  const { data } = useProfileList(undefined, {
+    query: {
+      // staleTime: 60 * 1000,
+    },
   })
 
   return (

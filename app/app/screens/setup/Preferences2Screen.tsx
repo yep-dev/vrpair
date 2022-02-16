@@ -2,12 +2,13 @@ import React, { FC } from "react"
 
 import { NavigatorScreenParams } from "@react-navigation/native"
 import { NativeStackScreenProps } from "@react-navigation/native-stack"
+import { Profile } from "apiClient/profiles"
+import { User } from "apiClient/users"
 import { FormProvider, useForm } from "react-hook-form"
-import { useMutation, useQueryClient } from "react-query"
+import { useQueryClient } from "react-query"
 
-import { useApi } from "api/apiProvider"
-import { profilesKeys, Profile } from "api/profiles"
-import { User, usersKeys } from "api/users"
+import { getCurrentProfileQueryKey, useCreateProfile } from "api/profiles"
+import { getCurrentUserQueryKey } from "api/users"
 import { RadioGroupField } from "components"
 import { CheckboxGroupField } from "components/fields/CheckboxGroupField"
 import { SetupParams } from "navigators/app-navigator"
@@ -24,19 +25,20 @@ export type Props = NativeStackScreenProps<ParamList>
 
 export const Preferences2Screen: FC<Props> = ({ navigation: { navigate } }) => {
   const form = useForm({ defaultValues: storage.getObj(name)?.values })
-  const api = useApi()
   const queryClient = useQueryClient()
-  const createProfile = useMutation(api.profiles.createProfile, {
-    onSuccess: (data) => {
-      queryClient.setQueryData<User>(
-        usersKeys.currentUser,
-        (user) =>
-          ({
-            ...user,
-            hasProfile: true,
-          } as User),
-      )
-      queryClient.setQueryData<Profile>(profilesKeys.currentProfile, data)
+  const createProfile = useCreateProfile({
+    mutation: {
+      onSuccess: (data) => {
+        queryClient.setQueryData<User>(
+          getCurrentUserQueryKey(),
+          (user) =>
+            ({
+              ...user,
+              hasProfile: true,
+            } as User),
+        )
+        queryClient.setQueryData<Profile>(getCurrentProfileQueryKey(), data)
+      },
     },
   })
 

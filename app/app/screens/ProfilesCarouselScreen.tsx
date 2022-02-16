@@ -1,16 +1,15 @@
 import React, { FC, useRef } from "react"
 
 import Carousel, { ICarouselInstance } from "react-native-reanimated-carousel"
-import { useQuery } from "react-query"
 
-import { useApi } from "api/apiProvider"
-import { profilesKeys } from "api/profiles"
+import { useProfileList } from "api/profiles"
 import { Screen, Profile, ProfileOverlays } from "components"
 
 export const ProfilesCarouselScreen: FC = () => {
-  const api = useApi()
-  const { data } = useQuery(profilesKeys.profileList, api.profiles.profileList, {
-    staleTime: 60 * 1000,
+  const { data } = useProfileList(undefined, {
+    query: {
+      staleTime: 60 * 1000,
+    },
   })
   const carousel = useRef<ICarouselInstance | null>(null)
 

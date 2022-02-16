@@ -1,11 +1,12 @@
 import React, { FC } from "react"
 
+import { Profile, ProfileDetails } from "apiClient/profiles"
 import { observer } from "mobx-react-lite"
 import { Box, IconButton, Row } from "native-base"
-import { useMutation, useQueryClient } from "react-query"
+import { useQueryClient } from "react-query"
 
-import { useApi } from "api/apiProvider"
-import { Profile, ProfileDetails, profilesKeys } from "api/profiles"
+import { useRateProfile } from "api/likes"
+import { getProfileDetailsQueryKey } from "api/profiles"
 import { CircleHeartIcon, CircleXIcon, SynchronizeArrowsIcon } from "components/icons"
 import { useStore } from "mobx/utils"
 import { useForceToken } from "utils/auth"
@@ -29,12 +30,13 @@ type Props = {
 }
 
 export const ProfileOverlays: FC<Props> = observer(({ profile, moveCarousel }) => {
-  const api = useApi()
   const { userStore } = useStore()
   const queryClient = useQueryClient()
-  const rateProfile = useMutation(api.likes.rateProfile, {
-    onSuccess: (data) => {
-      queryClient.setQueryData<ProfileDetails>(profilesKeys.profileDetails(profile.id), data)
+  const rateProfile = useRateProfile({
+    mutation: {
+      onSuccess: (data) => {
+        queryClient.setQueryData<ProfileDetails>(getProfileDetailsQueryKey(profile.id), data)
+      },
     },
   })
   const forceToken = useForceToken()

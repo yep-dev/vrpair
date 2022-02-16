@@ -4,10 +4,8 @@ import { NavigatorScreenParams } from "@react-navigation/native"
 import { NativeStackScreenProps } from "@react-navigation/native-stack"
 import { AlertDialog, Button, Input, Row, Text, View } from "native-base"
 import { Controller, FormProvider, useForm } from "react-hook-form"
-import { useQuery } from "react-query"
 
-import { useApi } from "api/apiProvider"
-import { usersKeys } from "api/users"
+import { useCurrentUser } from "api/users"
 import { FieldError, FieldLabel, InputField, RadioGroupField } from "components"
 import { CheckboxField } from "components/fields/CheckboxField"
 import { SetupParams } from "navigators/app-navigator"
@@ -29,9 +27,10 @@ export const Profile1Screen: FC<Props> = ({ navigation: { navigate } }) => {
   const cancelRef = useRef(null)
 
   const logout = useLogout()
-  const api = useApi()
-  const { data: discordUsername } = useQuery(usersKeys.currentUser, api.users.currentUser, {
-    select: (user) => user.discordUsername,
+  const { data: discordUsername } = useCurrentUser({
+    query: {
+      select: (user) => user.discordUsername,
+    },
   })
 
   const form = useForm({ defaultValues: storage.getObj(name)?.values })

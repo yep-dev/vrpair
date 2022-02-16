@@ -2,11 +2,12 @@ import React, { FC } from "react"
 import { TouchableOpacity } from "react-native"
 
 import { useNavigation } from "@react-navigation/native"
+import { Profile, ProfileDetails } from "apiClient/profiles"
 import { formatDistanceToNow } from "date-fns"
 import { Badge, Box, Column, Flex, Image, Row, Text } from "native-base"
 import { useQuery } from "react-query"
 
-import { Profile, ProfileDetails, profilesKeys } from "api/profiles"
+import { getProfileDetailsQueryKey } from "api/profiles"
 import { TabNavigationProps, TabParams } from "navigators/app-navigator"
 import { enums } from "utils/enums"
 import { inject } from "utils/misc"
@@ -31,7 +32,7 @@ type Props = {
 
 export const ProfileCard: FC<Props> = ({ tab, profile, shouldHide }) => {
   const { navigate } = useNavigation<TabNavigationProps>()
-  const { data } = useQuery<ProfileDetails>(profilesKeys.profileDetails(profile.id), {
+  const { data } = useQuery<ProfileDetails>(getProfileDetailsQueryKey(profile.id), {
     enabled: false,
   })
 

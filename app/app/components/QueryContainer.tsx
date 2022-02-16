@@ -3,7 +3,7 @@ import React, { FC } from "react"
 import { Box, Center, Text } from "native-base"
 import { UseQueryResult } from "react-query"
 
-import { LikesResponse } from "api/likes"
+import { LikesResponse } from "apiClient/likes"
 import { SmileyUnhappy } from "components/icons"
 
 type Props = {

@@ -7,13 +7,11 @@ import {
   createNativeStackNavigator,
   NativeStackNavigationProp,
 } from "@react-navigation/native-stack"
+import { Profile } from "apiClient/profiles"
 import { observer } from "mobx-react-lite"
 import { ErrorBoundary } from "react-error-boundary"
-import { useQuery } from "react-query"
 
-import { useApi } from "api/apiProvider"
-import { Profile } from "api/profiles"
-import { usersKeys } from "api/users"
+import { useCurrentUser } from "api/users"
 import { ProfileIcon, ProfileSearchIcon, ProfileStackIcon } from "components/icons"
 import { useStore } from "mobx/utils"
 import { LikesIcon } from "navigators/components/LikesIcon"
@@ -45,9 +43,10 @@ const App = createNativeStackNavigator<AppParams>()
 
 export const AppNavigator = observer(() => {
   const { userStore } = useStore()
-  const api = useApi()
-  const { data: hasProfile, isLoading } = useQuery(usersKeys.currentUser, api.users.currentUser, {
-    select: (user) => user.hasProfile,
+  const { data: hasProfile, isLoading } = useCurrentUser({
+    query: {
+      select: (user) => user.hasProfile,
+    },
   })
   useReduxDevToolsExtension(navigationRef)
 

@@ -4,7 +4,7 @@ import { StyleSheet } from "react-native"
 import { SceneMap, NavigationState } from "react-native-tab-view"
 import { useQuery } from "react-query"
 
-import { Badges } from "api/likes"
+import { Badges } from "apiClient/likes"
 import { RoundBadge, Tabs, TabsRoute } from "components"
 import { LikedScreen } from "screens/likes/LikedScreen"
 import { LikesYouScreen } from "screens/likes/LikesYouScreen"

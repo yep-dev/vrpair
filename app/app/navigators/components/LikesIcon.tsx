@@ -2,7 +2,7 @@ import React, { FC } from "react"
 
 import { useQuery } from "react-query"
 
-import { Badges } from "api/likes"
+import { Badges } from "apiClient/likes"
 import { RoundBadge } from "components"
 import { HeartBalloonsIcon } from "components/icons"
 

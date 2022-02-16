@@ -2,8 +2,7 @@ import { useNavigation } from "@react-navigation/native"
 import { authorize } from "react-native-app-auth"
 import { useQueryClient, useMutation } from "react-query"
 
-import { useApi } from "api/apiProvider"
-import { User } from "api/users"
+import { getCurrentUserQueryKey, useCurrentUserHook, useForceTokenHook } from "api/users"
 import { API_URL, OAUTH_DISCORD_CLIENT_ID } from "config/env"
 import { useStore } from "mobx/utils"
 import { TabNavigationProps } from "navigators/app-navigator"
@@ -27,7 +26,7 @@ const discordConfig = {
 export const useDiscordLogin = () => {
   const { userStore } = useStore()
   const queryClient = useQueryClient()
-  const api = useApi()
+  const currentUserFetch = useCurrentUserHook()
 
   return async () => {
     try {
@@ -42,7 +41,7 @@ export const useDiscordLogin = () => {
         await setSecureValue("refreshToken", refreshToken)
         await userStore.setAuthenticated(true)
 
-        const data = await queryClient.fetchQuery<User>("currentUser", api.users.currentUser)
+        const data = await queryClient.fetchQuery(getCurrentUserQueryKey(), currentUserFetch)
         if (data.isStaff) {
           await setSecureValue("staffAccessToken", accessToken)
           await setSecureValue("staffRefreshToken", refreshToken)
@@ -54,11 +53,11 @@ export const useDiscordLogin = () => {
 }
 
 export const useForceToken = () => {
-  const api = useApi()
   const queryClient = useQueryClient()
   const { navigate } = useNavigation<TabNavigationProps>()
+  const forceTokenFn = useForceTokenHook()
 
-  return useMutation(api.users.forceToken, {
+  return useMutation(forceTokenFn, {
     onSuccess: async ({ access, refresh }) => {
       await setSecureValue("accessToken", access)
       await setSecureValue("refreshToken", refresh)
