@@ -3,14 +3,12 @@ import datetime
 from drf_writable_nested import WritableNestedModelSerializer
 from rest_framework import serializers
 
-from vrpair.likes.models import RatedProfile
 from vrpair.profiles.models import Profile, Preferences
 from vrpair.utils.enums import (
     RoleEnum,
     SetupEnum,
     GenderEnum,
 )
-from vrpair.utils.models import get_or_none
 
 from vrpair.utils.serializers import MultipleChoiceField
 
@@ -36,7 +34,7 @@ class ProfileSerializer(serializers.ModelSerializer):
             "likes",
         ]
 
-    likes = serializers.ReadOnlyField()
+    age = serializers.IntegerField()
 
 
 class ProfileDetailsSerializer(ProfileSerializer):

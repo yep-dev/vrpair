@@ -4,6 +4,7 @@ from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.urls import include, path
 from django.views import defaults as default_views
+from drf_spectacular.utils import extend_schema
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
@@ -68,9 +69,9 @@ api_paths = [
 ]
 
 
+@extend_schema(exclude=True)
 @api_view(["GET"])
 def api_root(request, format=None):
-    print(api_paths)
     return Response(
         {
             path.name: reverse(path.name, request=request, format=format)

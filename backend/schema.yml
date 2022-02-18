@@ -3,15 +3,6 @@ info:
   title: ''
   version: 0.0.0
 paths:
-  /:
-    get:
-      operationId: ''
-      security:
-      - cookieAuth: []
-      - jwtAuth: []
-      responses:
-        '200':
-          description: No response body
   /likes/liked-list:
     get:
       operationId: liked_list
@@ -50,7 +41,11 @@ paths:
       - jwtAuth: []
       responses:
         '200':
-          description: No response body
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LikesList'
+          description: ''
   /likes/pair-list:
     get:
       operationId: pair_list
@@ -61,29 +56,53 @@ paths:
       - jwtAuth: []
       responses:
         '200':
-          description: No response body
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PairList'
+          description: ''
   /likes/rate-profile:
     post:
       operationId: rate_profile
       tags:
       - likes
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RatedProfileDetails'
+        required: true
       security:
       - cookieAuth: []
       - jwtAuth: []
       responses:
-        '200':
-          description: No response body
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RatedProfileDetails'
+          description: ''
   /profiles/create-profile:
     post:
       operationId: create_profile
       tags:
       - profiles
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CurrentProfile'
+        required: true
       security:
       - cookieAuth: []
       - jwtAuth: []
       responses:
         '200':
-          description: No response body
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CurrentProfile'
+          description: ''
   /profiles/current-profile:
     get:
       operationId: current_profile
@@ -94,7 +113,11 @@ paths:
       - jwtAuth: []
       responses:
         '200':
-          description: No response body
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CurrentProfile'
+          description: ''
   /profiles/profile-details/{id}:
     get:
       operationId: profile_details
@@ -154,18 +177,11 @@ paths:
       - jwtAuth: []
       responses:
         '200':
-          description: No response body
-  /users/discord-login:
-    get:
-      operationId: discord_login
-      description: |-
-        Mixin that transforms Django and Python exceptions into rest_framework ones.
-        Without the mixin, they return 500 status code which is not desired.
-      tags:
-      - users
-      responses:
-        '200':
-          description: No response body
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
   /users/force-token:
     get:
       operationId: force_token
@@ -176,7 +192,11 @@ paths:
       - jwtAuth: []
       responses:
         '200':
-          description: No response body
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenRefresh'
+          description: ''
   /users/refresh-token:
     post:
       operationId: refresh_token
@@ -200,6 +220,71 @@ paths:
           description: ''
 components:
   schemas:
+    CurrentProfile:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        username:
+          type: string
+          maxLength: 32
+        age:
+          type: integer
+        gender:
+          enum:
+          - male
+          - maleTrans
+          - female
+          - femaleTrans
+          - nonBinary
+          type: string
+        femAvatar:
+          type: boolean
+        setup:
+          enum:
+          - quest
+          - pcvr
+          - fbt
+          type: string
+        role:
+          enum:
+          - sub
+          - dom
+          - switch
+          type: string
+        mute:
+          type: boolean
+        furry:
+          type: boolean
+        verified:
+          type: boolean
+        birthDate:
+          type: string
+          format: date
+      required:
+      - age
+      - birthDate
+      - femAvatar
+      - furry
+      - gender
+      - id
+      - mute
+      - role
+      - setup
+      - username
+    LikesList:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/RatedProfile'
+        likesBadge:
+          type: integer
+      required:
+      - likesBadge
+      - results
     Nested:
       type: object
       properties:
@@ -308,6 +393,32 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/RatedProfileDetails'
+    Pair:
+      type: object
+      description: Flatens the specified related objects in this representation
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        date:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - date
+      - id
+    PairList:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Pair'
+        pairsBadge:
+          type: integer
+      required:
+      - pairsBadge
+      - results
     Profile:
       type: object
       properties:
@@ -318,8 +429,7 @@ components:
           type: string
           maxLength: 32
         age:
-          type: string
-          readOnly: true
+          type: integer
         gender:
           enum:
           - male
@@ -368,8 +478,7 @@ components:
           type: string
           maxLength: 32
         age:
-          type: string
-          readOnly: true
+          type: integer
         gender:
           enum:
           - male
@@ -442,6 +551,14 @@ components:
       - role
       - setup
       - username
+    RatedProfile:
+      type: object
+      description: Flatens the specified related objects in this representation
+      properties:
+        liked:
+          type: boolean
+      required:
+      - liked
     RatedProfileDetails:
       type: object
       description: Flatens the specified related objects in this representation
@@ -462,6 +579,27 @@ components:
       required:
       - access
       - refresh
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        isStaff:
+          type: boolean
+        discordUsername:
+          type: string
+          maxLength: 32
+        discordDiscriminator:
+          type: string
+          maxLength: 4
+        hasProfile:
+          type: boolean
+      required:
+      - discordDiscriminator
+      - discordUsername
+      - hasProfile
+      - id
   securitySchemes:
     cookieAuth:
       type: apiKey

@@ -37,13 +37,16 @@ class ProfileFeed(generics.ListAPIView):
         return RatedProfile.objects.filter(profile=profile, liked=True)
 
 
-class CurrentProfile(APIView):
-    def get(self, request):
-        serializer = CurrentProfileSerializer(request.user.profile)
-        return Response(serializer.data)
+class CurrentProfile(generics.RetrieveAPIView):
+    serializer_class = CurrentProfileSerializer
+
+    def get_object(self):
+        return self.request.user.profile
 
 
 class CreateProfile(APIView):
+    serializer_class = CurrentProfileSerializer
+
     def post(self, request):
         instance = get_or_none(Profile, user=request.user)
         data = request.data

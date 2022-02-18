@@ -1,13 +1,15 @@
 from django.conf import settings
 from django.http import HttpResponseRedirect
+from drf_spectacular.utils import extend_schema
 from environ import environ
-from rest_framework import serializers, permissions
-from rest_framework.exceptions import ValidationError, NotFound
+from rest_framework import serializers, permissions, generics
+from rest_framework.exceptions import ValidationError
 from rest_framework.generics import get_object_or_404
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from django.shortcuts import redirect
+from rest_framework_simplejwt.serializers import TokenRefreshSerializer
 from rest_framework_simplejwt.tokens import RefreshToken
 
 from vrpair.profiles.factories import ProfileFactory
@@ -23,6 +25,7 @@ env = environ.Env()
 HttpResponseRedirect.allowed_schemes.append("vrpair")  # todo: possible cleanup
 
 
+@extend_schema(exclude=True)
 class DiscordLogin(PublicApiMixin, ApiErrorsMixin, APIView):
     class InputSerializer(serializers.Serializer):
         code = serializers.CharField(required=False)
@@ -70,6 +73,7 @@ class DiscordLogin(PublicApiMixin, ApiErrorsMixin, APIView):
 
 class ForceToken(APIView):
     permission_classes = [permissions.IsAdminUser]
+    serializer_class = TokenRefreshSerializer
 
     def get(self, request):
         if profile_id := request.query_params.get("profileId"):
@@ -89,10 +93,11 @@ class ForceToken(APIView):
         )
 
 
-class CurrentUser(APIView):
-    def get(self, request):
-        serializer = UserSerializer(request.user)
-        return Response(serializer.data)
+class CurrentUser(generics.RetrieveAPIView):
+    serializer_class = UserSerializer
+
+    def get_object(self):
+        return self.request.user
 
 
 # class LogoutApi(ApiAuthMixin, ApiErrorsMixin, APIView):
