@@ -49,19 +49,6 @@ class ProfileDetailsSerializer(ProfileSerializer):
             "preferences",
         ]
 
-    likes = serializers.SerializerMethodField()
-
-    def get_likes(self, obj):
-        return RatedProfile.objects.filter(
-            author=obj, profile=self.context["request"].user.profile, liked=True
-        ).exists()
-
-    def get_liked(self, obj):
-        rated_profile = get_or_none(
-            RatedProfile, author=self.context["request"].user.profile, profile=obj
-        )
-        return rated_profile and rated_profile.liked
-
 
 class CurrentProfileSerializer(ProfileSerializer):
     class Meta:
