@@ -22,7 +22,9 @@ export const StaffTools: FC = () => {
         w="50%"
         value={userId}
         onChangeText={setUserId}
-        rightElement={<Button onPress={() => forceToken.mutate({ userId })}>Switch</Button>}
+        rightElement={
+          <Button onPress={() => forceToken.mutate({ userId: parseInt(userId) })}>Switch</Button>
+        }
       />
       <Text>Current Profile ID: {profile.data?.id}</Text>
       <Input
@@ -30,7 +32,11 @@ export const StaffTools: FC = () => {
         w="50%"
         value={profileId}
         onChangeText={setProfileId}
-        rightElement={<Button onPress={() => forceToken.mutate({ profileId })}>Switch</Button>}
+        rightElement={
+          <Button onPress={() => forceToken.mutate({ profileId: parseInt(profileId) })}>
+            Switch
+          </Button>
+        }
       />
     </Column>
   )

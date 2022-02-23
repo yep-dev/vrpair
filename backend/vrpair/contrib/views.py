@@ -18,3 +18,14 @@ class UpdateOrCreateAPIView(generics.CreateAPIView):
         return Response(
             response_serializer.data, status=status.HTTP_201_CREATED, headers=headers
         )
+
+
+class SerializeGetMixin:
+    serializer_get = None
+
+    def get_params(self):
+        serializer = self.serializer_get(
+            data=self.request.query_params, context=self.get_serializer_context()
+        )
+        serializer.is_valid(raise_exception=True)
+        return serializer.data

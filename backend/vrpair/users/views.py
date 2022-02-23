@@ -6,12 +6,12 @@ from rest_framework import serializers, permissions, generics
 from rest_framework.exceptions import ValidationError
 from rest_framework.generics import get_object_or_404
 from rest_framework.response import Response
-from rest_framework.views import APIView
 
 from django.shortcuts import redirect
 from rest_framework_simplejwt.serializers import TokenRefreshSerializer
 from rest_framework_simplejwt.tokens import RefreshToken
 
+from vrpair.contrib.views import SerializeGetMixin
 from vrpair.profiles.factories import ProfileFactory
 from vrpair.profiles.models import Profile
 from vrpair.users.mixins import ApiErrorsMixin, PublicApiMixin
@@ -71,15 +71,22 @@ class DiscordLogin(PublicApiMixin, ApiErrorsMixin, APIView):
         )
 
 
-class ForceToken(APIView):
+class ForceToken(SerializeGetMixin, generics.GenericAPIView):
+    class ForceToken(serializers.Serializer):
+        profileId = serializers.IntegerField(required=False)
+        userId = serializers.IntegerField(required=False)
+
     permission_classes = [permissions.IsAdminUser]
     serializer_class = TokenRefreshSerializer
+    serializer_get = ForceToken
 
+    @extend_schema(parameters=[ForceToken])
     def get(self, request):
-        if profile_id := request.query_params.get("profileId"):
+        params = self.get_params()
+        if profile_id := params.get("profileId"):
             profile = get_object_or_404(Profile, id=profile_id)
             user = profile.user
-        elif user_id := request.query_params.get("userId"):
+        elif user_id := params.get("userId"):
             user = get_object_or_404(User, id=user_id)
         else:
             raise ValidationError("Missing profileId or userId param")

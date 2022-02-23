@@ -185,6 +185,15 @@ paths:
   /users/force-token:
     get:
       operationId: force_token
+      parameters:
+      - in: query
+        name: profileId
+        schema:
+          type: integer
+      - in: query
+        name: userId
+        schema:
+          type: integer
       tags:
       - users
       security:
