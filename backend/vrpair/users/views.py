@@ -26,27 +26,24 @@ HttpResponseRedirect.allowed_schemes.append("vrpair")  # todo: possible cleanup
 
 
 @extend_schema(exclude=True)
-class DiscordLogin(PublicApiMixin, ApiErrorsMixin, APIView):
-    class InputSerializer(serializers.Serializer):
+class DiscordLogin(
+    PublicApiMixin, ApiErrorsMixin, SerializeGetMixin, generics.GenericAPIView
+):
+    class DiscordLogin(serializers.Serializer):
         code = serializers.CharField(required=False)
         error = serializers.CharField(required=False)
 
+    serializer_get = DiscordLogin
+
     def get(self, request, *args, **kwargs):
-        input_serializer = self.InputSerializer(data=request.GET)
-        input_serializer.is_valid(raise_exception=True)
-
-        validated_data = input_serializer.validated_data
-
-        code = validated_data.get("code")
-        error = validated_data.get("error")
-
+        params = self.get_params()
         # login_url = f'{settings.BASE_FRONTEND_URL}/login'
         #
-        # if error or not code:
-        #     params = urlencode({'error': error})
-        #     return redirect(f'{login_url}?{params}')
+        # if params["error"] or not params["code"]:
+        #     error = urlencode({'error': error})
+        #     return redirect(f'{login_url}?{error}')
 
-        access_token = discord_get_access_token(code=code)
+        access_token = discord_get_access_token(code=params["code"])
 
         user_data = discord_get_user_info(access_token=access_token)["user"]
         # todo: allow only users with verified email - "verified" flag
