@@ -2,11 +2,10 @@ import React, { FC } from "react"
 
 import { NavigatorScreenParams } from "@react-navigation/native"
 import { NativeStackScreenProps } from "@react-navigation/native-stack"
-import { Profile } from "apiClient/profiles"
-import { User } from "apiClient/users"
 import { FormProvider, useForm } from "react-hook-form"
 import { useQueryClient } from "react-query"
 
+import { Profile, User } from "api/index.schemas"
 import { getCurrentProfileQueryKey, useCreateProfile } from "api/profiles"
 import { getCurrentUserQueryKey } from "api/users"
 import { RadioGroupField } from "components"

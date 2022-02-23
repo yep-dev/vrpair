@@ -2,11 +2,11 @@ import React, { FC } from "react"
 import { TouchableOpacity } from "react-native"
 
 import { useNavigation } from "@react-navigation/native"
-import { Profile, ProfileDetails } from "apiClient/profiles"
 import { formatDistanceToNow } from "date-fns"
 import { Badge, Box, Column, Flex, Image, Row, Text } from "native-base"
 import { useQuery } from "react-query"
 
+import { Profile, ProfileDetails } from "api/index.schemas"
 import { getProfileDetailsQueryKey } from "api/profiles"
 import { TabNavigationProps, TabParams } from "navigators/app-navigator"
 import { enums } from "utils/enums"

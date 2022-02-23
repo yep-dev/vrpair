@@ -7,10 +7,10 @@ import {
   createNativeStackNavigator,
   NativeStackNavigationProp,
 } from "@react-navigation/native-stack"
-import { Profile } from "apiClient/profiles"
 import { observer } from "mobx-react-lite"
 import { ErrorBoundary } from "react-error-boundary"
 
+import { Profile } from "api/index.schemas"
 import { useCurrentUser } from "api/users"
 import { ProfileIcon, ProfileSearchIcon, ProfileStackIcon } from "components/icons"
 import { useStore } from "mobx/utils"

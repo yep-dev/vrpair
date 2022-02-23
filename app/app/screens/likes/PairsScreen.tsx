@@ -2,9 +2,9 @@ import React, { FC } from "react"
 import { FlatList } from "react-native"
 
 import { Badges } from "apiClient/likes"
-import { Profile } from "apiClient/profiles"
 import { useQueryClient } from "react-query"
 
+import { Profile } from "api/index.schemas"
 import { usePairList } from "api/likes"
 import { badgesQueryKey } from "apiClient/queryKeys"
 import { ProfileCard, QueryContainer } from "components"

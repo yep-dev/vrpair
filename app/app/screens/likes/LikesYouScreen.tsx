@@ -3,6 +3,7 @@ import { FlatList } from "react-native"
 
 import { useQueryClient } from "react-query"
 
+import { Profile } from "api/index.schemas"
 import { useLikesList } from "api/likes"
 import { badgesQueryKey } from "apiClient/queryKeys"
 import { ProfileCard, QueryContainer } from "components"

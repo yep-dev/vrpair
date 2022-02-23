@@ -1,10 +1,10 @@
 import React, { FC } from "react"
 
-import { Profile, ProfileDetails } from "apiClient/profiles"
 import { observer } from "mobx-react-lite"
 import { Box, IconButton, Row } from "native-base"
 import { useQueryClient } from "react-query"
 
+import { Profile, ProfileDetails } from "api/index.schemas"
 import { useRateProfile } from "api/likes"
 import { getProfileDetailsQueryKey } from "api/profiles"
 import { CircleHeartIcon, CircleXIcon, SynchronizeArrowsIcon } from "components/icons"

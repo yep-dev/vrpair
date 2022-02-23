@@ -1,8 +1,8 @@
 import React, { FC } from "react"
 import { FlatList } from "react-native"
 
+import { Profile } from "api/index.schemas"
 import { useLikedList } from "api/likes"
-import { Profile } from "apiClient/profiles"
 import { ProfileCard, QueryContainer } from "components"
 
 export const LikedScreen: FC = () => {

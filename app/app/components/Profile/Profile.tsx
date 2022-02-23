@@ -2,7 +2,7 @@ import React, { FC } from "react"
 
 import { Badge, Image, Text, Row, Column, ScrollView } from "native-base"
 
-import { Profile as TProfile, ProfileDetails } from "apiClient/profiles"
+import { Profile as TProfile, ProfileDetails } from "api/index.schemas"
 import { Preferences } from "components"
 import { enums } from "utils/enums"
 import { inject } from "utils/misc"
