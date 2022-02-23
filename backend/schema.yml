@@ -259,6 +259,37 @@ components:
           type: boolean
         verified:
           type: boolean
+        startHour:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+          nullable: true
+        endHour:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+          nullable: true
+        weekDays:
+          type: array
+          items:
+            enum:
+            - 1
+            - 2
+            - 3
+            - 4
+            - 5
+            - 6
+            - 7
+            type: integer
+            minimum: 0
+            maximum: 32767
+          nullable: true
+        description:
+          type: string
+          nullable: true
+          maxLength: 512
+        preferences:
+          $ref: '#/components/schemas/Preferences'
         birthDate:
           type: string
           format: date
@@ -270,6 +301,7 @@ components:
       - gender
       - id
       - mute
+      - preferences
       - role
       - setup
       - username
@@ -285,74 +317,6 @@ components:
       required:
       - likesBadge
       - results
-    Nested:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        gender:
-          type: array
-          items:
-            enum:
-            - male
-            - maleTrans
-            - female
-            - femaleTrans
-            - nonBinary
-            type: string
-        femAvatar:
-          enum:
-          - 'true'
-          - 'false'
-          - any
-          type: string
-        ageMin:
-          type: integer
-          maximum: 32767
-          minimum: 0
-        ageMax:
-          type: integer
-          maximum: 32767
-          minimum: 0
-          nullable: true
-        setup:
-          type: array
-          items:
-            enum:
-            - quest
-            - pcvr
-            - fbt
-            type: string
-        role:
-          type: array
-          items:
-            enum:
-            - sub
-            - dom
-            - switch
-            type: string
-        mute:
-          enum:
-          - 'true'
-          - 'false'
-          - any
-          type: string
-        furry:
-          enum:
-          - 'true'
-          - 'false'
-          - any
-          type: string
-      required:
-      - ageMin
-      - femAvatar
-      - furry
-      - gender
-      - id
-      - mute
-      - role
-      - setup
     PaginatedProfileList:
       type: object
       properties:
@@ -419,6 +383,70 @@ components:
       required:
       - pairsBadge
       - results
+    Preferences:
+      type: object
+      properties:
+        gender:
+          type: array
+          items:
+            enum:
+            - male
+            - maleTrans
+            - female
+            - femaleTrans
+            - nonBinary
+            type: string
+        femAvatar:
+          enum:
+          - 'true'
+          - 'false'
+          - any
+          type: string
+        ageMin:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        ageMax:
+          type: integer
+          maximum: 32767
+          minimum: 0
+          nullable: true
+        setup:
+          type: array
+          items:
+            enum:
+            - quest
+            - pcvr
+            - fbt
+            type: string
+        role:
+          type: array
+          items:
+            enum:
+            - sub
+            - dom
+            - switch
+            type: string
+        mute:
+          enum:
+          - 'true'
+          - 'false'
+          - any
+          type: string
+        furry:
+          enum:
+          - 'true'
+          - 'false'
+          - any
+          type: string
+      required:
+      - ageMin
+      - femAvatar
+      - furry
+      - gender
+      - mute
+      - role
+      - setup
     Profile:
       type: object
       properties:
@@ -537,9 +565,7 @@ components:
           nullable: true
           maxLength: 512
         preferences:
-          allOf:
-          - $ref: '#/components/schemas/Nested'
-          readOnly: true
+          $ref: '#/components/schemas/Preferences'
       required:
       - age
       - femAvatar

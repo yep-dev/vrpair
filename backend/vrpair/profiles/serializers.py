@@ -13,50 +13,6 @@ from vrpair.utils.enums import (
 from vrpair.utils.serializers import MultipleChoiceField
 
 
-class ProfileSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Profile
-        fields = [
-            "id",
-            # 1
-            "username",
-            "age",
-            "gender",
-            "fem_avatar",
-            # 2
-            "setup",
-            "role",
-            "mute",
-            "furry",
-            # other
-            "verified",
-            # custom
-            "likes",
-        ]
-
-    age = serializers.IntegerField()
-
-
-class ProfileDetailsSerializer(ProfileSerializer):
-    class Meta:
-        model = Profile
-        depth = 1
-        fields = ProfileSerializer.Meta.fields + [
-            "start_hour",
-            "end_hour",
-            "week_days",
-            "description",
-            "preferences",
-        ]
-
-
-class CurrentProfileSerializer(ProfileSerializer):
-    class Meta:
-        model = Profile
-        depth = 1
-        fields = ProfileSerializer.Meta.fields + ["birth_date"]
-
-
 class PreferencesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Preferences
@@ -142,3 +98,45 @@ class ProfileFormSerializer(WritableNestedModelSerializer):
 
     def update(self, instance, data):
         return super().update(instance, self.map_data(data))
+
+
+class ProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Profile
+        fields = [
+            "id",
+            # 1
+            "username",
+            "age",
+            "gender",
+            "fem_avatar",
+            # 2
+            "setup",
+            "role",
+            "mute",
+            "furry",
+            # other
+            "verified",
+        ]
+
+    age = serializers.IntegerField()
+
+
+class ProfileDetailsSerializer(ProfileSerializer):
+    class Meta:
+        model = Profile
+        fields = ProfileSerializer.Meta.fields + [
+            "start_hour",
+            "end_hour",
+            "week_days",
+            "description",
+            "preferences",
+        ]
+
+    preferences = PreferencesSerializer()
+
+
+class CurrentProfileSerializer(ProfileDetailsSerializer):
+    class Meta:
+        model = Profile
+        fields = ProfileDetailsSerializer.Meta.fields + ["birth_date"]
