@@ -6,8 +6,9 @@ import { formatDistanceToNow } from "date-fns"
 import { Badge, Box, Column, Flex, Image, Row, Text } from "native-base"
 import { useQuery } from "react-query"
 
-import { Profile, ProfileDetails } from "api/index.schemas"
+import { Profile, ProfileDetails, RatedProfile } from "api/index.schemas"
 import { getProfileDetailsQueryKey } from "api/profiles"
+import { getRateProfileQueryKey } from "apiClient/queryKeys"
 import { TabNavigationProps, TabParams } from "navigators/app-navigator"
 import { enums } from "utils/enums"
 import { inject } from "utils/misc"
@@ -27,7 +28,7 @@ const Tag = inject(Badge, {
 type Props = {
   tab: keyof TabParams
   profile: Profile
-  shouldHide?(profile: Profile): boolean
+  shouldHide?(profile: RatedProfile): boolean
 }
 
 export const ProfileCard: FC<Props> = ({ tab, profile, shouldHide }) => {
@@ -35,10 +36,13 @@ export const ProfileCard: FC<Props> = ({ tab, profile, shouldHide }) => {
   const { data } = useQuery<ProfileDetails>(getProfileDetailsQueryKey(profile.id), {
     enabled: false,
   })
+  const { data: ratedProfile } = useQuery<RatedProfile>(getRateProfileQueryKey(profile.id), {
+    enabled: false,
+  })
 
   profile = data || profile
 
-  if (shouldHide && shouldHide(profile)) {
+  if (shouldHide && ratedProfile && shouldHide(ratedProfile)) {
     return null
   }
 
@@ -55,7 +59,7 @@ export const ProfileCard: FC<Props> = ({ tab, profile, shouldHide }) => {
         px="4"
         py="3"
         borderLeftWidth={2}
-        borderLeftColor={profile.likes ? "yellow.500" : "transparent"}
+        borderLeftColor={ratedProfile?.likes ? "yellow.500" : "transparent"}
       >
         <Row space={3}>
           <Box>
@@ -85,10 +89,10 @@ export const ProfileCard: FC<Props> = ({ tab, profile, shouldHide }) => {
               {profile.mute && <Tag colorScheme="gray">Mute</Tag>}
               {profile.furry && <Tag colorScheme="gray">Furry</Tag>}
             </TagRow>
-            {profile.date && (
+            {ratedProfile?.date && (
               <Flex alignItems="flex-end">
                 <Text fontSize="xs">
-                  {formatDistanceToNow(new Date(profile.date), { addSuffix: true })}
+                  {formatDistanceToNow(new Date(ratedProfile.date), { addSuffix: true })}
                 </Text>
               </Flex>
             )}

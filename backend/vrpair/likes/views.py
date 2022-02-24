@@ -1,4 +1,5 @@
 from django.db.models import Q
+from drf_spectacular.utils import extend_schema
 from rest_framework import generics, serializers
 
 from vrpair.contrib.views import UpdateOrCreateAPIView
@@ -6,14 +7,13 @@ from vrpair.likes.models import Pair, RatedProfile
 from vrpair.likes.serializers import (
     PairSerializer,
     RatedProfileSerializer,
-    RatedProfileDetailsSerializer,
     RateProfileSerializer,
 )
 
 
+@extend_schema(responses=RateProfileSerializer)
 class RateProfile(UpdateOrCreateAPIView):
     serializer_class = RateProfileSerializer
-    response_serializer = RatedProfileDetailsSerializer
 
     def perform_create(self, serializer):
         return RatedProfile.objects.update_or_create(
@@ -24,7 +24,7 @@ class RateProfile(UpdateOrCreateAPIView):
 
 
 class LikedList(generics.ListAPIView):
-    serializer_class = RatedProfileDetailsSerializer
+    serializer_class = RatedProfileSerializer
 
     def get_queryset(self):
         return RatedProfile.objects.filter(author=self.request.user.profile, liked=True)

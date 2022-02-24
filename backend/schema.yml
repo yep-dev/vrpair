@@ -29,7 +29,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PaginatedRatedProfileDetailsList'
+                $ref: '#/components/schemas/PaginatedRatedProfileList'
           description: ''
   /likes/likes-list:
     get:
@@ -70,7 +70,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/RatedProfileDetails'
+              $ref: '#/components/schemas/RateProfile'
         required: true
       security:
       - cookieAuth: []
@@ -80,7 +80,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RatedProfileDetails'
+                $ref: '#/components/schemas/RateProfile'
           description: ''
   /profiles/create-profile:
     post:
@@ -346,7 +346,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Profile'
-    PaginatedRatedProfileDetailsList:
+    PaginatedRatedProfileList:
       type: object
       properties:
         count:
@@ -365,7 +365,7 @@ components:
         results:
           type: array
           items:
-            $ref: '#/components/schemas/RatedProfileDetails'
+            $ref: '#/components/schemas/RatedProfile'
     Pair:
       type: object
       description: Flatens the specified related objects in this representation
@@ -586,22 +586,34 @@ components:
       - role
       - setup
       - username
+    RateProfile:
+      type: object
+      properties:
+        profileId:
+          type: integer
+        liked:
+          type: boolean
+      required:
+      - liked
+      - profileId
     RatedProfile:
       type: object
-      description: Flatens the specified related objects in this representation
       properties:
         liked:
-          type: boolean
+          type: string
+          readOnly: true
+        likes:
+          type: string
+          readOnly: true
+        date:
+          type: string
+          format: date-time
+        profile:
+          type: integer
       required:
       - liked
-    RatedProfileDetails:
-      type: object
-      description: Flatens the specified related objects in this representation
-      properties:
-        liked:
-          type: boolean
-      required:
-      - liked
+      - likes
+      - profile
     TokenRefresh:
       type: object
       properties:

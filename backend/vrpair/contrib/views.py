@@ -3,20 +3,21 @@ from rest_framework.response import Response
 
 
 class UpdateOrCreateAPIView(generics.CreateAPIView):
-    response_serializer = None
-
-    def get_serializer_class(self):
-        return self.response_serializer or super().get_serializer_class()
+    serializer_response = None
 
     def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
+        serializer = self.serializer_class(
+            data=request.data, context=self.get_serializer_context()
+        )
         serializer.is_valid(raise_exception=True)
 
         instance, _ = self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
-        response_serializer = self.get_serializer(instance=instance)
+        serializer_response = self.serializer_response or self.serializer_class(
+            instance=instance, context=self.get_serializer_context()
+        )
         return Response(
-            response_serializer.data, status=status.HTTP_201_CREATED, headers=headers
+            serializer_response.data, status=status.HTTP_201_CREATED, headers=headers
         )
 
 
