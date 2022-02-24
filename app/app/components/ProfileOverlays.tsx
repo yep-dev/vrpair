@@ -2,11 +2,11 @@ import React, { FC } from "react"
 
 import { observer } from "mobx-react-lite"
 import { Box, IconButton, Row } from "native-base"
-import { useQueryClient } from "react-query"
+import { useQuery, useQueryClient } from "react-query"
 
-import { Profile, ProfileDetails } from "api/index.schemas"
+import { Profile, RateProfile } from "api/index.schemas"
 import { useRateProfile } from "api/likes"
-import { getProfileDetailsQueryKey } from "api/profiles"
+import { getRateProfileQueryKey } from "apiClient/queryKeys"
 import { CircleHeartIcon, CircleXIcon, SynchronizeArrowsIcon } from "components/icons"
 import { useStore } from "mobx/utils"
 import { useForceToken } from "utils/auth"
@@ -32,10 +32,11 @@ type Props = {
 export const ProfileOverlays: FC<Props> = observer(({ profile, moveCarousel }) => {
   const { userStore } = useStore()
   const queryClient = useQueryClient()
+  const { data } = useQuery<RateProfile>(getRateProfileQueryKey(profile.id), { enabled: false })
   const rateProfile = useRateProfile({
     mutation: {
       onSuccess: (data) => {
-        queryClient.setQueryData<ProfileDetails>(getProfileDetailsQueryKey(profile.id), data)
+        queryClient.setQueryData(getRateProfileQueryKey(profile.id), data)
       },
     },
   })
@@ -64,7 +65,7 @@ export const ProfileOverlays: FC<Props> = observer(({ profile, moveCarousel }) =
             colorScheme="gray"
             icon={<CircleXIcon color="gray.400" />}
             onPress={handleSkip}
-            backgroundColor={profile.liked === false ? pressedBackground("gray") : undefined}
+            backgroundColor={data?.liked === false ? pressedBackground("gray") : undefined}
           />
         </BackgroundOverlay>
         {userStore.staffAuthenticated && (
@@ -83,7 +84,7 @@ export const ProfileOverlays: FC<Props> = observer(({ profile, moveCarousel }) =
           size={16}
           icon={<CircleHeartIcon color="pink.400" />}
           onPress={handleLike}
-          backgroundColor={profile.liked === true ? pressedBackground("pink") : undefined}
+          backgroundColor={data?.liked === true ? pressedBackground("pink") : undefined}
         />
       </BackgroundOverlay>
     </>
