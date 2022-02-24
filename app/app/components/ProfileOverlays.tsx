@@ -6,7 +6,7 @@ import { useQuery, useQueryClient } from "react-query"
 
 import { Profile, RateProfile } from "api/index.schemas"
 import { useRateProfile } from "api/likes"
-import { getRateProfileQueryKey } from "apiClient/queryKeys"
+import { getRateProfileQueryKey } from "apiClient/custom"
 import { CircleHeartIcon, CircleXIcon, SynchronizeArrowsIcon } from "components/icons"
 import { useStore } from "mobx/utils"
 import { useForceToken } from "utils/auth"

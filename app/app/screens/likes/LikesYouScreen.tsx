@@ -4,7 +4,7 @@ import { FlatList } from "react-native"
 import { useQueryClient } from "react-query"
 
 import { useLikesList } from "api/likes"
-import { badgesQueryKey } from "apiClient/queryKeys"
+import { Badges, badgesQueryKey } from "apiClient/custom"
 import { ProfileCard, QueryContainer } from "components"
 
 export const LikesYouScreen: FC = () => {

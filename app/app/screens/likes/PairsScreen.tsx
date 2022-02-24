@@ -1,11 +1,10 @@
 import React, { FC } from "react"
 import { FlatList } from "react-native"
 
-import { Badges } from "apiClient/likes"
 import { useQueryClient } from "react-query"
 
 import { usePairList } from "api/likes"
-import { badgesQueryKey } from "apiClient/queryKeys"
+import { Badges, badgesQueryKey } from "apiClient/custom"
 import { ProfileCard, QueryContainer } from "components"
 
 export const PairsScreen: FC = () => {
