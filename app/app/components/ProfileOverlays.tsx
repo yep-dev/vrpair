@@ -43,16 +43,16 @@ export const ProfileOverlays: FC<Props> = observer(({ profile, moveCarousel }) =
 
   const handleLike = () => {
     moveCarousel && moveCarousel()
-    rateProfile.mutate({ profileId: profile.id, liked: true })
+    rateProfile.mutate({ data: { profileId: profile.id, liked: true } })
   }
 
   const handleSkip = () => {
     moveCarousel && moveCarousel()
-    rateProfile.mutate({ profileId: profile.id, liked: false })
+    rateProfile.mutate({ data: { profileId: profile.id, liked: false } })
   }
 
   const handleSwitchUser = async () => {
-    forceToken.mutate({ profileId: profile.id.toString() })
+    forceToken.mutate({ profileId: profile.id })
   }
 
   return (
