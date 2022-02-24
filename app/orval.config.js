@@ -7,7 +7,15 @@ module.exports = {
       override: {
         mutator: {
           path: "./app/apiClient/useMutator.ts",
-          name: "useMutator",
+          name: "useAuthenticated",
+        },
+        operations: {
+          force_token: {
+            mutator: {
+              path: "./app/apiClient/useMutator.ts",
+              name: "useStaff",
+            },
+          },
         },
       },
     },
