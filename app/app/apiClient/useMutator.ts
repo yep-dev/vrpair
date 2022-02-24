@@ -1,8 +1,11 @@
+import { AxiosRequestConfig } from "axios"
+
 import { useClient } from "apiClient/ClientProvider"
 
-export const useMutator = <T>(): ((config: any) => Promise<T>) => {
+export const useMutator = <T>(): ((config: AxiosRequestConfig) => Promise<T>) => {
   const client = useClient()
 
-  return ({ url, params, ...options }) =>
-    client.authenticated(url.slice(1), { searchParams: params, ...options }).json()
+  return ({ url = "", method, params, data, ...options }) => {
+    return client.authenticated(url.slice(1), { method, searchParams: params, json: data }).json()
+  }
 }
