@@ -368,7 +368,6 @@ components:
             $ref: '#/components/schemas/RatedProfile'
     Pair:
       type: object
-      description: Flatens the specified related objects in this representation
       properties:
         id:
           type: integer
@@ -377,9 +376,12 @@ components:
           type: string
           format: date-time
           readOnly: true
+        profile:
+          $ref: '#/components/schemas/Profile'
       required:
       - date
       - id
+      - profile
     PairList:
       type: object
       properties:

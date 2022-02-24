@@ -31,7 +31,7 @@ export type ProfileCardProps = {
   pair?: Pair
 }
 
-export const ProfileCard: FC<ProfileCardProps> = ({ tab, profile, ratedProfile }) => {
+export const ProfileCard: FC<ProfileCardProps> = ({ tab, profile, ratedProfile, pair }) => {
   const { navigate } = useNavigation<TabNavigationProps>()
   const { data } = useQuery<ProfileDetails>(getProfileDetailsQueryKey(profile.id), {
     enabled: false,
@@ -81,10 +81,12 @@ export const ProfileCard: FC<ProfileCardProps> = ({ tab, profile, ratedProfile }
               {profile.mute && <Tag colorScheme="gray">Mute</Tag>}
               {profile.furry && <Tag colorScheme="gray">Furry</Tag>}
             </TagRow>
-            {ratedProfile?.date && (
+            {(pair || ratedProfile) && (
               <Flex alignItems="flex-end">
                 <Text fontSize="xs">
-                  {formatDistanceToNow(new Date(ratedProfile.date), { addSuffix: true })}
+                  {formatDistanceToNow(new Date(pair?.date || ratedProfile?.date || ""), {
+                    addSuffix: true,
+                  })}
                 </Text>
               </Flex>
             )}

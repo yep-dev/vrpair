@@ -4,7 +4,6 @@ import { FlatList } from "react-native"
 import { Badges } from "apiClient/likes"
 import { useQueryClient } from "react-query"
 
-import { Profile } from "api/index.schemas"
 import { usePairList } from "api/likes"
 import { badgesQueryKey } from "apiClient/queryKeys"
 import { ProfileCard, QueryContainer } from "components"
@@ -24,9 +23,9 @@ export const PairsScreen: FC = () => {
 
   return (
     <QueryContainer query={query} text="You have no pairs yet">
-      <FlatList<Profile>
+      <FlatList
         data={query?.data?.results}
-        renderItem={({ item }) => <ProfileCard tab="likes" profile={item} />}
+        renderItem={({ item }) => <ProfileCard tab="likes" profile={item.profile} pair={item} />}
         keyExtractor={(item) => item.id.toString()}
       />
     </QueryContainer>

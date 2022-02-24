@@ -26,11 +26,12 @@ class RatedProfileSerializer(serializers.ModelSerializer):
         return request and request.user.profile == obj.profile
 
 
-class PairSerializer(FlattenMixin, serializers.ModelSerializer):
+class PairSerializer(serializers.ModelSerializer):
     class Meta:
         model = Pair
-        fields = ["id", "date"]
-        flatten = [("profile", ProfileSerializer)]
+        fields = ["id", "date", "profile"]
+
+    profile = ProfileSerializer()
 
 
 class RateProfileSerializer(serializers.Serializer):

@@ -16,13 +16,7 @@ export const ProfilesListScreen: FC = () => {
       {data?.results && (
         <FlatList
           data={data.results}
-          renderItem={({ item }) => (
-            <ProfileCard
-              tab="profilesList"
-              profile={item}
-              shouldHide={(profile) => profile.liked != null}
-            />
-          )}
+          renderItem={({ item }) => <ProfileCard tab="profilesList" profile={item} />}
           keyExtractor={(profile) => profile.id.toString()}
         />
       )}
