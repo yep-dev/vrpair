@@ -168,7 +168,7 @@ const Tabs = () => (
 // ---------------- ProfilesList ----------------
 export type ProfilesListParams = {
   profilesListMain
-  profileDetails: { profile: Profile; liked?: boolean; skipped?: boolean }
+  profileDetails: { profile: Profile; liked?: boolean; likes?: boolean }
 }
 const ProfilesList = createNativeStackNavigator<ProfilesListParams>()
 

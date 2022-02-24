@@ -26,13 +26,16 @@ const BackgroundOverlay = inject(Box, {
 
 type Props = {
   profile: Profile
+  liked?: boolean
   moveCarousel?(): void
 }
 
-export const ProfileOverlays: FC<Props> = observer(({ profile, moveCarousel }) => {
+export const ProfileOverlays: FC<Props> = observer(({ profile, liked, moveCarousel }) => {
   const { userStore } = useStore()
   const queryClient = useQueryClient()
-  const { data } = useQuery<RateProfile>(getRateProfileQueryKey(profile.id), { enabled: false })
+  const { data } = useQuery<RateProfile>(getRateProfileQueryKey(profile.id), {
+    enabled: false,
+  })
   const rateProfile = useRateProfile({
     mutation: {
       onSuccess: (data) => {
@@ -41,6 +44,7 @@ export const ProfileOverlays: FC<Props> = observer(({ profile, moveCarousel }) =
     },
   })
   const forceToken = useForceToken()
+  liked = data?.liked ?? liked
 
   const handleLike = () => {
     moveCarousel && moveCarousel()
@@ -65,7 +69,7 @@ export const ProfileOverlays: FC<Props> = observer(({ profile, moveCarousel }) =
             colorScheme="gray"
             icon={<CircleXIcon color="gray.400" />}
             onPress={handleSkip}
-            backgroundColor={data?.liked === false ? pressedBackground("gray") : undefined}
+            backgroundColor={liked === false ? pressedBackground("gray") : undefined}
           />
         </BackgroundOverlay>
         {userStore.staffAuthenticated && (
@@ -84,7 +88,7 @@ export const ProfileOverlays: FC<Props> = observer(({ profile, moveCarousel }) =
           size={16}
           icon={<CircleHeartIcon color="pink.400" />}
           onPress={handleLike}
-          backgroundColor={data?.liked === true ? pressedBackground("pink") : undefined}
+          backgroundColor={liked === true ? pressedBackground("pink") : undefined}
         />
       </BackgroundOverlay>
     </>

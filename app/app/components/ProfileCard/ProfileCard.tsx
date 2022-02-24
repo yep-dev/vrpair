@@ -40,7 +40,9 @@ export const ProfileCard: FC<ProfileCardProps> = ({ tab, profile, ratedProfile, 
 
   return (
     <TouchableOpacity
-      onPress={() => navigate(tab, { screen: "profileDetails", params: { profile } })}
+      onPress={() =>
+        navigate(tab, { screen: "profileDetails", params: { profile, liked: ratedProfile?.liked } })
+      }
       delayPressIn={50}
     >
       <Box

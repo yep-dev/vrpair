@@ -15,5 +15,7 @@ export const LikedProfileCard: FC<Props> = ({ ratedProfile, ...props }) => {
     enabled: false,
   })
   ratedProfile = data ? { ...data, likes: false, profile: ratedProfile.profile } : ratedProfile
-  return ratedProfile.liked ? <ProfileCard profile={ratedProfile.profile} {...props} /> : null
+  return ratedProfile.liked ? (
+    <ProfileCard profile={ratedProfile.profile} ratedProfile={ratedProfile} {...props} />
+  ) : null
 }

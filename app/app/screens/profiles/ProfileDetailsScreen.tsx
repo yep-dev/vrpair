@@ -9,13 +9,13 @@ import { ProfilesListParams } from "navigators/app-navigator"
 type Props = NativeStackScreenProps<ProfilesListParams, "profileDetails">
 
 export const ProfileDetailsScreen: FC<Props> = ({ route }) => {
-  const { profile } = route.params
+  const { profile, liked } = route.params
   const { data } = useProfileDetails(profile.id)
 
   return (
     <Screen>
       <Profile profile={data || profile} details={data} />
-      <ProfileOverlays profile={data || profile} />
+      <ProfileOverlays profile={data || profile} liked={liked} />
     </Screen>
   )
 }
