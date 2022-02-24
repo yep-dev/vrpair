@@ -3,7 +3,6 @@ import { FlatList } from "react-native"
 
 import { useQueryClient } from "react-query"
 
-import { Profile } from "api/index.schemas"
 import { useLikesList } from "api/likes"
 import { badgesQueryKey } from "apiClient/queryKeys"
 import { ProfileCard, QueryContainer } from "components"
@@ -23,12 +22,12 @@ export const LikesYouScreen: FC = () => {
 
   return (
     <QueryContainer query={query} text="You have no likes yet">
-      <FlatList<Profile>
+      <FlatList
         data={query?.data?.results}
         renderItem={({ item }) => (
-          <ProfileCard tab="likes" profile={item} shouldHide={(profile) => !profile.likes} />
+          <ProfileCard tab="likes" profile={item.profile} ratedProfile={item} />
         )}
-        keyExtractor={(item) => item.id.toString()}
+        keyExtractor={(item) => item.profile.id.toString()}
       />
     </QueryContainer>
   )

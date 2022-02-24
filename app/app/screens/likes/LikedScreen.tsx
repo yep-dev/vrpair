@@ -1,21 +1,19 @@
 import React, { FC } from "react"
 import { FlatList } from "react-native"
 
-import { Profile } from "api/index.schemas"
 import { useLikedList } from "api/likes"
-import { ProfileCard, QueryContainer } from "components"
+import { QueryContainer } from "components"
+import { LikedProfileCard } from "components/ProfileCard/LikedProfileCard"
 
 export const LikedScreen: FC = () => {
   const query = useLikedList()
 
   return (
     <QueryContainer query={query} text="You didn't like any profile">
-      <FlatList<Profile>
+      <FlatList
         data={query?.data?.results}
-        renderItem={({ item }) => (
-          <ProfileCard tab="likes" profile={item} shouldHide={(profile) => !profile.liked} />
-        )}
-        keyExtractor={(item) => item.id.toString()}
+        renderItem={({ item }) => <LikedProfileCard tab="likes" ratedProfile={item} />}
+        keyExtractor={(item) => item.profile.id.toString()}
       />
     </QueryContainer>
   )

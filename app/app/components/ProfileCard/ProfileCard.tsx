@@ -6,9 +6,8 @@ import { formatDistanceToNow } from "date-fns"
 import { Badge, Box, Column, Flex, Image, Row, Text } from "native-base"
 import { useQuery } from "react-query"
 
-import { Profile, ProfileDetails, RatedProfile } from "api/index.schemas"
+import { Pair, Profile, ProfileDetails, RatedProfile } from "api/index.schemas"
 import { getProfileDetailsQueryKey } from "api/profiles"
-import { getRateProfileQueryKey } from "apiClient/queryKeys"
 import { TabNavigationProps, TabParams } from "navigators/app-navigator"
 import { enums } from "utils/enums"
 import { inject } from "utils/misc"
@@ -25,26 +24,19 @@ const Tag = inject(Badge, {
   alignSelf: "flex-start",
 })
 
-type Props = {
+export type ProfileCardProps = {
   tab: keyof TabParams
   profile: Profile
-  shouldHide?(profile: RatedProfile): boolean
+  ratedProfile?: RatedProfile
+  pair?: Pair
 }
 
-export const ProfileCard: FC<Props> = ({ tab, profile, shouldHide }) => {
+export const ProfileCard: FC<ProfileCardProps> = ({ tab, profile, ratedProfile }) => {
   const { navigate } = useNavigation<TabNavigationProps>()
   const { data } = useQuery<ProfileDetails>(getProfileDetailsQueryKey(profile.id), {
     enabled: false,
   })
-  const { data: ratedProfile } = useQuery<RatedProfile>(getRateProfileQueryKey(profile.id), {
-    enabled: false,
-  })
-
   profile = data || profile
-
-  if (shouldHide && ratedProfile && shouldHide(ratedProfile)) {
-    return null
-  }
 
   return (
     <TouchableOpacity

@@ -1,7 +1,6 @@
 import React, { FC } from "react"
 import { FlatList } from "react-native"
 
-import { Profile } from "api/index.schemas"
 import { useProfileList } from "api/profiles"
 import { ProfileCard, Screen } from "components"
 
@@ -15,7 +14,7 @@ export const ProfilesListScreen: FC = () => {
   return (
     <Screen heading="Not liked/skipped">
       {data?.results && (
-        <FlatList<Profile>
+        <FlatList
           data={data.results}
           renderItem={({ item }) => (
             <ProfileCard

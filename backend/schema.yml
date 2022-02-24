@@ -600,16 +600,16 @@ components:
       type: object
       properties:
         liked:
-          type: string
+          type: boolean
           readOnly: true
         likes:
-          type: string
+          type: boolean
           readOnly: true
         date:
           type: string
           format: date-time
         profile:
-          type: integer
+          $ref: '#/components/schemas/Profile'
       required:
       - liked
       - likes
