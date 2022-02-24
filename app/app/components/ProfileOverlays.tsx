@@ -27,70 +27,68 @@ const BackgroundOverlay = inject(Box, {
 type Props = {
   profile: Profile
   liked?: boolean
-  moveCarousel?(): void
+  handlePress?(): void
 }
 
-export const ProfileOverlays: FC<Props> = observer(({ profile, liked, moveCarousel }) => {
-  const { userStore } = useStore()
-  const queryClient = useQueryClient()
-  const { data } = useQuery<RateProfile>(getRateProfileQueryKey(profile.id), {
-    enabled: false,
-  })
-  const rateProfile = useRateProfile({
-    mutation: {
-      onSuccess: (data) => {
-        queryClient.setQueryData(getRateProfileQueryKey(profile.id), data)
+export const ProfileOverlays: FC<Props> = observer(
+  ({ profile, liked, handlePress: handlePressCarousel }) => {
+    const { userStore } = useStore()
+    const queryClient = useQueryClient()
+    const { data } = useQuery<RateProfile>(getRateProfileQueryKey(profile.id), {
+      enabled: false,
+    })
+    const rateProfile = useRateProfile({
+      mutation: {
+        onMutate: ({ data }) => {
+          queryClient.setQueryData(getRateProfileQueryKey(profile.id), data)
+        },
+        // onError todo: rollback on error
       },
-    },
-  })
-  const forceToken = useForceToken()
-  liked = data?.liked ?? liked
+    })
+    const forceToken = useForceToken()
+    liked = data?.liked ?? liked
 
-  const handleLike = () => {
-    moveCarousel && moveCarousel()
-    rateProfile.mutate({ data: { profileId: profile.id, liked: true } })
-  }
+    const handlePress = (liked) => () => {
+      handlePressCarousel && handlePressCarousel()
+      rateProfile.mutate({ data: { profileId: profile.id, liked } })
+    }
 
-  const handleSkip = () => {
-    moveCarousel && moveCarousel()
-    rateProfile.mutate({ data: { profileId: profile.id, liked: false } })
-  }
+    const handleSwitchUser = async () => {
+      forceToken.mutate({ profileId: profile.id })
+    }
 
-  const handleSwitchUser = async () => {
-    forceToken.mutate({ profileId: profile.id })
-  }
-
-  return (
-    <>
-      <Row position="absolute" bottom={0} left={0}>
-        <BackgroundOverlay left={8}>
-          <FloatingButton
-            size={16}
-            colorScheme="gray"
-            icon={<CircleXIcon color="gray.400" />}
-            onPress={handleSkip}
-            backgroundColor={liked === false ? pressedBackground("gray") : undefined}
-          />
-        </BackgroundOverlay>
-        {userStore.staffAuthenticated && (
-          <BackgroundOverlay left={32}>
+    return (
+      <>
+        <Row position="absolute" bottom={0} left={0}>
+          <BackgroundOverlay left={8}>
             <FloatingButton
               size={16}
               colorScheme="gray"
-              icon={<SynchronizeArrowsIcon color="gray.400" />}
-              onPress={handleSwitchUser}
+              icon={<CircleXIcon color="gray.400" />}
+              onPress={handlePress(false)}
+              backgroundColor={liked === false ? pressedBackground("gray") : undefined}
             />
           </BackgroundOverlay>
-        )}
-      </Row>
-      <BackgroundOverlay right={8}>
-        <FloatingButton
-          size={16}
-          icon={<CircleHeartIcon color="pink.400" />}
-          onPress={handleLike}
-          backgroundColor={liked === true ? pressedBackground("pink") : undefined}
-        />
-      </BackgroundOverlay>
-    </>
-  )
-})
+          {userStore.staffAuthenticated && (
+            <BackgroundOverlay left={32}>
+              <FloatingButton
+                size={16}
+                colorScheme="gray"
+                icon={<SynchronizeArrowsIcon color="gray.400" />}
+                onPress={handleSwitchUser}
+              />
+            </BackgroundOverlay>
+          )}
+        </Row>
+        <BackgroundOverlay right={8}>
+          <FloatingButton
+            size={16}
+            icon={<CircleHeartIcon color="pink.400" />}
+            onPress={handlePress(true)}
+            backgroundColor={liked === true ? pressedBackground("pink") : undefined}
+          />
+        </BackgroundOverlay>
+      </>
+    )
+  },
+)
