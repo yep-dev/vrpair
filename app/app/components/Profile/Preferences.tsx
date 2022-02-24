@@ -2,7 +2,7 @@ import React, { FC } from "react"
 
 import { Text, Column } from "native-base"
 
-import { Preferences as TPreferences } from "api/index.schemas"
+import { Preferences as TPreferences, ProfileGender, ProfileSetup } from "api/index.schemas"
 import { Tag, TagRow } from "components"
 import { enums } from "utils/enums"
 
@@ -16,7 +16,9 @@ export const Preferences: FC<{ preferences: TPreferences }> = ({ preferences }) 
         <Tag colorScheme="green">Everyone</Tag>
       ) : (
         <TagRow space={2}>
-          {["male", "maleTrans"].some((value) => preferences.gender.includes(value)) && (
+          {[ProfileGender.male, ProfileGender.maleTrans].some((value) =>
+            preferences.gender.includes(value),
+          ) && (
             <Tag colorScheme={enums.gender.male.color}>
               {genderIncludes(["male", "maleTrans"])
                 ? enums.gender.male.label
@@ -25,7 +27,9 @@ export const Preferences: FC<{ preferences: TPreferences }> = ({ preferences }) 
                 : enums.gender.maleTrans.label}
             </Tag>
           )}
-          {["female", "femaleTrans"].some((value) => preferences.gender.includes(value)) && (
+          {[ProfileGender.female, ProfileGender.femaleTrans].some((value) =>
+            preferences.gender.includes(value),
+          ) && (
             <Tag colorScheme={enums.gender.female.color}>
               {genderIncludes(["female", "femaleTrans"])
                 ? enums.gender.female.label
@@ -50,7 +54,9 @@ export const Preferences: FC<{ preferences: TPreferences }> = ({ preferences }) 
         ))}
       </TagRow>
       <TagRow space={2}>
-        {Object.keys(enums.setup).every((value) => preferences.setup.includes(value)) ? (
+        {Object.keys(enums.setup).every((value) =>
+          preferences.setup.includes(value as ProfileSetup),
+        ) ? (
           <Tag colorScheme="green">Any VR setup</Tag>
         ) : (
           preferences.setup.map((setup) => (
