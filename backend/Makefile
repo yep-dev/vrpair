@@ -18,3 +18,6 @@ reset:
 
 schema:
 	docker-compose run django python manage.py spectacular --file schema.yml --validate
+
+lint:
+	black . && autoflake  --remove-all-unused-imports --in-place -r  .
