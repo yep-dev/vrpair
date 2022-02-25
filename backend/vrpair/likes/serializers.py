@@ -9,6 +9,12 @@ from vrpair.profiles.serializers import ProfileSerializer
 class RatedProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = RatedProfile
+        fields = ["liked", "date"]
+
+
+class RatedProfileDeepSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = RatedProfile
         fields = ["liked", "likes", "date", "profile"]
 
     liked = serializers.SerializerMethodField()

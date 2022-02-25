@@ -23,6 +23,7 @@ from vrpair.profiles.views import (
     CurrentProfile,
     CreateProfile,
     ProfileDetails,
+    ProfileFeed,
 )
 from vrpair.users.views import DiscordLogin, ForceToken, CurrentUser
 
@@ -54,6 +55,7 @@ api_paths = [
     ),
     # profiles
     path("profiles/profile-list", ProfileList.as_view(), name="profile_list"),
+    path("profiles/profile-feed", ProfileFeed.as_view(), name="profile_feed"),
     path("profiles/current-profile", CurrentProfile.as_view(), name="current_profile"),
     path("profiles/create-profile", CreateProfile.as_view(), name="create_profile"),
     path(

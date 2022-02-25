@@ -2,11 +2,11 @@ import React, { FC, useRef, useState } from "react"
 
 import Carousel, { ICarouselInstance } from "react-native-reanimated-carousel"
 
-import { useProfileList } from "api/profiles"
+import { useProfileFeed } from "api/profiles"
 import { Screen, Profile, ProfileOverlays } from "components"
 
 export const ProfilesCarouselScreen: FC = () => {
-  const { data } = useProfileList(undefined, {
+  const { data } = useProfileFeed(undefined, {
     query: {
       staleTime: 60 * 1000,
     },
@@ -29,9 +29,9 @@ export const ProfilesCarouselScreen: FC = () => {
             width={400}
             onScrollEnd={(_, current) => setIndex(current)}
             data={data.results}
-            renderItem={({ item }) => <Profile profile={item} />}
+            renderItem={({ item }) => <Profile profile={item.profile} details={item.profile} />}
           />
-          <ProfileOverlays profile={data.results[index]} handlePress={handlePress} />
+          <ProfileOverlays profile={data.results[index].profile} handlePress={handlePress} />
         </>
       ) : null}
     </Screen>

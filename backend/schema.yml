@@ -29,7 +29,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PaginatedRatedProfileList'
+                $ref: '#/components/schemas/PaginatedRatedProfileDeepList'
           description: ''
   /likes/likes-list:
     get:
@@ -138,6 +138,34 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ProfileDetails'
+          description: ''
+  /profiles/profile-feed:
+    get:
+      operationId: profile_feed
+      parameters:
+      - name: limit
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: offset
+        required: false
+        in: query
+        description: The initial index from which to return the results.
+        schema:
+          type: integer
+      tags:
+      - profiles
+      security:
+      - cookieAuth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedProfileFeedList'
           description: ''
   /profiles/profile-list:
     get:
@@ -320,12 +348,32 @@ components:
         results:
           type: array
           items:
-            $ref: '#/components/schemas/RatedProfile'
+            $ref: '#/components/schemas/RatedProfileDeep'
         likesBadge:
           type: integer
       required:
       - likesBadge
       - results
+    PaginatedProfileFeedList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?offset=400&limit=100
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?offset=200&limit=100
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProfileFeed'
     PaginatedProfileList:
       type: object
       properties:
@@ -346,7 +394,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Profile'
-    PaginatedRatedProfileList:
+    PaginatedRatedProfileDeepList:
       type: object
       properties:
         count:
@@ -365,7 +413,7 @@ components:
         results:
           type: array
           items:
-            $ref: '#/components/schemas/RatedProfile'
+            $ref: '#/components/schemas/RatedProfileDeep'
     Pair:
       type: object
       properties:
@@ -588,6 +636,16 @@ components:
       - role
       - setup
       - username
+    ProfileFeed:
+      type: object
+      properties:
+        profile:
+          $ref: '#/components/schemas/ProfileDetails'
+        ratedProfile:
+          $ref: '#/components/schemas/RatedProfile'
+      required:
+      - profile
+      - ratedProfile
     RateProfile:
       type: object
       properties:
@@ -599,6 +657,16 @@ components:
       - liked
       - profileId
     RatedProfile:
+      type: object
+      properties:
+        liked:
+          type: boolean
+        date:
+          type: string
+          format: date-time
+      required:
+      - liked
+    RatedProfileDeep:
       type: object
       properties:
         liked:

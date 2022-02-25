@@ -2,12 +2,12 @@ import React, { FC } from "react"
 
 import { useQuery } from "react-query"
 
-import { RatedProfile, RateProfile } from "api/index.schemas"
+import { RatedProfileDeep, RateProfile } from "api/index.schemas"
 import { getRateProfileQueryKey } from "apiClient/custom"
 import { ProfileCard, ProfileCardProps } from "components/ProfileCard/ProfileCard"
 
 type Props = {
-  ratedProfile: RatedProfile
+  ratedProfile: RatedProfileDeep
 } & Omit<ProfileCardProps, "profile">
 
 export const LikedProfileCard: FC<Props> = ({ ratedProfile, ...props }) => {

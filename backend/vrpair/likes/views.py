@@ -6,7 +6,7 @@ from vrpair.contrib.views import UpdateOrCreateAPIView
 from vrpair.likes.models import Pair, RatedProfile
 from vrpair.likes.serializers import (
     PairSerializer,
-    RatedProfileSerializer,
+    RatedProfileDeepSerializer,
     RateProfileSerializer,
 )
 
@@ -24,7 +24,7 @@ class RateProfile(UpdateOrCreateAPIView):
 
 
 class LikedList(generics.ListAPIView):
-    serializer_class = RatedProfileSerializer
+    serializer_class = RatedProfileDeepSerializer
 
     def get_queryset(self):
         return RatedProfile.objects.filter(author=self.request.user.profile, liked=True)
@@ -32,7 +32,7 @@ class LikedList(generics.ListAPIView):
 
 class LikesList(generics.RetrieveAPIView):
     class LikesList(serializers.Serializer):
-        results = RatedProfileSerializer(many=True)
+        results = RatedProfileDeepSerializer(many=True)
         likes_badge = serializers.IntegerField()
 
     serializer_class = LikesList

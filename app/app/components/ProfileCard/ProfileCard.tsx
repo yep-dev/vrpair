@@ -6,7 +6,7 @@ import { formatDistanceToNow } from "date-fns"
 import { Badge, Box, Column, Flex, Image, Row, Text } from "native-base"
 import { useQuery } from "react-query"
 
-import { Pair, Profile, ProfileDetails, RatedProfile } from "api/index.schemas"
+import { Pair, Profile, ProfileDetails, RatedProfileDeep } from "api/index.schemas"
 import { getProfileDetailsQueryKey } from "api/profiles"
 import { TabNavigationProps, TabParams } from "navigators/app-navigator"
 import { enums } from "utils/enums"
@@ -27,7 +27,7 @@ const Tag = inject(Badge, {
 export type ProfileCardProps = {
   tab: keyof TabParams
   profile: Profile
-  ratedProfile?: RatedProfile
+  ratedProfile?: RatedProfileDeep
   pair?: Pair
 }
 

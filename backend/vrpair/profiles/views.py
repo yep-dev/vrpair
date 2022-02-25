@@ -1,8 +1,9 @@
-from rest_framework import generics
+from rest_framework import generics, serializers
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from vrpair.likes.models import RatedProfile
+from vrpair.likes.serializers import RatedProfileSerializer
 from vrpair.profiles.models import Profile
 from vrpair.profiles.serializers import (
     ProfileSerializer,
@@ -18,23 +19,36 @@ class ProfileList(generics.ListAPIView):
 
     def get_queryset(self):
         profile = self.request.user.profile
-        likes = RatedProfile.objects.filter(profile=profile).values(
-            "author_id",
-            "liked",
+        likes = RatedProfile.objects.filter(profile=profile).values_list(
+            "author_id", flat=True
         )
-        likes = {like["author_id"]: like["liked"] for like in likes}
-        queryset = Profile.objects.filter(visible=True).order_by("?")
-        for item in queryset:
-            item.likes = likes.get(item.id)
-        return queryset
+        liked = RatedProfile.objects.filter(author=profile).values_list(
+            "profile_id", flat=True
+        )
+        qs = (
+            Profile.objects.filter(visible=True)
+            .exclude(id__in=list(likes) + list(liked))
+            .order_by("?")
+        )
+        return qs
 
 
 class ProfileFeed(generics.ListAPIView):
-    serializer_class = ProfileSerializer
+    class ProfileFeed(serializers.Serializer):
+        profile = ProfileDetailsSerializer()
+        ratedProfile = RatedProfileSerializer()
+
+    serializer_class = ProfileFeed
 
     def get_queryset(self):
         profile = self.request.user.profile
-        return RatedProfile.objects.filter(profile=profile, liked=True)
+        likes = RatedProfile.objects.filter(profile=profile)
+
+        profiles = Profile.objects.filter(visible=True).order_by("?")
+        return [
+            {"profile": rated_profile.profile, "ratedProfile": rated_profile}
+            for rated_profile in likes
+        ] + [{"profile": profile, "ratedProfile": None} for profile in profiles]
 
 
 class CurrentProfile(generics.RetrieveAPIView):
