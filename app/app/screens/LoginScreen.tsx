@@ -56,12 +56,12 @@ export const LoginScreen: FC<StackScreenProps<AppParams, "login">> = observer(()
               vrpair
             </Text>
           </Row>
-          <Text mt={2} fontSize="md" color="gray.200">
+          <Text color="gray.200" fontSize="md" mt={2}>
             Dating app for VR players
           </Text>
         </Center>
         <Column space={8}>
-          <Checkbox.Group onChange={setGroupValues} value={groupValues}>
+          <Checkbox.Group value={groupValues} onChange={setGroupValues}>
             <Column space={4}>
               {requirements.map(({ title }, i) => (
                 <Checkbox key={i} value={i.toString()}>
@@ -76,7 +76,7 @@ export const LoginScreen: FC<StackScreenProps<AppParams, "login">> = observer(()
           <Text>You will be added to our discord server to be able to message your pairs.</Text>
         </Column>
       </Flex>
-      <AlertDialog size="xl" isOpen={showAlert} leastDestructiveRef={okRef}>
+      <AlertDialog isOpen={showAlert} leastDestructiveRef={okRef} size="xl">
         <AlertDialog.Content>
           <AlertDialog.Header>Confirm all requirements</AlertDialog.Header>
           <Box m={3}>
@@ -84,7 +84,7 @@ export const LoginScreen: FC<StackScreenProps<AppParams, "login">> = observer(()
               .filter((_, i) => !groupValues.includes(i.toString()))
               .map(({ title, description }, i) => (
                 <Box key={i} mb={4}>
-                  <Text fontSize="lg" bold mb={1}>
+                  <Text bold fontSize="lg" mb={1}>
                     {title}
                   </Text>
                   <Text>{description}</Text>

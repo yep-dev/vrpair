@@ -41,30 +41,30 @@ export const SetupScreen: FC<Props> = ({
         mx: 5,
         my: 3,
       }}
-      heading={heading}
       handlePrev={handlePrev}
-      scroll
+      heading={heading}
       headingRight={
         <Row>
           {["1", "2", "3", "4"].map((key) => (
             <Button
-              borderRadius={24}
-              variant="ghost"
               key={key}
-              width="37.3px"
-              mx={0.5}
               _text={{ color: "white" }}
               backgroundColor={key === routeKey ? "gray.800" : undefined}
+              borderRadius={24}
+              mx={0.5}
+              variant="ghost"
+              width="37.3px"
             >
               {key}
             </Button>
           ))}
         </Row>
       }
+      scroll
     >
       <Column space={6}>{children}</Column>
       <Row mb={12} space={2}>
-        <Button onPress={handleNext} flex={1} size="lg">
+        <Button flex={1} size="lg" onPress={handleNext}>
           Next
         </Button>
       </Row>

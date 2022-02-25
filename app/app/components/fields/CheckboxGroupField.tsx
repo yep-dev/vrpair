@@ -21,7 +21,7 @@ export const CheckboxGroupField: FC<Props> = ({ name, label, rules, items }) => 
   })
 
   return (
-    <Checkbox.Group onChange={field.onChange} value={field.value}>
+    <Checkbox.Group value={field.value} onChange={field.onChange}>
       {label && <FieldLabel label={label} />}
       <Column space={3}>
         {items.map(({ key, label }) => (

@@ -28,14 +28,14 @@ export const InputField: FC<Props & IInputProps> = ({
     <>
       <FieldLabel label={label} />
       <Input
-        onChangeText={field.onChange}
-        onBlur={field.onBlur}
-        value={field.value}
         size="lg"
+        value={field.value}
         w={{
           base: "75%",
           md: "25%",
         }}
+        onBlur={field.onBlur}
+        onChangeText={field.onChange}
         {...inputProps}
       />
       <FieldError error={fieldState.error} />

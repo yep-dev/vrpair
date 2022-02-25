@@ -45,18 +45,18 @@ export const Screen: FC<Props> = ({
   return (
     <KeyboardAvoidingView behavior={isIos ? "padding" : undefined} flex={1}>
       <StatusBar barStyle={statusBar || "light-content"} />
-      <View style={insetStyle} flex={1} bg="gray.900">
+      <View bg="gray.900" flex={1} style={insetStyle}>
         {heading && (
-          <Row space={2} alignItems="center" ml={2} mr={5}>
+          <Row alignItems="center" ml={2} mr={5} space={2}>
             {handlePrev && (
               <IconButton
                 icon={<ArrowLeftIcon color="primary.500" />}
-                onPress={handlePrev}
                 size="lg"
                 variant="ghost"
+                onPress={handlePrev}
               />
             )}
-            <Heading mt={1} flex={1} ml={!handlePrev ? 2 : 0} mb={2}>
+            <Heading flex={1} mb={2} ml={!handlePrev ? 2 : 0} mt={1}>
               {heading}
             </Heading>
             {headingRight}

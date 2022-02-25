@@ -40,26 +40,26 @@ export const ProfileCard: FC<ProfileCardProps> = ({ tab, profile, ratedProfile, 
 
   return (
     <TouchableOpacity
+      delayPressIn={50}
       onPress={() =>
         navigate(tab, { screen: "profileDetails", params: { profile, liked: ratedProfile?.liked } })
       }
-      delayPressIn={50}
     >
       <Box
-        borderBottomWidth="1"
         _dark={{
           borderColor: "gray.800",
         }}
+        borderBottomWidth="1"
+        borderLeftColor={ratedProfile?.likes ? "yellow.500" : "transparent"}
+        borderLeftWidth={2}
         px="4"
         py="3"
-        borderLeftWidth={2}
-        borderLeftColor={ratedProfile?.likes ? "yellow.500" : "transparent"}
       >
         <Row space={3}>
           <Box>
             <Image
-              source={{ uri: "https://images.dog.ceo/breeds/pitbull/20190801_154956.jpg" }}
               alt="profile thumbnail"
+              source={{ uri: "https://images.dog.ceo/breeds/pitbull/20190801_154956.jpg" }}
               style={{ height: 90, width: 120, borderRadius: 4 }}
             />
           </Box>

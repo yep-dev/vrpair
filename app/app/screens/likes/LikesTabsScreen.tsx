@@ -51,9 +51,9 @@ export const LikesTabsScreen: FC = () => {
 
   return (
     <Tabs
-      renderScene={renderScene}
-      renderBadge={renderBadge}
       navigationState={navigationState}
+      renderBadge={renderBadge}
+      renderScene={renderScene}
       setNavigationState={setNavigationState}
       styles={{ indicator: s.indicator }}
     />

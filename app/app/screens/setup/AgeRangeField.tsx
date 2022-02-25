@@ -21,24 +21,24 @@ export const AgeRangeField = () => {
     <View>
       <FieldLabel label="Preferred Age Range" mb={6} />
       <Slider
-        onValueChange={(value) => {
-          ageMin.field.onChange(value[0])
-          ageMax.field.onChange(value[1])
-        }}
-        value={[ageMin.field.value, ageMax.field.value]}
         animateTransitions
         maximumTrackTintColor={colors.gray["400"]}
         maximumValue={35}
         minimumTrackTintColor={colors.pink["300"]}
         minimumValue={18}
-        step={1}
-        thumbTintColor={colors.primary["500"]}
         renderAboveThumbComponent={(index) => (
-          <Text mb={-1} ml="-1px" fontSize="md">
+          <Text fontSize="md" mb={-1} ml="-1px">
             {[ageMin, ageMax][index].field.value}
             {ageMax.field.value === 35 && index === 1 && "+"}
           </Text>
         )}
+        step={1}
+        thumbTintColor={colors.primary["500"]}
+        value={[ageMin.field.value, ageMax.field.value]}
+        onValueChange={(value) => {
+          ageMin.field.onChange(value[0])
+          ageMax.field.onChange(value[1])
+        }}
       />
     </View>
   )

@@ -24,8 +24,8 @@ export const PairsScreen: FC = () => {
     <QueryContainer query={query} text="You have no pairs yet">
       <FlatList
         data={query?.data?.results}
-        renderItem={({ item }) => <ProfileCard tab="likes" profile={item.profile} pair={item} />}
         keyExtractor={(item) => item.id.toString()}
+        renderItem={({ item }) => <ProfileCard pair={item} profile={item.profile} tab="likes" />}
       />
     </QueryContainer>
   )

@@ -14,8 +14,8 @@ export const ProfileDetailsScreen: FC<Props> = ({ route }) => {
 
   return (
     <Screen>
-      <Profile profile={data || profile} details={data} />
-      <ProfileOverlays profile={data || profile} liked={liked} />
+      <Profile details={data} profile={data || profile} />
+      <ProfileOverlays liked={liked} profile={data || profile} />
     </Screen>
   )
 }

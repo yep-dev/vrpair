@@ -25,18 +25,18 @@ export const Preferences1Screen: FC<Props> = ({ navigation: { navigate } }) => {
   return (
     <FormProvider {...form}>
       <SetupScreen
-        name={name}
-        heading="Preferences"
-        handlePrev={() => navigate("setup", { screen: "profile2" })}
-        routeKey="3"
         handleNext={form.handleSubmit(() => navigate("setup", { screen: "preferences2" }))}
+        handlePrev={() => navigate("setup", { screen: "profile2" })}
+        heading="Preferences"
+        name={name}
+        routeKey="3"
       >
         <GenderCheckboxField />
         <RadioGroupField
-          name="femAvatar"
-          label="Preferred Avatar Type"
-          rules={{ required: "Select preferred avatar type" }}
           items={Object.values(enums.femAvatar)}
+          label="Preferred Avatar Type"
+          name="femAvatar"
+          rules={{ required: "Select preferred avatar type" }}
         />
         <AgeRangeField />
       </SetupScreen>

@@ -52,37 +52,37 @@ export const Preferences2Screen: FC<Props> = ({ navigation: { navigate } }) => {
   return (
     <FormProvider {...form}>
       <SetupScreen
-        name={name}
-        heading="Preferences"
-        handlePrev={() => navigate("setup", { screen: "preferences1" })}
-        routeKey="4"
         handleNext={form.handleSubmit(handleSubmit)}
+        handlePrev={() => navigate("setup", { screen: "preferences1" })}
+        heading="Preferences"
+        name={name}
+        routeKey="4"
       >
         <CheckboxGroupField
-          name="setup"
-          label="Preferred Setups"
           items={Object.values(enums.setup)}
+          label="Preferred Setups"
+          name="setup"
           rules={{ required: "Select your setup preference" }}
         />
         <CheckboxGroupField
-          name="role"
-          label="Preferred Roles"
           items={Object.values(enums.role)}
+          label="Preferred Roles"
+          name="role"
           rules={{ required: "Select your role preference" }}
         />
         <RadioGroupField
-          name="mute"
-          label="Mutes Preference"
-          items={Object.values(enums.mute)}
           defaultValue={enums.mute.any.key}
+          items={Object.values(enums.mute)}
+          label="Mutes Preference"
+          name="mute"
         />
         <RadioGroupField
-          name="furry"
-          label="Furries Preference"
-          items={Object.values(enums.furry)}
           defaultValue={
             storage.getObj("profile1").furry ? enums.furry.any.key : enums.furry.false.key
           }
+          items={Object.values(enums.furry)}
+          label="Furries Preference"
+          name="furry"
         />
       </SetupScreen>
     </FormProvider>

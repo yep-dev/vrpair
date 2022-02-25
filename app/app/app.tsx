@@ -36,7 +36,7 @@ export const App = () => {
   return (
     <RootStoreContext.Provider value={rootStore}>
       <SafeAreaProvider initialMetrics={initialWindowMetrics}>
-        <NativeBaseProvider theme={theme} config={{ suppressColorAccessibilityWarning: true }}>
+        <NativeBaseProvider config={{ suppressColorAccessibilityWarning: true }} theme={theme}>
           <QueryClientProvider client={queryClient}>
             <ClientProvider>
               <AppNavigator />

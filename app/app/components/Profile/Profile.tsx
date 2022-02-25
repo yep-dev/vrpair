@@ -24,11 +24,11 @@ type Props = {
 export const Profile: FC<Props> = ({ profile, details }) => {
   return (
     <ScrollView>
-      <Column m={8} mt={2} space={4} mb={32}>
+      <Column m={8} mb={32} mt={2} space={4}>
         <Image
-          source={{ uri: "https://images.dog.ceo/breeds/pitbull/20190801_154956.jpg" }}
           alt="user photo"
           borderRadius={8}
+          source={{ uri: "https://images.dog.ceo/breeds/pitbull/20190801_154956.jpg" }}
           style={{ height: 270 }} // todo: constant aspect ratio
         />
         <Column>

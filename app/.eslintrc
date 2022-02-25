@@ -126,6 +126,10 @@
     "space-before-function-paren": 0,
     "react-native/sort-styles": 0,
     "no-redeclare": 0,
+    "react/jsx-sort-props": ["warn", {
+      "callbacksLast": true,
+      "reservedFirst": true
+    }],
     "no-restricted-imports": [
       "error",
       {

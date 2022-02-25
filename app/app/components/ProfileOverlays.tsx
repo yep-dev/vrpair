@@ -59,22 +59,22 @@ export const ProfileOverlays: FC<Props> = observer(
 
     return (
       <>
-        <Row position="absolute" bottom={0} left={0}>
+        <Row bottom={0} left={0} position="absolute">
           <BackgroundOverlay left={8}>
             <FloatingButton
-              size={16}
+              backgroundColor={liked === false ? pressedBackground("gray") : undefined}
               colorScheme="gray"
               icon={<CircleXIcon color="gray.400" />}
+              size={16}
               onPress={handlePress(false)}
-              backgroundColor={liked === false ? pressedBackground("gray") : undefined}
             />
           </BackgroundOverlay>
           {userStore.staffAuthenticated && (
             <BackgroundOverlay left={32}>
               <FloatingButton
-                size={16}
                 colorScheme="gray"
                 icon={<SynchronizeArrowsIcon color="gray.400" />}
+                size={16}
                 onPress={handleSwitchUser}
               />
             </BackgroundOverlay>
@@ -82,10 +82,10 @@ export const ProfileOverlays: FC<Props> = observer(
         </Row>
         <BackgroundOverlay right={8}>
           <FloatingButton
-            size={16}
-            icon={<CircleHeartIcon color="pink.400" />}
-            onPress={handlePress(true)}
             backgroundColor={liked === true ? pressedBackground("pink") : undefined}
+            icon={<CircleHeartIcon color="pink.400" />}
+            size={16}
+            onPress={handlePress(true)}
           />
         </BackgroundOverlay>
       </>

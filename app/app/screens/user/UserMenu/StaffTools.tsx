@@ -14,29 +14,29 @@ export const StaffTools: FC = () => {
   const forceToken = useForceToken()
 
   return (
-    <Column space={2} m={3}>
+    <Column m={3} space={2}>
       <Text>Current User ID: {user.data?.id}</Text>
       <Input
         mb={3}
         placeholder="User ID"
-        w="50%"
-        value={userId}
-        onChangeText={setUserId}
         rightElement={
           <Button onPress={() => forceToken.mutate({ userId: parseInt(userId) })}>Switch</Button>
         }
+        value={userId}
+        w="50%"
+        onChangeText={setUserId}
       />
       <Text>Current Profile ID: {profile.data?.id}</Text>
       <Input
         placeholder="Profile ID"
-        w="50%"
-        value={profileId}
-        onChangeText={setProfileId}
         rightElement={
           <Button onPress={() => forceToken.mutate({ profileId: parseInt(profileId) })}>
             Switch
           </Button>
         }
+        value={profileId}
+        w="50%"
+        onChangeText={setProfileId}
       />
     </Column>
   )

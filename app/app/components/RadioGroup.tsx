@@ -14,12 +14,12 @@ export type RadioGroupProps = {
 
 export const RadioGroup = ({ items, value, onChange }: RadioGroupProps) => {
   return (
-    <View flexDirection="row" borderColor="primary.500" borderWidth={1} borderRadius={4}>
+    <View borderColor="primary.500" borderRadius={4} borderWidth={1} flexDirection="row">
       {items.map(({ key, label }) => (
         <TouchableOpacity
-          onPress={() => onChange(key)}
           key={key}
           style={[s.button, value === key && s.activeButton]}
+          onPress={() => onChange(key)}
         >
           <Text color="primary.500" fontWeight="bold" style={value === key && s.textActive}>
             {label}

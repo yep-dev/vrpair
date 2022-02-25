@@ -17,7 +17,7 @@ export const LikesIcon: FC<Props> = (props) => {
   return (
     <>
       {(pairs > 0 || likes > 0) && (
-        <RoundBadge position="absolute" top={0.5} right={2}>
+        <RoundBadge position="absolute" right={2} top={0.5}>
           {pairs + likes}
         </RoundBadge>
       )}

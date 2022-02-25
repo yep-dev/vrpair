@@ -67,24 +67,24 @@ export const AppNavigator = observer(() => {
     >
       <NavigationContainer
         ref={navigationRef}
-        theme={DarkTheme}
         initialState={initialNavigationState}
+        theme={DarkTheme}
         onStateChange={onNavigationStateChange}
       >
         <App.Navigator
+          initialRouteName="login"
           screenOptions={{
             headerShown: false,
           }}
-          initialRouteName="login"
         >
           {userStore.authenticated ? (
             hasProfile || isLoading ? (
-              <App.Screen name="tabs" component={Tabs} />
+              <App.Screen component={Tabs} name="tabs" />
             ) : (
-              <App.Screen name="setup" component={SetupStack} />
+              <App.Screen component={SetupStack} name="setup" />
             )
           ) : (
-            <App.Screen name="login" component={LoginScreen} />
+            <App.Screen component={LoginScreen} name="login" />
           )}
         </App.Navigator>
       </NavigationContainer>
@@ -103,10 +103,10 @@ const Setup = createNativeStackNavigator<SetupParams>()
 
 const SetupStack = () => (
   <Setup.Navigator initialRouteName="profile1" screenOptions={{ headerShown: false }}>
-    <Setup.Screen name="profile1" component={Profile1Screen} />
-    <Setup.Screen name="profile2" component={Profile2Screen} />
-    <Setup.Screen name="preferences1" component={Preferences1Screen} />
-    <Setup.Screen name="preferences2" component={Preferences2Screen} />
+    <Setup.Screen component={Profile1Screen} name="profile1" />
+    <Setup.Screen component={Profile2Screen} name="profile2" />
+    <Setup.Screen component={Preferences1Screen} name="preferences1" />
+    <Setup.Screen component={Preferences2Screen} name="preferences2" />
   </Setup.Navigator>
 )
 
@@ -137,13 +137,13 @@ const Tabs = () => (
     }}
   >
     <Tab.Screen
-      name="profilesCarousel"
       component={ProfilesCarouselScreen}
+      name="profilesCarousel"
       options={{ tabBarIcon: ({ color }) => <ProfileStackIcon color={color} /> }}
     />
     <Tab.Screen
-      name="profilesList"
       component={ProfilesListStack}
+      name="profilesList"
       options={{
         tabBarIcon: ({ color }) => <ProfileSearchIcon color={color} />,
         unmountOnBlur: true,
@@ -151,14 +151,14 @@ const Tabs = () => (
       {...tabProps}
     />
     <Tab.Screen
-      name="likes"
       component={LikesStack}
+      name="likes"
       options={{ tabBarIcon: ({ color }) => <LikesIcon color={color} />, unmountOnBlur: true }}
       {...tabProps}
     />
     <Tab.Screen
-      name="user"
       component={UsersStack}
+      name="user"
       options={{ tabBarIcon: ({ color }) => <ProfileIcon color={color} />, unmountOnBlur: true }}
       {...tabProps}
     />
@@ -177,8 +177,8 @@ const ProfilesListStack = () => (
     initialRouteName="profilesListMain"
     screenOptions={{ headerShown: false }}
   >
-    <ProfilesList.Screen name="profilesListMain" component={ProfilesListScreen} />
-    <ProfilesList.Screen name="profileDetails" component={ProfileDetailsScreen} />
+    <ProfilesList.Screen component={ProfilesListScreen} name="profilesListMain" />
+    <ProfilesList.Screen component={ProfileDetailsScreen} name="profileDetails" />
   </ProfilesList.Navigator>
 )
 
@@ -191,8 +191,8 @@ const Likes = createNativeStackNavigator<LikesParams>()
 
 const LikesStack = () => (
   <Likes.Navigator initialRouteName="likesTabs" screenOptions={{ headerShown: false }}>
-    <Likes.Screen name="likesTabs" component={LikesTabsScreen} />
-    <Likes.Screen name="profileDetails" component={ProfileDetailsScreen} />
+    <Likes.Screen component={LikesTabsScreen} name="likesTabs" />
+    <Likes.Screen component={ProfileDetailsScreen} name="profileDetails" />
   </Likes.Navigator>
 )
 
@@ -205,8 +205,8 @@ const User = createNativeStackNavigator<UserParams>()
 
 const UsersStack = () => (
   <User.Navigator initialRouteName="userMenu" screenOptions={{ headerShown: false }}>
-    <User.Screen name="userMenu" component={UserMenuScreen} />
-    <User.Screen name="discordIntegration" component={DiscordIntegrationScreen} />
+    <User.Screen component={UserMenuScreen} name="userMenu" />
+    <User.Screen component={DiscordIntegrationScreen} name="discordIntegration" />
   </User.Navigator>
 )
 

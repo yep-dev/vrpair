@@ -26,23 +26,23 @@ export const Profile2Screen: FC<Props> = ({ navigation: { navigate } }) => {
   return (
     <FormProvider {...form}>
       <SetupScreen
-        name={name}
-        heading="Profile"
-        handlePrev={() => navigate("setup", { screen: "profile1" })}
-        routeKey="2"
         handleNext={form.handleSubmit(() => navigate("setup", { screen: "preferences1" }))}
+        handlePrev={() => navigate("setup", { screen: "profile1" })}
+        heading="Profile"
+        name={name}
+        routeKey="2"
       >
         <RadioGroupField
-          name="setup"
-          label="VR Setup"
-          rules={{ required: "Select your VR setup type" }}
           items={[setup.quest, setup.pcvr, setup.fbt]}
+          label="VR Setup"
+          name="setup"
+          rules={{ required: "Select your VR setup type" }}
         />
         <RadioGroupField
-          name="role"
-          label="Role"
-          rules={{ required: "Select your role" }}
           items={[role.sub, role.dom, role.switch]}
+          label="Role"
+          name="role"
+          rules={{ required: "Select your role" }}
         />
         <CheckboxField name="mute" size="sm">
           Mute

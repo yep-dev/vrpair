@@ -28,7 +28,7 @@ export const RadioGroupField: FC<Props> = ({
   return (
     <>
       <FieldLabel label={label} />
-      <RadioGroup {...radioGroupProps} onChange={field.onChange} value={field.value} />
+      <RadioGroup {...radioGroupProps} value={field.value} onChange={field.onChange} />
       <FieldError error={fieldState.error} />
     </>
   )

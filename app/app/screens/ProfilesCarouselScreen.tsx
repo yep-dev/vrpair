@@ -25,13 +25,13 @@ export const ProfilesCarouselScreen: FC = () => {
         <>
           <Carousel
             ref={carousel}
-            windowSize={20}
-            width={400}
-            onScrollEnd={(_, current) => setIndex(current)}
             data={data.results}
-            renderItem={({ item }) => <Profile profile={item.profile} details={item.profile} />}
+            renderItem={({ item }) => <Profile details={item.profile} profile={item.profile} />}
+            width={400}
+            windowSize={20}
+            onScrollEnd={(_, current) => setIndex(current)}
           />
-          <ProfileOverlays profile={data.results[index].profile} handlePress={handlePress} />
+          <ProfileOverlays handlePress={handlePress} profile={data.results[index].profile} />
         </>
       ) : null}
     </Screen>

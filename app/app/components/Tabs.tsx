@@ -87,9 +87,9 @@ export const Tabs: FC<Props & Omit<TabViewProps<TabsRoute>, "onIndexChange">> = 
   const renderTabBar = (props: SceneRendererProps & { navigationState: State }) => (
     <TabBar
       {...props}
-      renderLabel={renderLabel}
       renderBadge={renderBadge}
       renderIndicator={renderIndicator}
+      renderLabel={renderLabel}
       style={[s.tabBar, styles.tabBar]}
       onTabPress={({ preventDefault }) => disableTabNavigation && preventDefault()}
     />

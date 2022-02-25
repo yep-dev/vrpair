@@ -31,13 +31,13 @@ export const GenderCheckboxField = () => {
   }
 
   return (
-    <Checkbox.Group onChange={handleChange} value={field.value}>
+    <Checkbox.Group value={field.value} onChange={handleChange}>
       <FieldLabel label="Preferred Genders" />
       {rows.map((row, i) => (
         <Row key={i} flex={1}>
           {row.map(({ key, label }) => (
             <View key={key} flex={1} mb={3}>
-              <Checkbox value={key} flex={1}>
+              <Checkbox flex={1} value={key}>
                 {label}
               </Checkbox>
             </View>

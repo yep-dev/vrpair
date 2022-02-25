@@ -39,53 +39,53 @@ export const Profile1Screen: FC<Props> = ({ navigation: { navigate } }) => {
   return (
     <FormProvider {...form}>
       <SetupScreen
-        name={name}
-        heading="Profile"
+        handleNext={form.handleSubmit(() => navigate("setup", { screen: "profile2" }))}
         handlePrev={() => {
           setLogoutDialogOpen(true)
         }}
+        heading="Profile"
+        name={name}
         routeKey="1"
-        handleNext={form.handleSubmit(() => navigate("setup", { screen: "profile2" }))}
       >
-        <InputField name="username" label="Username" defaultValue={discordUsername} />
+        <InputField defaultValue={discordUsername} label="Username" name="username" />
         <View>
           <FieldLabel label="Birth Date" />
-          <Row space={2} alignItems="center">
+          <Row alignItems="center" space={2}>
             <Controller
               control={form.control}
+              name="birthMonth"
+              render={({ field }) => (
+                <Input
+                  keyboardType="number-pad"
+                  placeholder="M"
+                  size="lg"
+                  value={field.value}
+                  w="38px"
+                  onBlur={field.onBlur}
+                  onChangeText={field.onChange}
+                />
+              )}
               rules={{
                 required: "Birth month is required",
               }}
-              render={({ field }) => (
-                <Input
-                  onChangeText={field.onChange}
-                  onBlur={field.onBlur}
-                  value={field.value}
-                  w="38px"
-                  size="lg"
-                  placeholder="M"
-                  keyboardType="number-pad"
-                />
-              )}
-              name="birthMonth"
             />
             <Text fontSize="2xl">/</Text>
             <Controller
               control={form.control}
+              name="birthYear"
+              render={({ field }) => (
+                <Input
+                  placeholder="YYYY"
+                  size="lg"
+                  value={field.value}
+                  w="58px"
+                  onBlur={field.onBlur}
+                  onChangeText={field.onChange}
+                />
+              )}
               rules={{
                 required: "Birth year is required",
               }}
-              render={({ field }) => (
-                <Input
-                  onChangeText={field.onChange}
-                  onBlur={field.onBlur}
-                  value={field.value}
-                  w="58px"
-                  size="lg"
-                  placeholder="YYYY"
-                />
-              )}
-              name="birthYear"
             />
           </Row>
           <FieldError error={errors.birthYear} />
@@ -93,21 +93,21 @@ export const Profile1Screen: FC<Props> = ({ navigation: { navigate } }) => {
         </View>
         <View>
           <RadioGroupField
-            name="gender"
-            label="Gender"
-            rules={{ required: "Select your gender" }}
             items={[gender.male, gender.female, gender.nonBinary]}
+            label="Gender"
+            name="gender"
+            rules={{ required: "Select your gender" }}
           />
-          <CheckboxField name="trans" size="sm" mt={2}>
+          <CheckboxField mt={2} name="trans" size="sm">
             Transgender
           </CheckboxField>
         </View>
         <View>
           <RadioGroupField
-            name="femAvatar"
-            label="Avatar Type"
-            rules={{ required: "Select your avatar type" }}
             items={[femAvatar.true, femAvatar.false]}
+            label="Avatar Type"
+            name="femAvatar"
+            rules={{ required: "Select your avatar type" }}
           />
           <Row justifyContent="space-evenly" mt={1}>
             <Text>Includes femboy</Text>
@@ -115,10 +115,10 @@ export const Profile1Screen: FC<Props> = ({ navigation: { navigate } }) => {
           </Row>
         </View>
         <AlertDialog
-          isOpen={logoutDialogOpen}
-          onClose={() => setLogoutDialogOpen(false)}
-          leastDestructiveRef={cancelRef}
           closeOnOverlayClick
+          isOpen={logoutDialogOpen}
+          leastDestructiveRef={cancelRef}
+          onClose={() => setLogoutDialogOpen(false)}
         >
           <AlertDialog.Content>
             <AlertDialog.CloseButton />
@@ -127,10 +127,10 @@ export const Profile1Screen: FC<Props> = ({ navigation: { navigate } }) => {
             <AlertDialog.Footer>
               <Button.Group space={2}>
                 <Button
-                  variant="unstyled"
-                  colorScheme="coolGray"
-                  onPress={() => setLogoutDialogOpen(false)}
                   ref={cancelRef}
+                  colorScheme="coolGray"
+                  variant="unstyled"
+                  onPress={() => setLogoutDialogOpen(false)}
                 >
                   Cancel
                 </Button>
