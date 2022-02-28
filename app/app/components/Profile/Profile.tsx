@@ -1,6 +1,6 @@
 import React, { FC } from "react"
 
-import { Badge, Image, Text, Row, Column, ScrollView } from "native-base"
+import {Badge, Image, Text, Row, Column, ScrollView, View} from "native-base"
 
 import { Profile as TProfile, ProfileDetails } from "api/index.schemas"
 import { Preferences } from "components"
@@ -51,10 +51,10 @@ export const Profile: FC<Props> = ({ profile, details }) => {
           </TagRow>
         </Column>
         {details && (
-          <>
+          <View>
             {details.preferences && <Preferences preferences={details.preferences} />}
             <Text mb={2}>{details.description}</Text>
-          </>
+          </View>
         )}
       </Column>
     </ScrollView>
