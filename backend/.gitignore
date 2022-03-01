@@ -132,6 +132,7 @@ typings/
 ### Project template
 
 vrpair/media/
+!vrpair/media/mock_images/**
 
 .pytest_cache/
 

@@ -189,6 +189,7 @@ class Migration(migrations.Migration):
                     "profile",
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
+                        related_name="images",
                         to="profiles.profile",
                     ),
                 ),

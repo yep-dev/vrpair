@@ -1,9 +1,10 @@
 import factory
+from django.core.files.storage import default_storage
 from factory import Faker, fuzzy, random as _random
 from factory.faker import faker
 from factory.django import DjangoModelFactory
 
-from vrpair.profiles.models import Profile, Preferences
+from vrpair.profiles.models import Preferences, Profile, ProfileImage
 from vrpair.users.factories import UserFactory
 from vrpair.utils.enums import GenderEnum, RoleEnum, WeekDayEnum, SetupEnum, BoolEnum
 from vrpair.utils.factory import MultipleFuzzyChoice
@@ -56,3 +57,13 @@ class ProfileFactory(DjangoModelFactory):
 
     class Meta:
         model = Profile
+
+    @factory.post_generation
+    def images(self, create, _):
+        number = random.randint(0, 40)
+        if create and random.random() > 0.2:
+            for index in range(3):
+                path = f"mock_images/{number}.{index}.png"
+                if default_storage.exists(path):
+                    ProfileImage.objects.create(profile=self, image=path)
+        return

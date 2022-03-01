@@ -61,7 +61,9 @@ class Profile(models.Model):
 class ProfileImage(models.Model):
     image = models.ImageField()
     order = models.PositiveSmallIntegerField(default=0)
-    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    profile = models.ForeignKey(
+        Profile, related_name="images", on_delete=models.CASCADE
+    )
 
     def save(self, *args, **kwargs):
         if not self.pk:
