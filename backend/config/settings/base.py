@@ -78,8 +78,6 @@ AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
 ]
-OAUTH_DISCORD_CLIENT_ID = env.str("OAUTH_DISCORD_CLIENT_ID")
-OAUTH_DISCORD_CLIENT_SECRET = env.str("OAUTH_DISCORD_CLIENT_SECRET")
 
 # MIDDLEWARE ------------------------------------------------------------------------------
 MIDDLEWARE = [
@@ -221,5 +219,10 @@ REST_FRAMEWORK = {
 
 # django-cors-headers - https://github.com/adamchainz/django-cors-headers#setup
 CORS_URLS_REGEX = r"^/api/.*$"
+
+# DISCORD ------------------------------------------------------------------------------
+DISCORD_CLIENT_ID = env.str("DISCORD_CLIENT_ID")
+DISCORD_CLIENT_SECRET = env.str("DISCORD_CLIENT_SECRET")
+DISCORD_BOT_TOKEN = env.str("DISCORD_BOT_TOKEN")
 
 # OTHER ------------------------------------------------------------------------------

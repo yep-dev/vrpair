@@ -18,7 +18,7 @@ def discord_validate_id_token(*, id_token: str) -> bool:
 
     audience = response.json()["aud"]
 
-    if audience != settings.OAUTH_DISCORD_CLIENT_ID:
+    if audience != settings.DISCORD_CLIENT_ID:
         raise ValidationError("Invalid audience.")
 
     return True
@@ -27,8 +27,8 @@ def discord_validate_id_token(*, id_token: str) -> bool:
 def discord_get_access_token(*, code: str) -> str:
     data = {
         "code": code,
-        "client_id": settings.OAUTH_DISCORD_CLIENT_ID,
-        "client_secret": settings.OAUTH_DISCORD_CLIENT_SECRET,
+        "client_id": settings.DISCORD_CLIENT_ID,
+        "client_secret": settings.DISCORD_CLIENT_SECRET,
         "redirect_uri": settings.BASE_URL + reverse("discord_login"),
         "grant_type": "authorization_code",
     }

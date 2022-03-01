@@ -11,6 +11,7 @@ REDIS_URL=redis://redis:6379/0
 CELERY_FLOWER_USER=admin
 CELERY_FLOWER_PASSWORD=pass
 
-# OAuth ------------------------------------------------------------------------------
-OAUTH_DISCORD_CLIENT_ID=
-OAUTH_DISCORD_CLIENT_SECRET=
+# Discord ------------------------------------------------------------------------------
+DISCORD_CLIENT_ID=
+DISCORD_CLIENT_SECRET=
+DISCORD_BOT_TOKEN=

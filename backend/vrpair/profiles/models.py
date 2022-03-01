@@ -51,7 +51,24 @@ class Profile(models.Model):
     # internal
     visible = models.BooleanField(default=True)
     preferences = models.OneToOneField(Preferences, on_delete=models.CASCADE)
+    thumbnail = models.ImageField(null=True)
 
     @property
     def age(self):
         return int((date.today() - self.birth_date).days / 365.2425)
+
+
+class ProfileImage(models.Model):
+    image = models.ImageField()
+    order = models.PositiveSmallIntegerField(default=0)
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            last_image = ProfileImage.objects.order_by("order").last()
+            self.order = last_image.order + 1 if last_image else 0
+        super().save(*args, **kwargs)
+
+        if self.order == 0:
+            self.profile.thumbnail = self.image
+            self.profile.save()

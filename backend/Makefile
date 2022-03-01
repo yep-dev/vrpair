@@ -21,3 +21,6 @@ schema:
 
 lint:
 	black . && autoflake  --remove-all-unused-imports --in-place -r  .
+
+bot:
+	docker-compose run django python manage.py discord_bot

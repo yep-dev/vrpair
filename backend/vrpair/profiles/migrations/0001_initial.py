@@ -161,11 +161,35 @@ class Migration(migrations.Migration):
                 ("vrc_username", models.CharField(max_length=32, null=True)),
                 ("verified", models.BooleanField(default=False)),
                 ("visible", models.BooleanField(default=True)),
+                ("thumbnail", models.ImageField(null=True, upload_to="")),
                 (
                     "preferences",
                     models.OneToOneField(
                         on_delete=django.db.models.deletion.CASCADE,
                         to="profiles.preferences",
+                    ),
+                ),
+            ],
+        ),
+        migrations.CreateModel(
+            name="ProfileImage",
+            fields=[
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("image", models.ImageField(upload_to="")),
+                ("order", models.PositiveSmallIntegerField(default=0)),
+                (
+                    "profile",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="profiles.profile",
                     ),
                 ),
             ],
