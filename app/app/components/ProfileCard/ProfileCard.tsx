@@ -3,11 +3,12 @@ import { TouchableOpacity } from "react-native"
 
 import { useNavigation } from "@react-navigation/native"
 import { formatDistanceToNow } from "date-fns"
-import { Badge, Box, Column, Flex, Image, Row, Text } from "native-base"
+import { Badge, Box, Center, Column, Flex, Image, Row, Text } from "native-base"
 import { useQuery } from "react-query"
 
 import { Pair, Profile, ProfileDetails, RatedProfileDeep } from "api/index.schemas"
 import { getProfileDetailsQueryKey } from "api/profiles"
+import { ProfileIcon } from "components/icons"
 import { TabNavigationProps, TabParams } from "navigators/app-navigator"
 import { enums } from "utils/enums"
 import { inject } from "utils/misc"
@@ -57,12 +58,22 @@ export const ProfileCard: FC<ProfileCardProps> = ({ tab, profile, ratedProfile, 
       >
         <Row space={3}>
           <Box>
-            {profile.thumbnail && (
+            {profile.thumbnail ? (
               <Image
                 alt="profile thumbnail"
                 source={{ uri: profile.thumbnail }}
                 style={{ height: 90, width: 120, borderRadius: 4 }}
               />
+            ) : (
+              <Center
+                borderColor="gray.700"
+                borderRadius={4}
+                borderWidth={1}
+                height={90}
+                width={120}
+              >
+                <ProfileIcon size={8} />
+              </Center>
             )}
           </Box>
           <Column flex={1}>

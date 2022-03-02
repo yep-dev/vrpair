@@ -1,9 +1,10 @@
 import React, { FC } from "react"
 
-import { Badge, Text, Row, Column, ScrollView, View } from "native-base"
+import { Badge, Text, Row, Column, ScrollView, View, Center } from "native-base"
 
 import { Profile as TProfile, ProfileDetails } from "api/index.schemas"
 import { Preferences } from "components"
+import { ProfileIcon } from "components/icons"
 import ImageCarousel from "screens/profiles/ProfileDetails/ImageCarousel"
 import { ProfileImage } from "screens/profiles/ProfileDetails/ProfileImage"
 import { enums } from "utils/enums"
@@ -28,12 +29,17 @@ export const Profile: FC<Props> = ({ profile, details }) => {
     <ScrollView>
       <Column m={8} mb={32} mt={2} space={4}>
         <View>
-          {details?.images &&
-            (details.images.length === 1 ? (
+          {details?.images?.length ? (
+            details.images.length === 1 ? (
               <ProfileImage image={details.images[0]} />
             ) : (
               <ImageCarousel images={details.images} />
-            ))}
+            )
+          ) : (
+            <Center borderColor="gray.700" borderRadius={8} borderWidth={2} height="300px">
+              <ProfileIcon />
+            </Center>
+          )}
         </View>
         <Column>
           <Text fontSize="2xl" mb={2}>

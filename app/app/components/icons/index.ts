@@ -3,6 +3,7 @@
  */
 
 export * from "./ArrowLeftIcon"
+export * from "./AvatarIcon"
 export * from "./CircleHeartIcon"
 export * from "./CircleXIcon"
 export * from "./HeartBalloonsIcon"

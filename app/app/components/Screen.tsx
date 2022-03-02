@@ -14,7 +14,7 @@ import {
 } from "native-base"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 
-import { ArrowLeftIcon } from "components/icons/ArrowLeftIcon"
+import { ArrowLeftIcon } from "components/icons"
 
 const isIos = Platform.OS === "ios"
 

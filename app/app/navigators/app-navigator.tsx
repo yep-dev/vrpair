@@ -12,7 +12,7 @@ import { ErrorBoundary } from "react-error-boundary"
 
 import { Profile } from "api/index.schemas"
 import { useCurrentUser } from "api/users"
-import { ProfileIcon, ProfileSearchIcon, ProfileStackIcon } from "components/icons"
+import { AvatarIcon, ProfileSearchIcon, ProfileStackIcon } from "components/icons"
 import { useStore } from "mobx/utils"
 import { LikesIcon } from "navigators/components/LikesIcon"
 import { navigationRef, useNavigationPersistence } from "navigators/utils"
@@ -159,7 +159,7 @@ const Tabs = () => (
     <Tab.Screen
       component={UsersStack}
       name="user"
-      options={{ tabBarIcon: ({ color }) => <ProfileIcon color={color} />, unmountOnBlur: true }}
+      options={{ tabBarIcon: ({ color }) => <AvatarIcon color={color} />, unmountOnBlur: true }}
       {...tabProps}
     />
   </Tab.Navigator>
