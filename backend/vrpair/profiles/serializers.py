@@ -3,7 +3,7 @@ import datetime
 from drf_writable_nested import WritableNestedModelSerializer
 from rest_framework import serializers
 
-from vrpair.profiles.models import Profile, Preferences
+from vrpair.profiles.models import Profile, Preferences, ProfileImage
 from vrpair.utils.enums import (
     RoleEnum,
     SetupEnum,
@@ -117,9 +117,16 @@ class ProfileSerializer(serializers.ModelSerializer):
             "furry",
             # other
             "verified",
+            "thumbnail",
         ]
 
     age = serializers.IntegerField()
+
+
+class ProfileImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProfileImage
+        fields = ["image", "order"]
 
 
 class ProfileDetailsSerializer(ProfileSerializer):
@@ -131,9 +138,11 @@ class ProfileDetailsSerializer(ProfileSerializer):
             "week_days",
             "description",
             "preferences",
+            "images",
         ]
 
     preferences = PreferencesSerializer()
+    images = ProfileImageSerializer(many=True)
 
 
 class CurrentProfileSerializer(ProfileDetailsSerializer):

@@ -67,7 +67,11 @@ class ProfileImage(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.pk:
-            last_image = ProfileImage.objects.order_by("order").last()
+            last_image = (
+                ProfileImage.objects.filter(profile=self.profile)
+                .order_by("order")
+                .last()
+            )
             self.order = last_image.order + 1 if last_image else 0
         super().save(*args, **kwargs)
 

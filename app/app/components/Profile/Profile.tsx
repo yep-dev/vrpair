@@ -1,9 +1,11 @@
 import React, { FC } from "react"
 
-import {Badge, Image, Text, Row, Column, ScrollView, View} from "native-base"
+import { Badge, Text, Row, Column, ScrollView, View } from "native-base"
 
 import { Profile as TProfile, ProfileDetails } from "api/index.schemas"
 import { Preferences } from "components"
+import ImageCarousel from "screens/profiles/ProfileDetails/ImageCarousel"
+import { ProfileImage } from "screens/profiles/ProfileDetails/ProfileImage"
 import { enums } from "utils/enums"
 import { inject } from "utils/misc"
 
@@ -25,12 +27,14 @@ export const Profile: FC<Props> = ({ profile, details }) => {
   return (
     <ScrollView>
       <Column m={8} mb={32} mt={2} space={4}>
-        <Image
-          alt="user photo"
-          borderRadius={8}
-          source={{ uri: "https://images.dog.ceo/breeds/pitbull/20190801_154956.jpg" }}
-          style={{ height: 270 }} // todo: constant aspect ratio
-        />
+        <View>
+          {details?.images &&
+            (details.images.length === 1 ? (
+              <ProfileImage image={details.images[0]} />
+            ) : (
+              <ImageCarousel images={details.images} />
+            ))}
+        </View>
         <Column>
           <Text fontSize="2xl" mb={2}>
             {profile.username}, {profile.age}

@@ -296,6 +296,10 @@ components:
           type: boolean
         verified:
           type: boolean
+        thumbnail:
+          type: string
+          format: uri
+          nullable: true
         startHour:
           type: integer
           maximum: 2147483647
@@ -327,6 +331,10 @@ components:
           maxLength: 512
         preferences:
           $ref: '#/components/schemas/Preferences'
+        images:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProfileImage'
         birthDate:
           type: string
           format: date
@@ -337,6 +345,7 @@ components:
       - furry
       - gender
       - id
+      - images
       - mute
       - preferences
       - role
@@ -545,6 +554,10 @@ components:
           type: boolean
         verified:
           type: boolean
+        thumbnail:
+          type: string
+          format: uri
+          nullable: true
       required:
       - age
       - femAvatar
@@ -594,6 +607,10 @@ components:
           type: boolean
         verified:
           type: boolean
+        thumbnail:
+          type: string
+          format: uri
+          nullable: true
         startHour:
           type: integer
           maximum: 2147483647
@@ -625,12 +642,17 @@ components:
           maxLength: 512
         preferences:
           $ref: '#/components/schemas/Preferences'
+        images:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProfileImage'
       required:
       - age
       - femAvatar
       - furry
       - gender
       - id
+      - images
       - mute
       - preferences
       - role
@@ -646,6 +668,18 @@ components:
       required:
       - profile
       - ratedProfile
+    ProfileImage:
+      type: object
+      properties:
+        image:
+          type: string
+          format: uri
+        order:
+          type: integer
+          maximum: 32767
+          minimum: 0
+      required:
+      - image
     RateProfile:
       type: object
       properties:

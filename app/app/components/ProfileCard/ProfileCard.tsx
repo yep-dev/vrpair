@@ -57,11 +57,13 @@ export const ProfileCard: FC<ProfileCardProps> = ({ tab, profile, ratedProfile, 
       >
         <Row space={3}>
           <Box>
-            <Image
-              alt="profile thumbnail"
-              source={{ uri: "https://images.dog.ceo/breeds/pitbull/20190801_154956.jpg" }}
-              style={{ height: 90, width: 120, borderRadius: 4 }}
-            />
+            {profile.thumbnail && (
+              <Image
+                alt="profile thumbnail"
+                source={{ uri: profile.thumbnail }}
+                style={{ height: 90, width: 120, borderRadius: 4 }}
+              />
+            )}
           </Box>
           <Column flex={1}>
             <Text fontSize="lg" mb={1}>
