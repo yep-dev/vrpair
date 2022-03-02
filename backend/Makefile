@@ -11,7 +11,7 @@ reset_migrations:
 	find . -path "*/migrations/*.py" -not -name "__init__.py" -not -path "./vrpair/contrib/*" -delete && make makemigrations
 
 reset_data:
-	docker-compose stop postgres && docker-compose rm -f postgres && docker volume remove backend_local_postgres_data && make migrate && docker-compose run django python manage.py load_initial && docker-compose run django python manage.py load_fixtures
+	docker-compose stop postgres && docker-compose rm -f postgres && docker volume remove backend_local_postgres_data && make migrate && docker-compose run django python manage.py initial && docker-compose run django python manage.py fixtures
 
 reset:
 	make reset_migrations && make reset_data
@@ -23,4 +23,4 @@ lint:
 	black . && autoflake  --remove-all-unused-imports --in-place -r  .
 
 bot:
-	docker-compose run django python manage.py discord_bot
+	docker-compose run django python manage.py bot
