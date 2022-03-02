@@ -85,7 +85,7 @@
     "detox": "^19.4.5",
     "eslint": "^8.10.0",
     "eslint-config-prettier": "^8.4.0",
-    "eslint-config-standard": "^17.0.0-1",
+    "eslint-config-standard": "^16.0.3",
     "eslint-import-resolver-typescript": "^2.5.0",
     "eslint-plugin-import": "^2.25.4",
     "eslint-plugin-node": "^11.1.0",
