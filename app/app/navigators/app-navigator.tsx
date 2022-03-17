@@ -121,11 +121,6 @@ export type TabParams = {
 }
 const Tab = createBottomTabNavigator<TabParams>()
 
-// fix for https://github.com/react-navigation/react-navigation/issues/6915
-const tabProps = {
-  listeners: ({ navigation }) => ({ blur: () => navigation.setParams({ screen: undefined }) }),
-}
-
 const Tabs = () => (
   <Tab.Navigator
     initialRouteName="profilesCarousel"
@@ -143,24 +138,29 @@ const Tabs = () => (
     />
     <Tab.Screen
       component={ProfilesListStack}
+      listeners={({ navigation }) => ({
+        blur: () => navigation.setParams({ screen: "profilesListMain" }),
+      })}
       name="profilesList"
       options={{
         tabBarIcon: ({ color }) => <ProfileSearchIcon color={color} />,
-        unmountOnBlur: true,
       }}
-      {...tabProps}
     />
     <Tab.Screen
       component={LikesStack}
+      listeners={({ navigation }) => ({
+        blur: () => navigation.setParams({ screen: "likesTabs" }),
+      })}
       name="likes"
-      options={{ tabBarIcon: ({ color }) => <LikesIcon color={color} />, unmountOnBlur: true }}
-      {...tabProps}
+      options={{ tabBarIcon: ({ color }) => <LikesIcon color={color} /> }}
     />
     <Tab.Screen
       component={UsersStack}
+      listeners={({ navigation }) => ({
+        blur: () => navigation.setParams({ screen: "userMenu" }),
+      })}
       name="user"
-      options={{ tabBarIcon: ({ color }) => <AvatarIcon color={color} />, unmountOnBlur: true }}
-      {...tabProps}
+      options={{ tabBarIcon: ({ color }) => <AvatarIcon color={color} /> }}
     />
   </Tab.Navigator>
 )
