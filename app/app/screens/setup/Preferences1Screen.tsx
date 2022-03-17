@@ -29,7 +29,6 @@ export const Preferences1Screen: FC<Props> = ({ navigation: { navigate } }) => {
         handlePrev={() => navigate("setup", { screen: "profile2" })}
         heading="Preferences"
         name={name}
-        routeKey="3"
       >
         <GenderCheckboxField />
         <RadioGroupField

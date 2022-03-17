@@ -30,7 +30,6 @@ export const Profile2Screen: FC<Props> = ({ navigation: { navigate } }) => {
         handlePrev={() => navigate("setup", { screen: "profile1" })}
         heading="Profile"
         name={name}
-        routeKey="2"
       >
         <RadioGroupField
           items={[setup.quest, setup.pcvr, setup.fbt]}

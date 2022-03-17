@@ -56,7 +56,6 @@ export const Preferences2Screen: FC<Props> = ({ navigation: { navigate } }) => {
         handlePrev={() => navigate("setup", { screen: "preferences1" })}
         heading="Preferences"
         name={name}
-        routeKey="4"
       >
         <CheckboxGroupField
           items={Object.values(enums.setup)}

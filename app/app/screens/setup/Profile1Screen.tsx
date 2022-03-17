@@ -45,7 +45,6 @@ export const Profile1Screen: FC<Props> = ({ navigation: { navigate } }) => {
         }}
         heading="Profile"
         name={name}
-        routeKey="1"
       >
         <InputField defaultValue={discordUsername} label="Username" name="username" />
         <View>

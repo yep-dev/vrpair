@@ -9,18 +9,13 @@ import { storage } from "utils/misc"
 type Props = {
   name: string
   heading: string
-  routeKey: string
   handlePrev?(): void
   handleNext(): void
 }
-export const SetupScreen: FC<Props> = ({
-  name,
-  heading,
-  routeKey,
-  handlePrev,
-  handleNext,
-  children,
-}) => {
+
+const setupScreens = ["profile1", "profile2", "preferences1", "preferences2"]
+
+export const SetupScreen: FC<Props> = ({ name, heading, handlePrev, handleNext, children }) => {
   const {
     watch,
     formState: { isValid },
@@ -45,17 +40,17 @@ export const SetupScreen: FC<Props> = ({
       heading={heading}
       headingRight={
         <Row>
-          {["1", "2", "3", "4"].map((key) => (
+          {setupScreens.map((screen, i) => (
             <Button
-              key={key}
+              key={screen}
               _text={{ color: "white" }}
-              backgroundColor={key === routeKey ? "gray.800" : undefined}
+              backgroundColor={screen === name ? "gray.800" : undefined}
               borderRadius={24}
               mx={0.5}
               variant="ghost"
               width="37.3px"
             >
-              {key}
+              {i + 1}
             </Button>
           ))}
         </Row>
