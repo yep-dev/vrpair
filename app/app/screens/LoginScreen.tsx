@@ -50,7 +50,7 @@ export const LoginScreen: FC<StackScreenProps<AppParams, "login">> = observer(()
         <Center>
           <Row alignItems="center" justifyContent="center">
             <Box mr={2} mt={0.5}>
-              <CircleHeartIcon color="pink.400" />
+              <CircleHeartIcon color="pink.400" size={16} />
             </Box>
             <Text fontSize="6xl" fontWeight="light">
               vrpair

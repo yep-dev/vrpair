@@ -10,6 +10,7 @@ import { Pair, Profile, ProfileDetails, RatedProfileDeep } from "api/index.schem
 import { getProfileDetailsQueryKey } from "api/profiles"
 import { ProfileIcon } from "components/icons"
 import { TabNavigationProps, TabParams } from "navigators/app-navigator"
+import { colors } from "theme/colors"
 import { enums } from "utils/enums"
 import { inject } from "utils/misc"
 
@@ -72,7 +73,7 @@ export const ProfileCard: FC<ProfileCardProps> = ({ tab, profile, ratedProfile, 
                 height={90}
                 width={120}
               >
-                <ProfileIcon size={8} />
+                <ProfileIcon color={colors.gray["700"]} size={8} />
               </Center>
             )}
           </Box>

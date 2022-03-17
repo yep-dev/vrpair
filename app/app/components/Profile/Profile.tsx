@@ -7,6 +7,7 @@ import { Preferences } from "components"
 import { ProfileIcon } from "components/icons"
 import ImageCarousel from "screens/profiles/ProfileDetails/ImageCarousel"
 import { ProfileImage } from "screens/profiles/ProfileDetails/ProfileImage"
+import { colors } from "theme/colors"
 import { enums } from "utils/enums"
 import { inject } from "utils/misc"
 
@@ -37,7 +38,7 @@ export const Profile: FC<Props> = ({ profile, details }) => {
             )
           ) : (
             <Center borderColor="gray.700" borderRadius={8} borderWidth={2} height="300px">
-              <ProfileIcon />
+              <ProfileIcon color={colors.gray["700"]} size={16} />
             </Center>
           )}
         </View>

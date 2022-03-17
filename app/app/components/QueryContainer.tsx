@@ -4,6 +4,7 @@ import { Box, Center, Text } from "native-base"
 import { UseQueryResult } from "react-query"
 
 import { SmileyUnhappy } from "components/icons"
+import { colors } from "theme/colors"
 
 type Props = {
   query: UseQueryResult<any>
@@ -17,7 +18,7 @@ export const QueryContainer: FC<Props> = ({ children, query, text }) => (
         children
       ) : (
         <Center flex={1}>
-          <SmileyUnhappy />
+          <SmileyUnhappy color={colors.gray["50"]} size={16} />
           <Text mt={4}>{text}</Text>
         </Center>
       ))}

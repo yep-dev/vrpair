@@ -4,7 +4,6 @@ import { createIcon } from "native-base"
 import { Path, G } from "react-native-svg"
 
 export const SynchronizeArrowsIcon = createIcon({
-  size: 16,
   viewBox: "0 0 24 24",
   path: (
     <G>

@@ -3,11 +3,7 @@ import React from "react"
 import { createIcon } from "native-base"
 import { Path, G } from "react-native-svg"
 
-import { colors } from "theme/colors"
-
 export const SmileyUnhappy = createIcon({
-  size: 16,
-  color: colors.gray["50"],
   viewBox: "0 0 24 24",
   path: (
     <G>

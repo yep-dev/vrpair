@@ -50,7 +50,7 @@ export const Screen: FC<Props> = ({
           <Row alignItems="center" ml={2} mr={5} space={2}>
             {handlePrev && (
               <IconButton
-                icon={<ArrowLeftIcon color="primary.500" />}
+                icon={<ArrowLeftIcon color="primary.500" size={4} />}
                 size="lg"
                 variant="ghost"
                 onPress={handlePrev}

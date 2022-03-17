@@ -4,7 +4,6 @@ import { createIcon } from "native-base"
 import { G, Path } from "react-native-svg"
 
 export const ArrowLeftIcon = createIcon({
-  size: 4,
   viewBox: "0 0 24 24",
   path: (
     <G>
