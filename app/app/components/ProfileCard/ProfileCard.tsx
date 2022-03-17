@@ -40,6 +40,8 @@ export const ProfileCard: FC<ProfileCardProps> = ({ tab, profile, ratedProfile, 
   })
   profile = data || profile
 
+  const date = pair?.date || ratedProfile?.date
+
   return (
     <TouchableOpacity
       delayPressIn={50}
@@ -97,10 +99,10 @@ export const ProfileCard: FC<ProfileCardProps> = ({ tab, profile, ratedProfile, 
               {profile.mute && <Tag colorScheme="gray">Mute</Tag>}
               {profile.furry && <Tag colorScheme="gray">Furry</Tag>}
             </TagRow>
-            {(pair || ratedProfile) && (
+            {date && (
               <Flex alignItems="flex-end">
                 <Text fontSize="xs">
-                  {formatDistanceToNow(new Date(pair?.date || ratedProfile?.date || ""), {
+                  {formatDistanceToNow(new Date(date), {
                     addSuffix: true,
                   })}
                 </Text>
