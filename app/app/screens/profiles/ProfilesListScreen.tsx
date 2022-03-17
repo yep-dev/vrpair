@@ -2,12 +2,13 @@ import React, { FC } from "react"
 import { FlatList } from "react-native"
 
 import { useProfileList } from "api/profiles"
-import { ProfileCard, Screen } from "components"
+import { Screen } from "components"
+import { UnratedProfileCard } from "components/ProfileCard/UnratedProfileCard"
 
 export const ProfilesListScreen: FC = () => {
   const { data } = useProfileList(undefined, {
     query: {
-      // staleTime: 60 * 1000,
+      staleTime: 10 * 60 * 1000,
     },
   })
 
@@ -17,7 +18,7 @@ export const ProfilesListScreen: FC = () => {
         <FlatList
           data={data.results}
           keyExtractor={(profile) => profile.id.toString()}
-          renderItem={({ item }) => <ProfileCard profile={item} tab="profilesList" />}
+          renderItem={({ item }) => <UnratedProfileCard profile={item} tab="profilesList" />}
         />
       )}
     </Screen>
