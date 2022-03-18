@@ -13,6 +13,8 @@ services:
     container_name: django
     depends_on:
       - postgres
+      - redis
+      - swagger
     volumes:
       - .:/app:z
     env_file:
@@ -39,6 +41,16 @@ services:
   redis:
     image: redis:6
     container_name: redis
+
+  swagger:
+    image: swaggerapi/swagger-ui
+    container_name: "swagger-ui"
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./schema.yml:/schema.yml
+    environment:
+      SWAGGER_JSON: /schema.yml
 
 # not needed for now
 #  celeryworker:
