@@ -1,11 +1,10 @@
-import { useNavigation } from "@react-navigation/native"
 import { authorize } from "react-native-app-auth"
 import { useQueryClient, useMutation } from "react-query"
 
 import { getCurrentUserQueryKey, useCurrentUserHook, useForceTokenHook } from "api/users"
 import { API_URL, OAUTH_DISCORD_CLIENT_ID } from "config/env"
 import { useStore } from "mobx/utils"
-import { TabNavigationProps } from "navigators/app-navigator"
+import { NAVIGATION_PERSISTENCE_KEY } from "navigators/app-navigator"
 import { removeSecureValue, setSecureValue } from "utils/keychain"
 import { storage } from "utils/misc"
 
@@ -54,15 +53,14 @@ export const useDiscordLogin = () => {
 
 export const useForceToken = () => {
   const queryClient = useQueryClient()
-  const { navigate } = useNavigation<TabNavigationProps>()
   const forceTokenFn = useForceTokenHook()
 
   return useMutation(forceTokenFn, {
+    onMutate: () => storage.delete(NAVIGATION_PERSISTENCE_KEY),
     onSuccess: async ({ access, refresh }) => {
       await setSecureValue("accessToken", access)
       await setSecureValue("refreshToken", refresh)
       await queryClient.resetQueries()
-      navigate("profilesCarousel")
     },
   })
 }

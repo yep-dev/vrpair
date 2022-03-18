@@ -15,6 +15,7 @@ import { useCurrentUser } from "api/users"
 import { AvatarIcon, ProfileSearchIcon, ProfileStackIcon } from "components/icons"
 import { useStore } from "mobx/utils"
 import { LikesIcon } from "navigators/components/LikesIcon"
+import { StaffTools } from "navigators/components/StaffTools"
 import { navigationRef, useNavigationPersistence } from "navigators/utils"
 import { LikesTabsScreen } from "screens/likes/LikesTabsScreen"
 import { LoginScreen } from "screens/LoginScreen"
@@ -87,6 +88,7 @@ export const AppNavigator = observer(() => {
             <App.Screen component={LoginScreen} name="login" />
           )}
         </App.Navigator>
+        <StaffTools />
       </NavigationContainer>
     </ErrorBoundary>
   ) : null
