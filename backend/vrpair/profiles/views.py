@@ -1,3 +1,4 @@
+from drf_spectacular.utils import extend_schema
 from rest_framework import generics, serializers
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -58,6 +59,7 @@ class CurrentProfile(generics.RetrieveAPIView):
         return self.request.user.profile
 
 
+@extend_schema(request=ProfileFormSerializer)
 class CreateProfile(APIView):
     serializer_class = CurrentProfileSerializer
 

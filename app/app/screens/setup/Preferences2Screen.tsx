@@ -43,9 +43,11 @@ export const Preferences2Screen: FC<Props> = ({ navigation: { navigate } }) => {
 
   const handleSubmit = (preferences2) => {
     createProfile.mutate({
-      ...storage.getObj("profile1").values,
-      ...storage.getObj("profile2").values,
-      preferences: { ...storage.getObj("preferences1").values, ...preferences2 },
+      data: {
+        ...storage.getObj("profile1").values,
+        ...storage.getObj("profile2").values,
+        preferences: { ...storage.getObj("preferences1").values, ...preferences2 },
+      },
     })
   }
 

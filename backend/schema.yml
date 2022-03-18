@@ -91,7 +91,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CurrentProfile'
+              $ref: '#/components/schemas/ProfileForm'
         required: true
       security:
       - cookieAuth: []
@@ -515,6 +515,70 @@ components:
       - mute
       - role
       - setup
+    PreferencesForm:
+      type: object
+      properties:
+        ageMax:
+          type: integer
+          maximum: 35
+          minimum: 19
+        ageMin:
+          type: integer
+          maximum: 34
+          minimum: 18
+        femAvatar:
+          enum:
+          - 'true'
+          - 'false'
+          - any
+          type: string
+        gender:
+          type: array
+          items:
+            enum:
+            - male
+            - maleTrans
+            - female
+            - femaleTrans
+            - nonBinary
+            type: string
+        furry:
+          enum:
+          - 'true'
+          - 'false'
+          - any
+          type: string
+        mute:
+          enum:
+          - 'true'
+          - 'false'
+          - any
+          type: string
+        role:
+          type: array
+          items:
+            enum:
+            - sub
+            - dom
+            - switch
+            type: string
+        setup:
+          type: array
+          items:
+            enum:
+            - quest
+            - pcvr
+            - fbt
+            type: string
+      required:
+      - ageMax
+      - ageMin
+      - femAvatar
+      - furry
+      - gender
+      - mute
+      - role
+      - setup
     Profile:
       type: object
       properties:
@@ -668,6 +732,62 @@ components:
       required:
       - profile
       - ratedProfile
+    ProfileForm:
+      type: object
+      description: Adds nested create feature
+      properties:
+        birthMonth:
+          type: integer
+          maximum: 12
+          minimum: 1
+        birthYear:
+          type: integer
+          minimum: 1920
+        femAvatar:
+          type: boolean
+        gender:
+          enum:
+          - male
+          - maleTrans
+          - female
+          - femaleTrans
+          - nonBinary
+          type: string
+        trans:
+          type: boolean
+        username:
+          type: string
+          maxLength: 32
+        furry:
+          type: boolean
+        mute:
+          type: boolean
+        role:
+          enum:
+          - sub
+          - dom
+          - switch
+          type: string
+        setup:
+          enum:
+          - quest
+          - pcvr
+          - fbt
+          type: string
+        preferences:
+          $ref: '#/components/schemas/PreferencesForm'
+      required:
+      - birthMonth
+      - birthYear
+      - femAvatar
+      - furry
+      - gender
+      - mute
+      - preferences
+      - role
+      - setup
+      - trans
+      - username
     ProfileImage:
       type: object
       properties:
