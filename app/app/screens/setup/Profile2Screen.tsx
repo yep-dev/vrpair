@@ -4,14 +4,10 @@ import { NavigatorScreenParams } from "@react-navigation/native"
 import { NativeStackScreenProps } from "@react-navigation/native-stack"
 import { FormProvider, useForm } from "react-hook-form"
 
-import { RadioGroupField } from "components"
-import { CheckboxField } from "components/fields/CheckboxField"
+import { Profile2Fields } from "components/profileFields/Profile2Fields"
 import { SetupParams } from "navigators/app-navigator"
 import { SetupScreen } from "screens/setup/SetupScreen"
-import { enums } from "utils/enums"
 import { storage } from "utils/misc"
-
-const { setup, role } = enums
 
 const name = "profile2"
 
@@ -31,24 +27,7 @@ export const Profile2Screen: FC<Props> = ({ navigation: { navigate } }) => {
         heading="Profile"
         name={name}
       >
-        <RadioGroupField
-          items={[setup.quest, setup.pcvr, setup.fbt]}
-          label="VR Setup"
-          name="setup"
-          rules={{ required: "Select your VR setup type" }}
-        />
-        <RadioGroupField
-          items={[role.sub, role.dom, role.switch]}
-          label="Role"
-          name="role"
-          rules={{ required: "Select your role" }}
-        />
-        <CheckboxField name="mute" size="sm">
-          Mute
-        </CheckboxField>
-        <CheckboxField name="furry" size="sm">
-          Furry
-        </CheckboxField>
+        <Profile2Fields />
       </SetupScreen>
     </FormProvider>
   )

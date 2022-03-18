@@ -4,12 +4,9 @@ import { NavigatorScreenParams } from "@react-navigation/native"
 import { NativeStackScreenProps } from "@react-navigation/native-stack"
 import { FormProvider, useForm } from "react-hook-form"
 
-import { RadioGroupField } from "components"
+import { Preferences1Fields } from "components/profileFields/Preferences1Fields"
 import { SetupParams } from "navigators/app-navigator"
-import { AgeRangeField } from "screens/setup/AgeRangeField"
-import { GenderCheckboxField } from "screens/setup/GenderCheckboxField"
 import { SetupScreen } from "screens/setup/SetupScreen"
-import { enums } from "utils/enums"
 import { storage } from "utils/misc"
 
 const name = "preferences1"
@@ -30,14 +27,7 @@ export const Preferences1Screen: FC<Props> = ({ navigation: { navigate } }) => {
         heading="Preferences"
         name={name}
       >
-        <GenderCheckboxField />
-        <RadioGroupField
-          items={Object.values(enums.femAvatar)}
-          label="Preferred Avatar Type"
-          name="femAvatar"
-          rules={{ required: "Select preferred avatar type" }}
-        />
-        <AgeRangeField />
+        <Preferences1Fields />
       </SetupScreen>
     </FormProvider>
   )

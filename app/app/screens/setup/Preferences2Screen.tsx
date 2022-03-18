@@ -8,11 +8,9 @@ import { useQueryClient } from "react-query"
 import { Profile, User } from "api/index.schemas"
 import { getCurrentProfileQueryKey, useCreateProfile } from "api/profiles"
 import { getCurrentUserQueryKey } from "api/users"
-import { RadioGroupField } from "components"
-import { CheckboxGroupField } from "components/fields/CheckboxGroupField"
+import { Preferences2Fields } from "components/profileFields/Preferences2Fields"
 import { SetupParams } from "navigators/app-navigator"
 import { SetupScreen } from "screens/setup/SetupScreen"
-import { enums } from "utils/enums"
 import { storage } from "utils/misc"
 
 const name = "preferences2"
@@ -59,32 +57,7 @@ export const Preferences2Screen: FC<Props> = ({ navigation: { navigate } }) => {
         heading="Preferences"
         name={name}
       >
-        <CheckboxGroupField
-          items={Object.values(enums.setup)}
-          label="Preferred Setups"
-          name="setup"
-          rules={{ required: "Select your setup preference" }}
-        />
-        <CheckboxGroupField
-          items={Object.values(enums.role)}
-          label="Preferred Roles"
-          name="role"
-          rules={{ required: "Select your role preference" }}
-        />
-        <RadioGroupField
-          defaultValue={enums.mute.any.key}
-          items={Object.values(enums.mute)}
-          label="Mutes Preference"
-          name="mute"
-        />
-        <RadioGroupField
-          defaultValue={
-            storage.getObj("profile1").furry ? enums.furry.any.key : enums.furry.false.key
-          }
-          items={Object.values(enums.furry)}
-          label="Furries Preference"
-          name="furry"
-        />
+        <Preferences2Fields />
       </SetupScreen>
     </FormProvider>
   )
