@@ -47,7 +47,7 @@ export const Screen: FC<Props> = ({
       <StatusBar barStyle={statusBar || "light-content"} />
       <View bg="gray.900" flex={1} style={insetStyle}>
         {heading && (
-          <Row alignItems="center" ml={2} mr={5} space={2}>
+          <Row alignItems="center" height={10} mb={1} ml={2} mr={5} space={2}>
             {handlePrev && (
               <IconButton
                 icon={<ArrowLeftIcon color="primary.500" size={4} />}
@@ -56,7 +56,7 @@ export const Screen: FC<Props> = ({
                 onPress={handlePrev}
               />
             )}
-            <Heading flex={1} mb={2} ml={!handlePrev ? 2 : 0} mt={1}>
+            <Heading flex={1} ml={!handlePrev ? 2 : 0} mt={0.5}>
               {heading}
             </Heading>
             {headingRight}
