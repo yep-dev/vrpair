@@ -2,9 +2,7 @@ import React, { FC } from "react"
 
 import { Column } from "native-base"
 
-import { RadioGroupField } from "components"
-import { AgeRangeField } from "components/profileFields/AgeRangeField"
-import { GenderCheckboxField } from "components/profileFields/GenderCheckboxField"
+import { RadioGroupField, AgeRangeField, GenderCheckboxField } from "components"
 import { enums } from "utils/enums"
 
 export const Preferences1Fields: FC = () => {

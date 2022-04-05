@@ -2,8 +2,7 @@ import React, { FC } from "react"
 
 import { useController } from "react-hook-form"
 
-import { FieldError, FieldLabel, RadioGroup } from "components"
-import { RadioGroupProps } from "components/RadioGroup"
+import { FieldError, FieldLabel, RadioGroup, RadioGroupProps } from "components"
 
 type Props = {
   name: string

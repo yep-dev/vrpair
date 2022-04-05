@@ -2,8 +2,7 @@ import React, { FC } from "react"
 import { FlatList } from "react-native"
 
 import { useLikedList } from "api/likes"
-import { QueryContainer } from "components"
-import { LikedProfileCard } from "components/ProfileCard/LikedProfileCard"
+import { QueryContainer, LikedProfileCard } from "components"
 
 export const LikedScreen: FC = () => {
   const query = useLikedList()

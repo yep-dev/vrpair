@@ -4,7 +4,7 @@ import { useQuery } from "react-query"
 
 import { RatedProfileDeep, RateProfile } from "api/index.schemas"
 import { getRateProfileQueryKey } from "apiClient/custom"
-import { ProfileCard, ProfileCardProps } from "components/ProfileCard/ProfileCard"
+import { ProfileCard, ProfileCardProps } from "components"
 
 type Props = {
   ratedProfile: RatedProfileDeep

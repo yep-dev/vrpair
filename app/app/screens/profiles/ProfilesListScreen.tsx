@@ -2,8 +2,7 @@ import React, { FC } from "react"
 import { FlatList } from "react-native"
 
 import { useProfileList } from "api/profiles"
-import { Screen } from "components"
-import { UnratedProfileCard } from "components/ProfileCard/UnratedProfileCard"
+import { Screen, UnratedProfileCard } from "components"
 
 export const ProfilesListScreen: FC = () => {
   const { data } = useProfileList(undefined, {

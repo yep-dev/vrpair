@@ -4,7 +4,7 @@ import { NavigatorScreenParams } from "@react-navigation/native"
 import { NativeStackScreenProps } from "@react-navigation/native-stack"
 import { FormProvider, useForm } from "react-hook-form"
 
-import { Preferences1Fields } from "components/profileFields/Preferences1Fields"
+import { Preferences1Fields } from "components"
 import { SetupParams } from "navigators/app-navigator"
 import { SetupScreen } from "screens/setup/SetupScreen"
 import { storage } from "utils/misc"

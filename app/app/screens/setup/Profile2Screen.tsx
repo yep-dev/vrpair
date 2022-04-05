@@ -4,7 +4,7 @@ import { NavigatorScreenParams } from "@react-navigation/native"
 import { NativeStackScreenProps } from "@react-navigation/native-stack"
 import { FormProvider, useForm } from "react-hook-form"
 
-import { Profile2Fields } from "components/profileFields/Profile2Fields"
+import { Profile2Fields } from "components"
 import { SetupParams } from "navigators/app-navigator"
 import { SetupScreen } from "screens/setup/SetupScreen"
 import { storage } from "utils/misc"
