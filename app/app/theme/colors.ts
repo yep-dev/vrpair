@@ -79,6 +79,18 @@ const colorsDefininitions = {
     800: "#27272a",
     900: "#121214",
   },
+  light: {
+    50: "#fff",
+    100: "#fff",
+    200: "#fff",
+    300: "#fff",
+    400: "#fff",
+    500: "#71717a",
+    600: "#52525b",
+    700: "#3f3f46",
+    800: "#27272a",
+    900: "#121214",
+  },
   yellow: {
     50: "#fefce8",
     100: "#fef9c3",
@@ -107,7 +119,6 @@ export const colors = {
   primary: colorsDefininitions.pink,
   info: colorsDefininitions.blue,
   secondary: colorsDefininitions.blue,
-  light: colorsDefininitions.gray,
   tertiary: colorsDefininitions.green,
 }
 

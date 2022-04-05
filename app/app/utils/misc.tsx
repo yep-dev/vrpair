@@ -11,8 +11,8 @@ export const inject = <TProps, TInjectedKeys extends keyof TProps>(
   Component: React.JSXElementConstructor<TProps>,
   injected: Pick<TProps, TInjectedKeys>,
 ) => {
-  const Injected = (props: Omit<TProps, TInjectedKeys>) => {
-    return <Component {...(props as TProps)} {...injected} />
+  const Injected = (props: TProps) => {
+    return <Component {...injected} {...(props as TProps)} />
   }
   return Injected
 }
