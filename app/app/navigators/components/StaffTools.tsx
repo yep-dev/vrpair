@@ -4,19 +4,17 @@ import { Button, Column, Input, Modal, Text } from "native-base"
 
 import { useCurrentProfile } from "api/profiles"
 import { useCurrentUser } from "api/users"
-import { useStore } from "mobx/utils"
 import { useForceToken } from "utils/auth"
 
 export const StaffTools: FC = () => {
   const [userId, setUserId] = useState("")
   const [showModal, setShowModal] = useState(false)
   const [profileId, setProfileId] = useState("")
-  const { userStore } = useStore()
   const user = useCurrentUser()
   const profile = useCurrentProfile()
   const forceToken = useForceToken()
 
-  return userStore.staffAuthenticated ? (
+  return (
     <>
       <Button
         position="absolute"
@@ -58,5 +56,5 @@ export const StaffTools: FC = () => {
         </Modal.Content>
       </Modal>
     </>
-  ) : null
+  )
 }

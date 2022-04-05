@@ -88,7 +88,7 @@ export const AppNavigator = observer(() => {
             <App.Screen component={LoginScreen} name="login" />
           )}
         </App.Navigator>
-        <StaffTools />
+        {userStore.staffAuthenticated && <StaffTools />}
       </NavigationContainer>
     </ErrorBoundary>
   ) : null

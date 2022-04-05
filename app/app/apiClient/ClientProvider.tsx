@@ -5,9 +5,9 @@ import { KyInstance } from "ky/distribution/types/ky"
 import { useQueryClient } from "react-query"
 
 import { useStore } from "mobx/utils"
-import { NAVIGATION_PERSISTENCE_KEY } from "navigators/app-navigator"
+import { useLogout } from "utils/auth"
 import { getSecureValue, setSecureValue } from "utils/keychain"
-import { atob, storage } from "utils/misc"
+import { atob } from "utils/misc"
 
 const { API_URL } = require("config/env")
 
@@ -20,6 +20,7 @@ export const ClientProvider: FC = ({ children }) => {
   const anonymous = useRef(ky.create({ prefixUrl: API_URL }))
   const { userStore } = useStore()
   const queryClient = useQueryClient()
+  const logout = useLogout()
 
   const handleRefreshToken = async (isStaff) => {
     const refreshToken = await getSecureValue(isStaff ? "staffRefreshToken" : "refreshToken")
@@ -41,8 +42,7 @@ export const ClientProvider: FC = ({ children }) => {
         }
       } catch {}
     }
-    setAuthenticated(false)
-    storage.delete(NAVIGATION_PERSISTENCE_KEY)
+    await logout()
     return null
   }
 
