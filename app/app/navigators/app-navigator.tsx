@@ -11,6 +11,7 @@ import {
   createNativeStackNavigator,
   NativeStackNavigationProp,
 } from "@react-navigation/native-stack"
+import { createStackNavigator } from "@react-navigation/stack"
 import { observer } from "mobx-react-lite"
 import { ErrorBoundary } from "react-error-boundary"
 
@@ -218,7 +219,7 @@ export type UserParams = {
   editProfile
   editPreferences
 }
-const User = createNativeStackNavigator<UserParams>()
+const User = createStackNavigator<UserParams>()
 
 const UsersStack = () => (
   <User.Navigator initialRouteName="userMenu" screenOptions={{ headerShown: false }}>
