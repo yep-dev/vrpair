@@ -69,7 +69,7 @@ export const Screen: FC<Props> = ({
           <ScrollView
             flex={1}
             {...props}
-            _contentContainerStyle={{ pt: 3, pb: 8, flexGrow: 1, ...props._contentContainerStyle }}
+            _contentContainerStyle={{ pt: 3, pb: 16, flexGrow: 1, ...props._contentContainerStyle }}
           >
             {children}
           </ScrollView>

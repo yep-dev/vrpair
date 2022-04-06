@@ -56,11 +56,9 @@ export const SetupScreen: FC<Props> = ({ name, heading, handlePrev, handleNext, 
       scroll
     >
       {children}
-      <Row mb={12} space={2}>
-        <Button flex={1} size="lg" onPress={handleNext}>
-          Next
-        </Button>
-      </Row>
+      <Button flex={1} mt={10} size="lg" onPress={handleNext}>
+        Next
+      </Button>
     </Screen>
   )
 }

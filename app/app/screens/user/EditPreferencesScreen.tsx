@@ -21,7 +21,7 @@ export const EditPreferencesScreen: FC = () => {
         <Column space={6}>
           <Preferences1Fields />
           <Preferences2Fields />
-          <Button flex={1} size="lg" onPress={form.handleSubmit()}>
+          <Button flex={1} mt={4} size="lg" onPress={form.handleSubmit()}>
             Save
           </Button>
         </Column>
