@@ -2,7 +2,11 @@ import React from "react"
 
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import { useReduxDevToolsExtension } from "@react-navigation/devtools"
-import { NavigationContainer, DarkTheme } from "@react-navigation/native"
+import {
+  NavigationContainer,
+  DarkTheme,
+  getFocusedRouteNameFromRoute,
+} from "@react-navigation/native"
 import {
   createNativeStackNavigator,
   NativeStackNavigationProp,
@@ -34,6 +38,7 @@ import { colors } from "theme/colors"
 import { storage } from "utils/misc"
 
 export const NAVIGATION_PERSISTENCE_KEY = "navigationState"
+const HIDDEN_TABS_SCREENS = ["editProfile", "editPreferences"]
 
 // ---------------- Root ----------------
 
@@ -164,7 +169,13 @@ const Tabs = () => (
         blur: () => navigation.setParams({ screen: "userMenu" }),
       })}
       name="user"
-      options={{ tabBarIcon: ({ color }) => <AvatarIcon color={color} /> }}
+      options={({ route }) => ({
+        tabBarIcon: ({ color }) => <AvatarIcon color={color} />,
+        tabBarStyle: ((route) => {
+          const routeName = getFocusedRouteNameFromRoute(route) ?? ""
+          return HIDDEN_TABS_SCREENS.includes(routeName) ? { display: "none", height: 0 } : {}
+        })(route),
+      })}
     />
   </Tab.Navigator>
 )
