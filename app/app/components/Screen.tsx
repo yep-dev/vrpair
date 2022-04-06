@@ -1,6 +1,7 @@
 import React, { FC, ReactNode } from "react"
 import { Platform, StyleProp, ViewStyle } from "react-native"
 
+import { useNavigation } from "@react-navigation/native"
 import {
   Box,
   Heading,
@@ -21,7 +22,7 @@ const isIos = Platform.OS === "ios"
 type Props = {
   unsafe?: boolean
   statusBar?: "light-content" | "dark-content"
-  handlePrev?(): void
+  handlePrev?: (() => void) | boolean
   heading?: string
   headingRight?: ReactNode
   scroll?: boolean
@@ -40,8 +41,10 @@ export const Screen: FC<Props> = ({
   children,
   ...props
 }) => {
+  const navigation = useNavigation()
   const insets = useSafeAreaInsets()
   const insetStyle = { paddingTop: unsafe ? 0 : insets.top }
+
   return (
     <KeyboardAvoidingView behavior={isIos ? "padding" : undefined} flex={1}>
       <StatusBar barStyle={statusBar || "light-content"} />
@@ -53,7 +56,7 @@ export const Screen: FC<Props> = ({
                 icon={<ArrowLeftIcon color="primary.500" size={4} />}
                 size="lg"
                 variant="ghost"
-                onPress={handlePrev}
+                onPress={() => navigation.goBack()}
               />
             )}
             <Heading flex={1} ml={!handlePrev ? 2 : 0} mt={0.5}>
@@ -63,7 +66,11 @@ export const Screen: FC<Props> = ({
           </Row>
         )}
         {scroll ? (
-          <ScrollView flex={1} {...props}>
+          <ScrollView
+            flex={1}
+            {...props}
+            _contentContainerStyle={{ pt: 3, pb: 8, flexGrow: 1, ...props._contentContainerStyle }}
+          >
             {children}
           </ScrollView>
         ) : (

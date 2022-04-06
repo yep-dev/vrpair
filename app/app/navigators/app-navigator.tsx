@@ -204,6 +204,8 @@ const LikesStack = () => (
 export type UserParams = {
   userMenu
   discordIntegration
+  editProfile
+  editPreferences
 }
 const User = createNativeStackNavigator<UserParams>()
 
@@ -211,6 +213,8 @@ const UsersStack = () => (
   <User.Navigator initialRouteName="userMenu" screenOptions={{ headerShown: false }}>
     <User.Screen component={UserMenuScreen} name="userMenu" />
     <User.Screen component={DiscordIntegrationScreen} name="discordIntegration" />
+    <User.Screen component={EditProfileScreen} name="editProfile" />
+    <User.Screen component={EditPreferencesScreen} name="editPreferences" />
   </User.Navigator>
 )
 

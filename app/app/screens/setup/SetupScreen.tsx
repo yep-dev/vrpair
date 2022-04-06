@@ -32,9 +32,7 @@ export const SetupScreen: FC<Props> = ({ name, heading, handlePrev, handleNext, 
     <Screen
       _contentContainerStyle={{
         justifyContent: "space-between",
-        flexGrow: 1,
         mx: 5,
-        my: 3,
       }}
       handlePrev={handlePrev}
       heading={heading}
