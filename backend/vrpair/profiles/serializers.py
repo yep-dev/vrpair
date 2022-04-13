@@ -1,5 +1,7 @@
 import datetime
 
+from drf_spectacular.types import OpenApiTypes
+from drf_spectacular.utils import extend_schema_field
 from drf_writable_nested import WritableNestedModelSerializer
 from rest_framework import serializers
 
@@ -8,6 +10,7 @@ from vrpair.utils.enums import (
     RoleEnum,
     SetupEnum,
     GenderEnum,
+    GenderBaseEnum,
 )
 
 from vrpair.utils.serializers import MultipleChoiceField
@@ -148,4 +151,23 @@ class ProfileDetailsSerializer(ProfileSerializer):
 class CurrentProfileSerializer(ProfileDetailsSerializer):
     class Meta:
         model = Profile
-        fields = ProfileDetailsSerializer.Meta.fields + ["birth_date"]
+        fields = ProfileDetailsSerializer.Meta.fields + [
+            "birth_month",
+            "birth_year",
+            "trans",
+        ]
+
+    birth_month = serializers.DateField(source="birth_date", format="%m")
+    birth_year = serializers.DateField(source="birth_date", format="%Y")
+    trans = serializers.SerializerMethodField()
+    gender = serializers.SerializerMethodField()
+
+    @extend_schema_field(OpenApiTypes.BOOL)  # gender type
+    def get_trans(self, obj):
+        return obj.gender.endswith("Trans")
+
+    @extend_schema_field(
+        serializers.ChoiceField(choices=GenderBaseEnum.choices)
+    )  # gender type
+    def get_gender(self, obj):
+        return obj.gender.removesuffix("Trans")

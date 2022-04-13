@@ -6,6 +6,7 @@ import { CheckboxField, RadioGroupField } from "components"
 import { enums } from "utils/enums"
 
 const { setup, role } = enums
+export const profile2Fields = ["setup", "role", "mute", "furry"] as const
 
 export const Profile2Fields: FC = () => {
   return (

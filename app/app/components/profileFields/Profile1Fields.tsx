@@ -3,15 +3,17 @@ import React, { FC } from "react"
 import { Column, Input, Row, Text, View } from "native-base"
 import { Controller, UseFormReturn } from "react-hook-form"
 
+import { CurrentProfile } from "api/index.schemas"
 import { useCurrentUser } from "api/users"
 import { CheckboxField, FieldError, FieldLabel, InputField, RadioGroupField } from "components"
 import { enums } from "utils/enums"
 
-type Props = {
-  form: UseFormReturn
-}
-
 const { gender, femAvatar } = enums
+export const profile1Fields = ["birthMonth", "birthYear", "gender", "femAvatar"] as const
+
+type Props = {
+  form: UseFormReturn<CurrentProfile>
+}
 
 export const Profile1Fields: FC<Props> = ({ form }) => {
   const { data: discordUsername } = useCurrentUser({
