@@ -91,7 +91,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ProfileForm'
+              $ref: '#/components/schemas/CreateProfileForm'
         required: true
       security:
       - cookieAuth: []
@@ -108,6 +108,48 @@ paths:
       operationId: current_profile
       tags:
       - profiles
+      security:
+      - cookieAuth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CurrentProfile'
+          description: ''
+  /profiles/edit-preferences:
+    post:
+      operationId: edit_preferences
+      tags:
+      - profiles
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PreferencesForm'
+        required: true
+      security:
+      - cookieAuth: []
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CurrentProfile'
+          description: ''
+  /profiles/edit-profile:
+    post:
+      operationId: edit_profile
+      tags:
+      - profiles
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProfileForm'
+        required: true
       security:
       - cookieAuth: []
       - jwtAuth: []
@@ -257,6 +299,62 @@ paths:
           description: ''
 components:
   schemas:
+    CreateProfileForm:
+      type: object
+      description: Adds nested create feature
+      properties:
+        birthMonth:
+          type: integer
+          maximum: 12
+          minimum: 1
+        birthYear:
+          type: integer
+          minimum: 1920
+        femAvatar:
+          type: boolean
+        gender:
+          enum:
+          - male
+          - maleTrans
+          - female
+          - femaleTrans
+          - nonBinary
+          type: string
+        trans:
+          type: boolean
+        username:
+          type: string
+          maxLength: 32
+        furry:
+          type: boolean
+        mute:
+          type: boolean
+        role:
+          enum:
+          - sub
+          - dom
+          - switch
+          type: string
+        setup:
+          enum:
+          - quest
+          - pcvr
+          - fbt
+          type: string
+        preferences:
+          $ref: '#/components/schemas/PreferencesForm'
+      required:
+      - birthMonth
+      - birthYear
+      - femAvatar
+      - furry
+      - gender
+      - mute
+      - preferences
+      - role
+      - setup
+      - trans
+      - username
     CurrentProfile:
       type: object
       properties:
@@ -271,11 +369,10 @@ components:
         gender:
           enum:
           - male
-          - maleTrans
           - female
-          - femaleTrans
           - nonBinary
           type: string
+          readOnly: true
         femAvatar:
           type: boolean
         setup:
@@ -335,12 +432,19 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ProfileImage'
-        birthDate:
+        birthMonth:
           type: string
           format: date
+        birthYear:
+          type: string
+          format: date
+        trans:
+          type: boolean
+          readOnly: true
       required:
       - age
-      - birthDate
+      - birthMonth
+      - birthYear
       - femAvatar
       - furry
       - gender
@@ -350,6 +454,7 @@ components:
       - preferences
       - role
       - setup
+      - trans
       - username
     LikesList:
       type: object
@@ -774,8 +879,6 @@ components:
           - pcvr
           - fbt
           type: string
-        preferences:
-          $ref: '#/components/schemas/PreferencesForm'
       required:
       - birthMonth
       - birthYear
@@ -783,7 +886,6 @@ components:
       - furry
       - gender
       - mute
-      - preferences
       - role
       - setup
       - trans

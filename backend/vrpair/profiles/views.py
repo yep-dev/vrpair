@@ -1,3 +1,4 @@
+from django.shortcuts import get_object_or_404
 from drf_spectacular.utils import extend_schema
 from rest_framework import generics, serializers
 from rest_framework.response import Response
@@ -5,12 +6,14 @@ from rest_framework.views import APIView
 
 from vrpair.likes.models import RatedProfile
 from vrpair.likes.serializers import RatedProfileSerializer
-from vrpair.profiles.models import Profile
+from vrpair.profiles.models import Profile, Preferences
 from vrpair.profiles.serializers import (
     ProfileSerializer,
-    ProfileFormSerializer,
+    CreateProfileFormSerializer,
     CurrentProfileSerializer,
     ProfileDetailsSerializer,
+    ProfileFormSerializer,
+    PreferencesFormSerializer,
 )
 from vrpair.utils.models import get_or_none
 
@@ -59,7 +62,7 @@ class CurrentProfile(generics.RetrieveAPIView):
         return self.request.user.profile
 
 
-@extend_schema(request=ProfileFormSerializer)
+@extend_schema(request=CreateProfileFormSerializer)
 class CreateProfile(APIView):
     serializer_class = CurrentProfileSerializer
 
@@ -68,13 +71,39 @@ class CreateProfile(APIView):
         data = request.data
         if instance:
             data["preferences"]["id"] = instance.preferences.id
-        profile = ProfileFormSerializer(instance, data=data)
+        profile = CreateProfileFormSerializer(instance, data=data)
         profile.is_valid(raise_exception=True)
         profile = profile.save()
         if not instance:
             request.user.profile = profile
             request.user.save()
         return Response(CurrentProfileSerializer(profile).data)
+
+
+@extend_schema(request=ProfileFormSerializer)
+class EditProfile(APIView):
+    serializer_class = CurrentProfileSerializer
+
+    def post(self, request):
+        profile = get_object_or_404(Profile, user=request.user)
+        data = request.data
+        profile = ProfileFormSerializer(profile, data=data)
+        profile.is_valid(raise_exception=True)
+        profile = profile.save()
+        return Response(CurrentProfileSerializer(profile).data)
+
+
+@extend_schema(request=PreferencesFormSerializer)
+class EditPreferences(APIView):
+    serializer_class = CurrentProfileSerializer
+
+    def post(self, request):
+        preferences = get_object_or_404(Preferences, profile__user=request.user)
+        data = request.data
+        preferences = PreferencesFormSerializer(preferences, data=data)
+        preferences.is_valid(raise_exception=True)
+        preferences = preferences.save()
+        return Response(CurrentProfileSerializer(preferences.profile).data)
 
 
 class ProfileDetails(generics.RetrieveAPIView):

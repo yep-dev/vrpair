@@ -64,8 +64,6 @@ class ProfileFormSerializer(WritableNestedModelSerializer):
     birth_year = serializers.IntegerField(min_value=1920)
     trans = serializers.BooleanField()
 
-    preferences = PreferencesFormSerializer()
-
     class Meta:
         model = Profile
         fields = [
@@ -81,8 +79,6 @@ class ProfileFormSerializer(WritableNestedModelSerializer):
             "mute",
             "role",
             "setup",
-            # other
-            "preferences",
         ]
 
     def map_data(self, data):
@@ -101,6 +97,14 @@ class ProfileFormSerializer(WritableNestedModelSerializer):
 
     def update(self, instance, data):
         return super().update(instance, self.map_data(data))
+
+
+class CreateProfileFormSerializer(ProfileFormSerializer):
+    preferences = PreferencesFormSerializer()
+
+    class Meta:
+        model = Profile
+        fields = ProfileFormSerializer.Meta.fields + ["preferences"]
 
 
 class ProfileSerializer(serializers.ModelSerializer):

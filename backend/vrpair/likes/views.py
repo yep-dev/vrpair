@@ -27,7 +27,9 @@ class LikedList(generics.ListAPIView):
     serializer_class = RatedProfileDeepSerializer
 
     def get_queryset(self):
-        return RatedProfile.objects.filter(author=self.request.user.profile, liked=True).order_by('-date')
+        return RatedProfile.objects.filter(
+            author=self.request.user.profile, liked=True
+        ).order_by("-date")
 
 
 class LikesList(generics.RetrieveAPIView):
@@ -40,7 +42,7 @@ class LikesList(generics.RetrieveAPIView):
     def get_object(self):
         likes = RatedProfile.objects.filter(
             profile=self.request.user.profile, liked=True
-        ).order_by('-date')
+        ).order_by("-date")
         for like in likes:
             like.profile = like.author
 
@@ -61,7 +63,7 @@ class PairList(generics.RetrieveAPIView):
         pairs = Pair.objects.filter(
             Q(profile1=self.request.user.profile)
             | Q(profile2=self.request.user.profile)
-        ).order_by('-date')
+        ).order_by("-date")
         pairs_badge = 0
         for pair in pairs:
             if pair.profile1 == self.request.user.profile:

@@ -24,6 +24,8 @@ from vrpair.profiles.views import (
     CreateProfile,
     ProfileDetails,
     ProfileFeed,
+    EditProfile,
+    EditPreferences,
 )
 from vrpair.users.views import DiscordLogin, ForceToken, CurrentUser
 
@@ -62,6 +64,10 @@ api_paths = [
         "profiles/profile-details/<int:pk>",
         ProfileDetails.as_view(),
         name="profile_details",
+    ),
+    path("profiles/edit-profile", EditProfile.as_view(), name="edit_profile"),
+    path(
+        "profiles/edit-preferences", EditPreferences.as_view(), name="edit_preferences"
     ),
     # users
     path("users/discord-login", DiscordLogin.as_view(), name="discord_login"),
