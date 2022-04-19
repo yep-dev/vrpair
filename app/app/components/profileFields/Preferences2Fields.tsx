@@ -6,6 +6,8 @@ import { CheckboxGroupField, RadioGroupField } from "components"
 import { enums } from "utils/enums"
 import { storage } from "utils/misc"
 
+export const preferences2Fields = ["setup", "role", "mute", "furry"] as const
+
 export const Preferences2Fields: FC = () => {
   return (
     <Column space={6}>

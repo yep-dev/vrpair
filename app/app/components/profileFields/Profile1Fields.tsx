@@ -5,14 +5,30 @@ import { Controller, UseFormReturn } from "react-hook-form"
 
 import { CurrentProfile } from "api/index.schemas"
 import { useCurrentUser } from "api/users"
-import { CheckboxField, FieldError, FieldLabel, InputField, RadioGroupField } from "components"
+import {
+  CheckboxField,
+  FieldError,
+  FieldLabel,
+  InputField,
+  Profile2Form,
+  RadioGroupField,
+} from "components"
 import { enums } from "utils/enums"
 
 const { gender, femAvatar } = enums
-export const profile1Fields = ["birthMonth", "birthYear", "gender", "femAvatar"] as const
+export const profile1Fields = [
+  "username",
+  "birthMonth",
+  "birthYear",
+  "gender",
+  "trans",
+  "femAvatar",
+] as const
+
+export type Profile1Form = Pick<CurrentProfile, typeof profile1Fields[number]>
 
 type Props = {
-  form: UseFormReturn<CurrentProfile>
+  form: UseFormReturn<Profile1Form & Profile2Form>
 }
 
 export const Profile1Fields: FC<Props> = ({ form }) => {
