@@ -1,8 +1,6 @@
-export const pick = (object, keys) => {
-  return keys.reduce((obj, key) => {
-    if (object && object.hasOwnProperty(key)) {
-      obj[key] = object[key]
-    }
-    return obj
-  }, {})
+export type Writeable<T> = { -readonly [P in keyof T]: T[P] }
+
+export const pick = <T extends object, K extends keyof T>(base: T, keys: K[]): Pick<T, K> => {
+  const entries = keys.map((key) => [key, base[key]])
+  return Object.fromEntries(entries)
 }
