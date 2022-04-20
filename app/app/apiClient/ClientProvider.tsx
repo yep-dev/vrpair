@@ -60,9 +60,15 @@ export const ClientProvider: FC = ({ children }) => {
     afterResponse: [
       async (request, options, response) => {
         if (response.status === 403 || response.status === 401) {
-          const accessToken = await handleRefreshToken(isStaff)
-          request.headers.set("Authorization", `Bearer ${accessToken}`)
-          return ky(request)
+          const refreshToken = await getSecureValue(isStaff ? "staffRefreshToken" : "refreshToken")
+          if (isTokenExpired(refreshToken)) {
+            const accessToken = await handleRefreshToken(isStaff)
+            request.headers.set("Authorization", `Bearer ${accessToken}`)
+            return ky(request)
+          } else {
+            await logout()
+            return null
+          }
         }
         return response
       },
