@@ -190,3 +190,9 @@ Session.vim
 
 # Auto-generated tag files
 tags
+
+# CocoaPods
+# Ruby / CocoaPods
+/ios/Pods/
+/vendor/bundle/
+
