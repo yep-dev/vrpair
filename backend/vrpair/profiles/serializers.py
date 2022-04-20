@@ -161,10 +161,18 @@ class CurrentProfileSerializer(ProfileDetailsSerializer):
             "trans",
         ]
 
-    birth_month = serializers.DateField(source="birth_date", format="%m")
-    birth_year = serializers.DateField(source="birth_date", format="%Y")
+    birth_month = serializers.SerializerMethodField()
+    birth_year = serializers.SerializerMethodField()
     trans = serializers.SerializerMethodField()
     gender = serializers.SerializerMethodField()
+
+    @extend_schema_field(OpenApiTypes.NUMBER)
+    def get_birth_month(self, obj):
+        return obj.birth_date.month
+
+    @extend_schema_field(OpenApiTypes.NUMBER)
+    def get_birth_year(self, obj):
+        return obj.birth_date.year
 
     @extend_schema_field(OpenApiTypes.BOOL)  # gender type
     def get_trans(self, obj):

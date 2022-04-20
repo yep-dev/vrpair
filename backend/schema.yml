@@ -433,11 +433,11 @@ components:
           items:
             $ref: '#/components/schemas/ProfileImage'
         birthMonth:
-          type: string
-          format: date
+          type: number
+          readOnly: true
         birthYear:
-          type: string
-          format: date
+          type: number
+          readOnly: true
         trans:
           type: boolean
           readOnly: true

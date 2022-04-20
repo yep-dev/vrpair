@@ -54,7 +54,7 @@ export const Profile1Fields: FC<Props> = ({ form }) => {
                 keyboardType="number-pad"
                 placeholder="M"
                 size="lg"
-                value={field.value}
+                value={field.value ? field.value.toString() : ""}
                 w="38px"
                 onBlur={field.onBlur}
                 onChangeText={field.onChange}
@@ -70,9 +70,10 @@ export const Profile1Fields: FC<Props> = ({ form }) => {
             name="birthYear"
             render={({ field }) => (
               <Input
+                keyboardType="number-pad"
                 placeholder="YYYY"
                 size="lg"
-                value={field.value}
+                value={field.value ? field.value.toString() : ""}
                 w="58px"
                 onBlur={field.onBlur}
                 onChangeText={field.onChange}
