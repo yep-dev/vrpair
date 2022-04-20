@@ -18,8 +18,8 @@ class PreferencesFactory(DjangoModelFactory):
     # 3
     gender = MultipleFuzzyChoice(GenderEnum)
     fem_avatar = fuzzy.FuzzyChoice(BoolEnum)
-    age_min = fuzzy.FuzzyInteger(18, 40)
-    age_max = factory.LazyAttribute(lambda o: o.age_min + random.randrange(20))
+    age_min = fuzzy.FuzzyInteger(18, 34)
+    age_max = factory.LazyAttribute(lambda o: random.randint(o.age_min + 1, 35))
 
     # 4
     setup = MultipleFuzzyChoice(SetupEnum)

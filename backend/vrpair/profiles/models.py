@@ -10,7 +10,7 @@ class Preferences(models.Model):
     gender = ArrayField(models.CharField(max_length=12, choices=GenderEnum.choices))
     fem_avatar = models.CharField(max_length=8, choices=BoolEnum.choices)
     age_min = models.PositiveSmallIntegerField()
-    age_max = models.PositiveSmallIntegerField(null=True)
+    age_max = models.PositiveSmallIntegerField()
 
     # 4
     setup = ArrayField(

@@ -6,7 +6,7 @@ class MultipleFuzzyChoice(FuzzyChoice):
     def fuzz(self):
         if self.choices is None:
             self.choices = list(self.choices_generator)
-        length = random.randgen.randrange(1, len(self.choices) + 1)
+        length = random.randgen.randint(1, len(self.choices))
 
         random.randgen.shuffle(self.choices)
         value = self.choices[:length]

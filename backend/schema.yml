@@ -583,7 +583,6 @@ components:
           type: integer
           maximum: 32767
           minimum: 0
-          nullable: true
         setup:
           type: array
           items:
@@ -613,6 +612,7 @@ components:
           - any
           type: string
       required:
+      - ageMax
       - ageMin
       - femAvatar
       - furry

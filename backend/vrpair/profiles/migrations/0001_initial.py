@@ -48,7 +48,7 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 ("age_min", models.PositiveSmallIntegerField()),
-                ("age_max", models.PositiveSmallIntegerField(null=True)),
+                ("age_max", models.PositiveSmallIntegerField()),
                 (
                     "setup",
                     django.contrib.postgres.fields.ArrayField(
