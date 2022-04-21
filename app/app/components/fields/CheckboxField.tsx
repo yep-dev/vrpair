@@ -21,7 +21,7 @@ export const CheckboxField: FC<Props> = ({ name, label, rules, ...props }) => {
   return (
     <View>
       {label && <FieldLabel label={label} />}
-      <Checkbox {...props} value={field.value} onChange={field.onChange} />
+      <Checkbox {...props} isChecked={field.value} value={name} onChange={field.onChange} />
       <FieldError error={fieldState.error} />
     </View>
   )
