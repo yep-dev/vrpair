@@ -1,5 +1,6 @@
 import React, { FC } from "react"
 
+import { differenceInYears } from "date-fns"
 import { Column, Input, Row, Text, View } from "native-base"
 import { Controller, UseFormReturn } from "react-hook-form"
 
@@ -52,6 +53,7 @@ export const Profile1Fields: FC<Props> = ({ form }) => {
             render={({ field }) => (
               <Input
                 keyboardType="number-pad"
+                maxLength={2}
                 placeholder="M"
                 size="lg"
                 value={field.value ? field.value.toString() : ""}
@@ -62,6 +64,10 @@ export const Profile1Fields: FC<Props> = ({ form }) => {
             )}
             rules={{
               required: "Birth month is required",
+              pattern: {
+                value: /^(0?[1-9]|1[0-2])$/,
+                message: "Birth month must be between 1 and 12",
+              },
             }}
           />
           <Text fontSize="2xl">/</Text>
@@ -71,6 +77,7 @@ export const Profile1Fields: FC<Props> = ({ form }) => {
             render={({ field }) => (
               <Input
                 keyboardType="number-pad"
+                maxLength={4}
                 placeholder="YYYY"
                 size="lg"
                 value={field.value ? field.value.toString() : ""}
@@ -81,6 +88,14 @@ export const Profile1Fields: FC<Props> = ({ form }) => {
             )}
             rules={{
               required: "Birth year is required",
+              min: {
+                value: 1920,
+                message: "Birth year must be after 1920",
+              },
+              validate: (year) => {
+                const date = new Date(year, form.getValues("birthMonth"), 1)
+                return differenceInYears(new Date(), date) >= 18 || "You must be 18 or older"
+              },
             }}
           />
         </Row>
