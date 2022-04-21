@@ -56,11 +56,13 @@ export const useForceToken = () => {
   const forceTokenFn = useForceTokenHook()
 
   return useMutation(forceTokenFn, {
-    onMutate: () => storage.delete(NAVIGATION_PERSISTENCE_KEY),
+    onMutate: async () => {
+      storage.delete(NAVIGATION_PERSISTENCE_KEY)
+      await queryClient.resetQueries()
+    },
     onSuccess: async ({ access, refresh }) => {
       await setSecureValue("accessToken", access)
       await setSecureValue("refreshToken", refresh)
-      await queryClient.resetQueries()
     },
   })
 }
