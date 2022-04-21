@@ -7,7 +7,7 @@ import { FieldError, FieldLabel, RadioGroup, RadioGroupProps } from "components"
 type Props = {
   name: string
   label: string
-  defaultValue?: string
+  defaultValue?: string | boolean
   rules?: any // todo
 } & Omit<RadioGroupProps, "value" | "onChange">
 

@@ -8,24 +8,28 @@ import { ChoiceEnum } from "utils/enums"
 
 export type RadioGroupProps = {
   items: ChoiceEnum[]
-  value: string
+  value: string | boolean
   onChange(e: string): void
 }
 
 export const RadioGroup = ({ items, value, onChange }: RadioGroupProps) => {
+  value = value?.toString()
   return (
     <View borderColor="primary.500" borderRadius={4} borderWidth={1} flexDirection="row">
-      {items.map(({ key, label }) => (
-        <TouchableOpacity
-          key={key}
-          style={[s.button, value === key && s.activeButton]}
-          onPress={() => onChange(key)}
-        >
-          <Text color="primary.500" fontWeight="bold" style={value === key && s.textActive}>
-            {label}
-          </Text>
-        </TouchableOpacity>
-      ))}
+      {items.map(({ key, label }) => {
+        key = key.toString()
+        return (
+          <TouchableOpacity
+            key={key}
+            style={[s.button, value === key && s.activeButton]}
+            onPress={() => onChange(key)}
+          >
+            <Text color="primary.500" fontWeight="bold" style={value === key && s.textActive}>
+              {label}
+            </Text>
+          </TouchableOpacity>
+        )
+      })}
     </View>
   )
 }
