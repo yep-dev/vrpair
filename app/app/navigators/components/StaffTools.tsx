@@ -31,6 +31,7 @@ export const StaffTools: FC = () => {
             <Column display="flex" space={2}>
               <Text>Current User ID: {user.data?.id}</Text>
               <Input
+                keyboardType="number-pad"
                 placeholder="User ID"
                 rightElement={
                   <Button onPress={() => forceToken.mutate({ userId: parseInt(userId) })}>
@@ -42,6 +43,7 @@ export const StaffTools: FC = () => {
               />
               <Text>Current Profile ID: {profile.data?.id}</Text>
               <Input
+                keyboardType="number-pad"
                 placeholder="Profile ID"
                 rightElement={
                   <Button onPress={() => forceToken.mutate({ profileId: parseInt(profileId) })}>
