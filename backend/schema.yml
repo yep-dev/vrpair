@@ -303,13 +303,6 @@ components:
       type: object
       description: Adds nested create feature
       properties:
-        birthMonth:
-          type: integer
-          maximum: 12
-          minimum: 1
-        birthYear:
-          type: integer
-          minimum: 1920
         femAvatar:
           type: boolean
         gender:
@@ -322,9 +315,6 @@ components:
           type: string
         trans:
           type: boolean
-        username:
-          type: string
-          maxLength: 32
         furry:
           type: boolean
         mute:
@@ -341,6 +331,13 @@ components:
           - pcvr
           - fbt
           type: string
+        birthMonth:
+          type: integer
+          maximum: 12
+          minimum: 1
+        birthYear:
+          type: integer
+          minimum: 1920
         preferences:
           $ref: '#/components/schemas/PreferencesForm'
       required:
@@ -354,7 +351,6 @@ components:
       - role
       - setup
       - trans
-      - username
     CurrentProfile:
       type: object
       properties:
@@ -841,13 +837,6 @@ components:
       type: object
       description: Adds nested create feature
       properties:
-        birthMonth:
-          type: integer
-          maximum: 12
-          minimum: 1
-        birthYear:
-          type: integer
-          minimum: 1920
         femAvatar:
           type: boolean
         gender:
@@ -860,9 +849,6 @@ components:
           type: string
         trans:
           type: boolean
-        username:
-          type: string
-          maxLength: 32
         furry:
           type: boolean
         mute:
@@ -880,8 +866,6 @@ components:
           - fbt
           type: string
       required:
-      - birthMonth
-      - birthYear
       - femAvatar
       - furry
       - gender
@@ -889,7 +873,6 @@ components:
       - role
       - setup
       - trans
-      - username
     ProfileImage:
       type: object
       properties:

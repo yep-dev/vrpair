@@ -59,21 +59,15 @@ class PreferencesFormSerializer(serializers.ModelSerializer):
 
 
 class ProfileFormSerializer(WritableNestedModelSerializer):
-    # todo: over 18 validator based on month and year
-    birth_month = serializers.IntegerField(min_value=1, max_value=12)
-    birth_year = serializers.IntegerField(min_value=1920)
     trans = serializers.BooleanField()
 
     class Meta:
         model = Profile
         fields = [
             # 1
-            "birth_month",
-            "birth_year",
             "fem_avatar",
             "gender",
             "trans",
-            "username",
             # 2
             "furry",
             "mute",
@@ -83,28 +77,40 @@ class ProfileFormSerializer(WritableNestedModelSerializer):
 
     def map_data(self, data):
         return {
-            "birth_date": datetime.date(
-                year=data.pop("birth_year"), month=data.pop("birth_month"), day=1
-            ),
             "gender": GenderEnum[data.pop("gender") + "Trans"]
             if data.pop("trans")
             else data.pop("gender"),
             **data,
         }
 
-    def create(self, data):
-        return super().create(self.map_data(data))
-
     def update(self, instance, data):
         return super().update(instance, self.map_data(data))
 
 
 class CreateProfileFormSerializer(ProfileFormSerializer):
+    # todo: over 18 validator based on month and year
+    birth_month = serializers.IntegerField(min_value=1, max_value=12)
+    birth_year = serializers.IntegerField(min_value=1920)
     preferences = PreferencesFormSerializer()
 
     class Meta:
         model = Profile
-        fields = ProfileFormSerializer.Meta.fields + ["preferences"]
+        fields = ProfileFormSerializer.Meta.fields + [
+            "birth_month",
+            "birth_year",
+            "preferences",
+        ]
+
+    def map_data(self, data):
+        return {
+            "birth_date": datetime.date(
+                year=data.pop("birth_year"), month=data.pop("birth_month"), day=1
+            ),
+            **data,
+        }
+
+    def create(self, data):
+        return super().create(self.map_data(data))
 
 
 class ProfileSerializer(serializers.ModelSerializer):

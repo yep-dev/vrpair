@@ -4,7 +4,7 @@ import { Button, Column } from "native-base"
 import { FormProvider, useForm } from "react-hook-form"
 import { useQueryClient } from "react-query"
 
-import { CurrentProfile, Profile } from "api/index.schemas"
+import { Profile } from "api/index.schemas"
 import { getCurrentProfileQueryKey, useCurrentProfile, useEditPreferences } from "api/profiles"
 import {
   Screen,
@@ -12,14 +12,13 @@ import {
   Preferences2Fields,
   preferences1Fields,
   preferences2Fields,
+  Preferences1Form,
+  Preferences2Form,
 } from "components"
 import { pick, Writeable } from "utils/general"
 
 export const EditPreferencesScreen: FC = () => {
-  const form = useForm<
-    Pick<CurrentProfile["preferences"], typeof preferences1Fields[number]> &
-      Pick<CurrentProfile["preferences"], typeof preferences2Fields[number]>
-  >()
+  const form = useForm<Preferences1Form & Preferences2Form>()
   const queryClient = useQueryClient()
 
   useCurrentProfile({

@@ -8,7 +8,7 @@ import { useQueryClient } from "react-query"
 import { Profile, User } from "api/index.schemas"
 import { getCurrentProfileQueryKey, useCreateProfile } from "api/profiles"
 import { getCurrentUserQueryKey } from "api/users"
-import { Preferences2Fields } from "components"
+import { Preferences2Fields, Preferences2Form } from "components"
 import { SetupParams } from "navigators/app-navigator"
 import { SetupScreen } from "screens/setup/SetupScreen"
 import { storage } from "utils/misc"
@@ -21,7 +21,7 @@ type ParamList = {
 export type Props = NativeStackScreenProps<ParamList>
 
 export const Preferences2Screen: FC<Props> = ({ navigation: { navigate } }) => {
-  const form = useForm({ defaultValues: storage.getObj(name)?.values })
+  const form = useForm<Preferences2Form>({ defaultValues: storage.getObj(name)?.values })
   const queryClient = useQueryClient()
   const createProfile = useCreateProfile({
     mutation: {

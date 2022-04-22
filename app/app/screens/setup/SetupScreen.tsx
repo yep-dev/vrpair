@@ -56,7 +56,7 @@ export const SetupScreen: FC<Props> = ({ name, heading, handlePrev, handleNext, 
       scroll
     >
       {children}
-      <Button flex={1} mt={10} size="lg" onPress={handleNext}>
+      <Button mt={10} size="lg" onPress={handleNext}>
         Next
       </Button>
     </Screen>

@@ -2,11 +2,16 @@ import React, { FC } from "react"
 
 import { Column } from "native-base"
 
+import { CurrentProfile } from "api/index.schemas"
 import { CheckboxGroupField, RadioGroupField } from "components"
 import { enums } from "utils/enums"
 import { storage } from "utils/misc"
 
 export const preferences2Fields = ["setup", "role", "mute", "furry"] as const
+export type Preferences2Form = Pick<
+  CurrentProfile["preferences"],
+  typeof preferences2Fields[number]
+>
 
 export const Preferences2Fields: FC = () => {
   return (
