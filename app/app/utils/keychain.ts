@@ -8,7 +8,7 @@ enum Key {
 }
 
 type SetSecureValue = (key: keyof typeof Key, value: string) => Promise<false | Keychain.Result>
-type GetSecureValue = (key: keyof typeof Key) => Promise<string | false>
+type GetSecureValue = (key: keyof typeof Key) => Promise<string | false | null>
 type RemoveSecureValue = (key: keyof typeof Key) => Promise<boolean>
 
 export const setSecureValue: SetSecureValue = async (key, value) =>

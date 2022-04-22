@@ -49,12 +49,11 @@ export const ClientProvider: FC = ({ children }) => {
   const getHooks = ({ isStaff }) => ({
     beforeRequest: [
       async (request) => {
-        const accessToken = await getSecureValue(isStaff ? "staffAccessToken" : "accessToken")
+        let accessToken = await getSecureValue(isStaff ? "staffAccessToken" : "accessToken")
         if (!accessToken || isTokenExpired(accessToken)) {
-          await handleRefreshToken(isStaff)
-        } else {
-          request.headers.set("Authorization", `Bearer ${accessToken}`)
+          accessToken = await handleRefreshToken(isStaff)
         }
+        request.headers.set("Authorization", `Bearer ${accessToken}`)
       },
     ],
     afterResponse: [
