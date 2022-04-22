@@ -56,7 +56,7 @@ export const Screen: FC<Props> = ({
                 icon={<ArrowLeftIcon color="primary.500" size={4} />}
                 size="lg"
                 variant="ghost"
-                onPress={() => navigation.goBack()}
+                onPress={typeof handlePrev === "function" ? handlePrev : () => navigation.goBack()}
               />
             )}
             <Heading flex={1} ml={!handlePrev ? 2 : 0} mt={0.5}>
