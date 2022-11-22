@@ -84,4 +84,4 @@ app/config/env.*.js
 !env.js
 
 # Generated code
-/app/api/*
+#/app/api/*
